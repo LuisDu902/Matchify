@@ -1,6 +1,7 @@
-_[your product name]_ Development Report
+# Matchify 
+## Development Report
 
-Welcome to the documentation pages of the _[your product name]_!
+Welcome to the documentation pages of the Matchify!
 
 You can find here details about the product (or mini-app or module), from a high-level vision to low-level implementation decisions, a kind of Software Development Report, organized by discipline (as of Rational Unified Process): 
 
@@ -26,7 +27,12 @@ Please contact us!
 
 Thank you!
 
-*team members names*
+| Name            | Number    |
+|-----------------|-----------|
+| José Santos     | 202108729 |
+| Luís Du         | 202105385 |
+| Madalena Ye     | 202108795 |
+| Rodrigo Moucho  | 202108855 |
 
 ---
 
