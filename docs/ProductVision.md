@@ -3,30 +3,23 @@
 
 ### Vision Statement
 
-Start by defining a clear and concise vision for your app, to help members of the team, contributors, and users into focusing their often disparate views into a concise, visual, and short textual form. It provides a "high concept" of the product for marketers, developers, and managers.
+**"Music matchmaking made easy - swipe to find your perfect matches."**
 
-A product vision describes the essential of the product and sets the direction to where a product is headed, and what the product will deliver in the future. 
-
-**We favor a catchy and concise statement, ideally one sentence.**
-
-We suggest you use the product vision template described in the following link:
-* [How To Create A Convincing Product Vision To Guide Your Team, by uxstudioteam.com](https://uxstudioteam.com/ux-blog/product-vision/)
-
-To learn more about how to write a good product vision, please see also:
-* [Product Management: Product Vision, by ProductPlan](https://www.productplan.com/glossary/product-vision/)
-* [Vision, by scrumbook.org](http://scrumbook.org/value-stream/vision.html)
-* [How to write a vision, by dummies.com](https://www.dummies.com/business/marketing/branding/how-to-write-vision-and-mission-statements-for-your-brand/)
-* [20 Inspiring Vision Statement Examples (2019 Updated), by lifehack.org](https://www.lifehack.org/articles/work/20-sample-vision-statement-for-the-new-startup.html)
+With music being the ultimate expression of individuality, this app is designed for music lovers who want a custom made playlist in a faster way, with the help of their favorite artists, genres and based on their state of spirit.
+Our app empowers users to discover and curate their own perfect soundtrack with just a few swipes. Count also with the ability to export and combine playlists with different users all around the world. 
 
 
 ### Main Features
-Indicate an  initial/tentative list of high-level features - high-level capabilities or desired services of the system that are necessary to deliver benefits to the users (cf. RUP).
- - Feature 1 - Short description
- - Feature 2 - Short description
-...
+
+* **Swipe-based selection:** users can swipe left or right on each song to indicate whether they like or dislike the song;
+* **Selection:** choose songs based on a variety of filters: genre, mood, date, etc; 
+* **Song previews:** users are presented with 10-second song previews when swipping;
+* **Playlist fusion:** users can combine their custom-made playlist with other users' playlists to create a fusion;
+* **Playlist exporting:** users can export their custom-made playlist to Spotify;
+* **Playlist editing:** users can edit their custom-made playlist by adding or removing songs as desired;
+* **Friend list:** add friends and combine playlists with them.
 
 ### Assumptions and dependencies
-Indicate an  initial/tentative list of assumptions and dependencies 
-
-- Student timetable from sigarra
-- 
+* Spotify Web API
+* Spotify SDK
+* Spotify Play Button
