@@ -7,19 +7,19 @@ You can find here details about the product (or mini-app or module), from a high
 
 * Business modeling 
   * [Product Vision](docs/ProductVision.md)
-  * [Elevator Pitch](https://github.com/FEUP-LEIC-ES-2022-23/templates/blob/main/docs/ElevatorPitch.md)
-* [Requirements](https://github.com/FEUP-LEIC-ES-2022-23/templates/blob/main/docs/requirements.md)
-  * [Use Case Model](https://github.com/FEUP-LEIC-ES-2022-23/templates/blob/main/docs/requirements.md#Use-case-model)
-  * [User stories](https://github.com/FEUP-LEIC-ES-2022-23/templates/blob/main/docs/requirements.md#User-stories)
-  * [Domain model](https://github.com/FEUP-LEIC-ES-2022-23/templates/blob/main/docs/requirements.md#Domain-model)
-* [Architecture and Design](https://github.com/FEUP-LEIC-ES-2022-23/templates/blob/main/docs/ArchitectureAndDesign.md)
+  * [Elevator Pitch](docs/ElevatorPitch.md)
+* [Requirements](docs/requirements.md)
+  * [Use Case Model](docs/requirements.md#Use-case-model)
+  * [User stories](docs/requirements.md#User-stories)
+  * [Domain model](docs/requirements.md#Domain-model)
+* [Architecture and Design](docs/ArchitectureAndDesign.md)
   * [Logical architecture]
   * [Physical architecture]
   * [Vertical prototype]
 * [Implementation]
 * [Test]
 * [Configuration and change management]
-* [Project management](https://github.com/FEUP-LEIC-ES-2022-23/templates/blob/main/docs/ProjectManagement.md)
+* [Project management](docs/ProjectManagement.md)
 
 So far, contributions are exclusively made by the initial team, but we hope to open them to the community, in all areas and topics: requirements, technologies, development, experimentation, testing, etc.
 
