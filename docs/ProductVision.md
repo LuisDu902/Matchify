@@ -3,7 +3,7 @@
 
 ### Vision Statement
 
-**"Music matchmaking made easy - swipe to find your perfect matches."**
+`Music matchmaking made easy - swipe to find your perfect matches.`
 
 With music being the ultimate expression of individuality, this app is designed for music lovers who want a custom made playlist in a faster way, with the help of their favorite artists, genres and based on their state of spirit.
 Our app empowers users to discover and curate their own perfect soundtrack with just a few swipes. Count also with the ability to export and combine playlists with different users all around the world. 
