@@ -10,7 +10,7 @@ You can find here details about the product (or mini-app or module), from a high
   * [Elevator Pitch](docs/ElevatorPitch.md)
 * [Requirements](docs/requirements.md)
   * [Use Case Model](docs/requirements.md#Use-case-model)
-  * [User stories](docs/requirements.md#User-stories)
+  * [User stories](https://github.com/FEUP-LEIC-ES-2022-23/2LEIC16T4/issues)
   * [Domain model](docs/requirements.md#Domain-model)
 * [Architecture and Design](docs/ArchitectureAndDesign.md)
   * [Logical architecture]
