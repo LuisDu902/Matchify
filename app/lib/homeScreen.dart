@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prototype/filters.dart';
 import 'package:prototype/loadingScreen.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -50,7 +51,7 @@ class HomeScreen extends StatelessWidget {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => LoadingScreen()),
+                  MaterialPageRoute(builder: (context) => const Filters()),
                 );
               },
               child: Container(
@@ -72,7 +73,7 @@ class HomeScreen extends StatelessWidget {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => LoadingScreen()),
+                  MaterialPageRoute(builder: (context) => Filters()),
                 );
               },
               child: Container(
@@ -94,7 +95,7 @@ class HomeScreen extends StatelessWidget {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => LoadingScreen()),
+                  MaterialPageRoute(builder: (context) => Filters()),
                 );
               },
               child: Container(
@@ -116,7 +117,7 @@ class HomeScreen extends StatelessWidget {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => LoadingScreen()),
+                  MaterialPageRoute(builder: (context) => Filters()),
                 );
               },
               child: Container(
