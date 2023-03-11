@@ -11,14 +11,22 @@ class HomeScreen extends StatelessWidget {
         appBar: AppBar(
           toolbarHeight: 80,
           centerTitle: true,
-          title: const Text(
-            'Matchify',
-            style: TextStyle(
-              color: Color.fromRGBO(48, 21, 81, 1),
-              fontFamily: 'Italiana',
-              fontSize: 30,
-              letterSpacing: 0,
-              fontWeight: FontWeight.normal,
+          title: GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const HomeScreen()),
+              );
+            },
+            child: const Text(
+              'Matchify',
+              style: TextStyle(
+                color: Color.fromRGBO(48, 21, 81, 1),
+                fontFamily: 'Italiana',
+                fontSize: 30,
+                letterSpacing: 0,
+                fontWeight: FontWeight.normal,
+              ),
             ),
           ),
           leading: IconButton(

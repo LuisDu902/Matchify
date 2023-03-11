@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'homeScreen.dart';
+
 class Filters extends StatefulWidget {
   const Filters({Key? key});
 
@@ -11,21 +13,28 @@ class _FiltersState extends State<Filters> {
   String? _selectedMood;
   String? _selectedDecade;
   String? _selectedGenre;
-
-  @override
+ @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+        appBar: AppBar(
           toolbarHeight: 80,
           centerTitle: true,
-          title: const Text(
-            'Matchify',
-            style: TextStyle(
-              color: Color.fromRGBO(48, 21, 81, 1),
-              fontFamily: 'Italiana',
-              fontSize: 30,
-              letterSpacing: 0,
-              fontWeight: FontWeight.normal,
+          title: GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const HomeScreen()),
+              );
+            },
+            child: const Text(
+              'Matchify',
+              style: TextStyle(
+                color: Color.fromRGBO(48, 21, 81, 1),
+                fontFamily: 'Italiana',
+                fontSize: 30,
+                letterSpacing: 0,
+                fontWeight: FontWeight.normal,
+              ),
             ),
           ),
           leading: IconButton(
