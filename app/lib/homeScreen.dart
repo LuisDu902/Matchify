@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prototype/loadingScreen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key});
@@ -6,48 +7,52 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        toolbarHeight: 100,
-        centerTitle: true,
-        title: const Text(
-          'Matchify',
-          style: TextStyle(
-            color: Color.fromRGBO(48, 21, 81, 1),
-            fontFamily: 'Italiana',
-            fontSize: 30,
-            letterSpacing: 0,
-            fontWeight: FontWeight.normal,
-          ),
-        ),
-        leading: IconButton(
-          
-          onPressed: () {},
-          icon: const ImageIcon(
-            AssetImage('images/settings.png'),
-            color: Colors.black,
-            size: 1000,
-          ),
-        ),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const ImageIcon(
-              AssetImage('images/user.png'),
-              color: Colors.black,
-              size: 1000,
+        appBar: AppBar(
+          toolbarHeight: 80,
+          centerTitle: true,
+          title: const Text(
+            'Matchify',
+            style: TextStyle(
+              color: Color.fromRGBO(48, 21, 81, 1),
+              fontFamily: 'Italiana',
+              fontSize: 30,
+              letterSpacing: 0,
+              fontWeight: FontWeight.normal,
             ),
           ),
-        ],
-        backgroundColor: Colors.white,
-        elevation: 0,
-      ),
-      backgroundColor: Colors.white, // Set the body background color to white
-      body: SizedBox(
-        child: Stack(
-          children: <Widget>[
-            Positioned(
-              top: 250,
-              left: 36,
+          leading: IconButton(
+            onPressed: () {},
+            icon: const ImageIcon(
+              AssetImage('images/settings.png'),
+              color: Colors.black,
+              size: 100,
+            ),
+          ),
+          actions: [
+            IconButton(
+              onPressed: () {},
+              icon: const ImageIcon(
+                AssetImage('images/user.png'),
+                color: Colors.black,
+              ),
+            ),
+          ],
+          backgroundColor: Colors.white,
+          elevation: 0,
+        ),
+        backgroundColor: Colors.white, // Set the body background color to white
+        body: SizedBox(
+            child: Stack(children: <Widget>[
+          Positioned(
+            top: 250,
+            left: 36,
+            child: GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => LoadingScreen()),
+                );
+              },
               child: Container(
                 width: 154,
                 height: 147,
@@ -59,9 +64,17 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
             ),
-            Positioned(
-              top: 250,
-              left: 225,
+          ),
+          Positioned(
+            top: 250,
+            left: 225,
+            child: GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => LoadingScreen()),
+                );
+              },
               child: Container(
                 width: 154,
                 height: 147,
@@ -73,9 +86,17 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
             ),
-            Positioned(
-              top: 280,
-              left: 75,
+          ),
+          Positioned(
+            top: 280,
+            left: 75,
+            child: GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => LoadingScreen()),
+                );
+              },
               child: Container(
                 width: 80,
                 height: 80,
@@ -87,9 +108,17 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
             ),
-            Positioned(
-              top: 270,
-              left: 250,
+          ),
+          Positioned(
+            top: 270,
+            left: 250,
+            child: GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => LoadingScreen()),
+                );
+              },
               child: Container(
                 width: 108,
                 height: 108,
@@ -101,23 +130,24 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
             ),
-            const Positioned(
-              top: 420,
-              left: 48,
-              child: Text(
-                'Add playlist',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Color.fromRGBO(48, 21, 81, 1),
-                  fontFamily: 'Istok Web',
-                  fontSize: 25,
-                  letterSpacing: 0,
-                  fontWeight: FontWeight.normal,
-                  height: 1,
-                ),
+          ),
+          const Positioned(
+            top: 420,
+            left: 48,
+            child: Text(
+              'Add playlist',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Color.fromRGBO(48, 21, 81, 1),
+                fontFamily: 'Istok Web',
+                fontSize: 25,
+                letterSpacing: 0,
+                fontWeight: FontWeight.normal,
+                height: 1,
               ),
             ),
-            const Positioned(
+          ),
+          const Positioned(
               top: 420,
               left: 236,
               child: Text(
@@ -131,12 +161,7 @@ class HomeScreen extends StatelessWidget {
                         0 /*percentages not used in flutter. defaulting to zero*/,
                     fontWeight: FontWeight.normal,
                     height: 1),
-                  )
-            ),
-          ]
-        )
-      )
-      
-    );
+              )),
+        ])));
   }
 }
