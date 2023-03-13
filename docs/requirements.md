@@ -73,3 +73,5 @@ The domain model of our application is composed by 7 classes.
  <p align="center" justify="center">
   <img src="/images/domain_model.png"/>
 </p>
+
+
