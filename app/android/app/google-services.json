@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "466218206655",
+    "project_id": "matchify-a623a",
+    "storage_bucket": "matchify-a623a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:466218206655:android:e36078b259d3d1e5154d0a",
+        "android_client_info": {
+          "package_name": "com.example.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "466218206655-u4ejv5ilje3vglp6kis2l0nbptsc44ut.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDDfzA8oKO4IOZjuTutz2KNkuQ0lMSqYG8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "466218206655-u4ejv5ilje3vglp6kis2l0nbptsc44ut.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

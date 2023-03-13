@@ -1,6 +1,9 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
 import 'homeScreen.dart';
+import 'infoScreen.dart';
+import 'swipe.dart';
 
 class Filters extends StatefulWidget {
   const Filters({Key? key});
@@ -9,55 +12,66 @@ class Filters extends StatefulWidget {
   _FiltersState createState() => _FiltersState();
 }
 
+List<String> filters = [];
+
 class _FiltersState extends State<Filters> {
   String? _selectedMood;
   String? _selectedDecade;
   String? _selectedGenre;
- @override
+  bool _allCategoriesSelected = false;
+ 
+
+  @override
   Widget build(BuildContext context) {
+    _allCategoriesSelected = _selectedGenre != null && _selectedDecade != null && _selectedMood != null;
     return Scaffold(
-        appBar: AppBar(
-          toolbarHeight: 80,
-          centerTitle: true,
-          title: GestureDetector(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const HomeScreen()),
-              );
-            },
-            child: const Text(
-              'Matchify',
-              style: TextStyle(
-                color: Color.fromRGBO(48, 21, 81, 1),
-                fontFamily: 'Italiana',
-                fontSize: 30,
-                letterSpacing: 0,
-                fontWeight: FontWeight.normal,
-              ),
+      drawer: Info(),
+      appBar: AppBar(
+        toolbarHeight: 80,
+        centerTitle: true,
+        title: GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const HomeScreen()),
+            );
+          },
+          child: const Text(
+            'Matchify',
+            style: TextStyle(
+              color: Color.fromRGBO(48, 21, 81, 1),
+              fontFamily: 'Italiana',
+              fontSize: 30,
+              letterSpacing: 0,
+              fontWeight: FontWeight.normal,
             ),
           ),
-          leading: IconButton(
-            onPressed: () {},
+        ),
+        leading: Builder(
+          builder: (context) => IconButton(
+            onPressed: () {
+              Scaffold.of(context).openDrawer();
+            },
             icon: const ImageIcon(
               AssetImage('images/settings.png'),
               color: Colors.black,
               size: 100,
             ),
           ),
-          actions: [
-            IconButton(
-              onPressed: () {},
-              icon: const ImageIcon(
-                AssetImage('images/user.png'),
-                color: Colors.black,
-              ),
-            ),
-          ],
-          backgroundColor: Colors.white,
-          elevation: 0,
         ),
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: const ImageIcon(
+              AssetImage('images/user.png'),
+              color: Colors.black,
+            ),
+          ),
+        ],
         backgroundColor: Colors.white,
+        elevation: 0,
+      ),
+      backgroundColor: Colors.white,
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -286,6 +300,18 @@ class _FiltersState extends State<Filters> {
           ),
         ]),
       ),
+      
+      floatingActionButton: _allCategoriesSelected ?
+      ElevatedButton(
+            onPressed: () {
+              filters = [_selectedDecade!, _selectedGenre!, _selectedMood!];
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const SwipePage()),
+              );
+            },
+            child: Text('Continue'),
+          ): null,
     );
     ;
   }
