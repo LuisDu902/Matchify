@@ -62,10 +62,16 @@ At the end, it is good to add a rough indication of the value of the user story 
 
 ### Domain model
 
-To better understand the context of the software system, it is very useful to have a simple UML class diagram with all the key concepts (names, attributes) and relationships involved of the problem domain addressed by your module. 
-Also provide a short textual description of each class. 
+The domain model of our application is composed by 7 classes.
 
-Example:
+* User: contains information about every user that utilises the app including an unique ID, a username and a password. The last two fields are used to login.
+* Playlist: contains a user specified number of songs and is identified by a name.
+* Song: contains information about every song such as a name, artist and album (optional).
+* Filter and respective subclasses: contains information about all the different filters the user can apply to their search.  
+
+
  <p align="center" justify="center">
-  <img src="https://github.com/FEUP-LEIC-ES-2022-23/templates/blob/main/images/DomainModel.png"/>
+  <img src="/images/domain_model.png"/>
 </p>
+
+
