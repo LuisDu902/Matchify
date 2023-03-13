@@ -19,7 +19,7 @@ Matchify System has the following packages:
 * Matchify Database Schema: manages the database so information can be retrieved and uploaded.
 
  <p align="center" justify="center">
-  <img src="images/logical_architecture.png"/>
+  <img src="/images/logical_architecture.png"/>
 </p>
 
 ### Physical architecture
@@ -34,7 +34,7 @@ the app is stored.
 It also connect to the Spotify API is used in order to fetch songs and functionalities.
 
  <p align="center" justify="center">
-  <img src="images/physical_architecture.png"/>
+  <img src="/images/physical_architecture.png"/>
 </p>
 
 

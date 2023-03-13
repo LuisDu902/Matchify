@@ -69,7 +69,7 @@ The domain model of our application is composed by 7 classes.
 * Song: contains information about every song such as a name, artist and album (optional).
 * Filter and respective subclasses: contains information about all the different filters the user can apply to their search.  
 
-Example:
+
  <p align="center" justify="center">
-  <img src="images/domain_model.png"/>
+  <img src="/images/domain_model.png"/>
 </p>
