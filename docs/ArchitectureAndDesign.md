@@ -42,6 +42,8 @@ It also connect to the Spotify API is used in order to fetch songs and functiona
 
 We have started implementing the following features (detailed in the user stories): Choosing Filters, Selecting Playlist Size, Swiping Left or Right to choose songs.
 
+We have also implemented a sidebar.
+
 The swiping feature is not working 100% well on the emulator but it works perfectly if you use a real smart phone, when u try to swipe u must do it on the album image.
 
 The code displayed is not yet properly formatted so some screens might have some display bugs.
