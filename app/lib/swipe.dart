@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:firebase_database/firebase_database.dart';
 
@@ -19,7 +20,8 @@ class _SwipeState extends State<SwipePage> {
 
   List<String> liked = [];
   List<String> disliked = [];
-
+  int index = 0;
+  String songName = '';
   void _showResults(BuildContext context) {
     Navigator.of(context).push(
       MaterialPageRoute(
@@ -69,12 +71,11 @@ class _SwipeState extends State<SwipePage> {
         List<String> songsList = snapshot.children.map((child) {
           return child.value as String;
         }).toList();
-        songs = List.from(songs)..addAll(songsList);
+        if (songs.length < 15) songs = List.from(songs)..addAll(songsList);
       } else {
         return [];
       }
     }
-    songs.shuffle();
 
     return songs;
   }
@@ -85,65 +86,63 @@ class _SwipeState extends State<SwipePage> {
       future: fetchSongs(filters),
       builder: (BuildContext context, AsyncSnapshot<List<String>> snapshot) {
         if (snapshot.hasData) {
-          songs = snapshot.data!;
-          int index = 0;
-          String songName = songs[0];
+          bool isDismissed = false;
           return Scaffold(
-              drawer: Info(),
-              appBar: AppBar(
-                toolbarHeight: 80,
-                centerTitle: true,
-                title: GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const HomeScreen()),
-                    );
-                  },
-                  child: const Text(
-                    'Matchify',
-                    style: TextStyle(
-                      color: Color.fromRGBO(48, 21, 81, 1),
-                      fontFamily: 'Italiana',
-                      fontSize: 30,
-                      letterSpacing: 0,
-                      fontWeight: FontWeight.normal,
-                    ),
+            drawer: Info(),
+            appBar: AppBar(
+              toolbarHeight: 80,
+              centerTitle: true,
+              title: GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const HomeScreen()),
+                  );
+                },
+                child: const Text(
+                  'Matchify',
+                  style: TextStyle(
+                    color: Color.fromRGBO(48, 21, 81, 1),
+                    fontFamily: 'Italiana',
+                    fontSize: 30,
+                    letterSpacing: 0,
+                    fontWeight: FontWeight.normal,
                   ),
                 ),
-                leading: Builder(
-                  builder: (context) => IconButton(
-                    onPressed: () {
-                      Scaffold.of(context).openDrawer();
-                    },
-                    icon: const ImageIcon(
-                      AssetImage('images/settings.png'),
-                      color: Colors.black,
-                      size: 100,
-                    ),
-                  ),
-                ),
-                actions: [
-                  IconButton(
-                    onPressed: () {},
-                    icon: const ImageIcon(
-                      AssetImage('images/user.png'),
-                      color: Colors.black,
-                    ),
-                  ),
-                ],
-                backgroundColor: Colors.white,
-                elevation: 0,
               ),
+              leading: Builder(
+                builder: (context) => IconButton(
+                  onPressed: () {
+                    Scaffold.of(context).openDrawer();
+                  },
+                  icon: const ImageIcon(
+                    AssetImage('images/settings.png'),
+                    color: Colors.black,
+                    size: 100,
+                  ),
+                ),
+              ),
+              actions: [
+                IconButton(
+                  onPressed: () {},
+                  icon: const ImageIcon(
+                    AssetImage('images/user.png'),
+                    color: Colors.black,
+                  ),
+                ),
+              ],
               backgroundColor: Colors.white,
-              body: Align(
-                  alignment: Alignment.bottomLeft,
-                  child: Container(
-                    width: 452,
-                    height: 918,
-                    child: Stack(
-                      children: <Widget>[
-                      Positioned(
+              elevation: 0,
+            ),
+            backgroundColor: Colors.white,
+            body: Align(
+              alignment: Alignment.bottomLeft,
+              child: Container(
+                width: 452,
+                height: 918,
+                child: Stack(
+                  children: <Widget>[
+                    Positioned(
                       top: 360,
                       left: 100,
                       child: Text(
@@ -159,143 +158,149 @@ class _SwipeState extends State<SwipePage> {
                         ),
                       ),
                     ),
-                        GestureDetector(
-                          onHorizontalDragEnd:(DragEndDetails details) {
-                          // Swipe to the right
-                            if (details.primaryVelocity! > 0) {
-                            setState(() {
-                              if (index >= songs.length) {
+                    Dismissible(
+                      key: UniqueKey(),
+                      direction:
+                          DismissDirection.horizontal, // Swipe left to dismiss
+                      onDismissed: (DismissDirection direction) {
+                        if (direction == DismissDirection.startToEnd &&
+                            !isDismissed) {
+                          setState(() {
+                            if (songs.length == index) {
                               _showResults(context);
-                              } else {
+                            } else {
+
                               songName = songs[index++];
+
                               disliked.add(songName);
-                              }
-                            });
-                          }
-                          // Swipe to the left
-                          else if (details.primaryVelocity! < 0) {
-                            setState(() {
-                              if (index >= songs.length) {
+                               if (songs.length == index) {
+                                 _showResults(context);
+                               }
+                            }
+                            isDismissed = true;
+                          });
+                        } else if (direction == DismissDirection.endToStart &&
+                            !isDismissed)
+                          setState(() {
+                            if (songs.length == index) {
                               _showResults(context);
-                              } else {
+                            } else {
                               songName = songs[index++];
                               liked.add(songName);
-                              if (liked.length == 5) {
-                              _showResults(context);
+                              if (liked.length == 5 || index == songs.length) {
+                                _showResults(context);
                               }
                             }
-                          }
-                          );
-                          }
-                          },
-                          child: Center(
-                            child: Padding(
-                              padding: EdgeInsets.only(bottom: 300),
-                              child: Container(
-                                width: 250,
-                                height: 250,
-                                decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                    image: AssetImage('images/musicSymbol.png'),
-                                    fit: BoxFit.fitWidth,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Positioned(
-                          top: 400,
-                          left: 170,
+                            isDismissed = true;
+                          });
+                      },
+                      child: Center(
+                        child: Padding(
+                          padding: EdgeInsets.only(bottom: 300),
                           child: Container(
-                            width: 45,
-                            height: 45,
+                            width: 250,
+                            height: 250,
                             decoration: BoxDecoration(
                               image: DecorationImage(
-                                image: AssetImage('images/replay.png'),
+                                image: AssetImage('images/musicSymbol.png'),
                                 fit: BoxFit.fitWidth,
                               ),
                             ),
                           ),
                         ),
-                        Positioned(
-                          top: 600,
-                          left: 44,
-                          child: Divider(
-                            color: Color.fromRGBO(48, 21, 81, 1),
-                            thickness: 1,
-                          ),
-                        ),
-                        Positioned(
-                          top: 500,
-                          left: 284,
-                          child: Divider(
-                            color: Color.fromRGBO(48, 21, 81, 1),
-                            thickness: 1,
-                          ),
-                        ),
-
-                        Positioned(
-                          top: 460,
-                          left: 55,
-                          child: Container(
-                            width: 90,
-                            height: 85,
-                            decoration: BoxDecoration(
-                              color: Color.fromRGBO(246, 217, 18, 1),
-                              borderRadius: BorderRadius.all(
-                                Radius.elliptical(90, 85),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Positioned(
-                          top: 460,
-                          left: 235,
-                          child: Container(
-                            width: 90,
-                            height: 85,
-                            decoration: BoxDecoration(
-                              color: Color.fromRGBO(237, 138, 10, 1),
-                              borderRadius: BorderRadius.all(
-                                Radius.elliptical(90, 85),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Positioned(
-                          top: 480,
-                          left: 70,
-                          child: Container(
-                            width: 61,
-                            height: 50,
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                image: AssetImage('images/like.png'),
-                                fit: BoxFit.fitWidth,
-                              ),
-                            ),
-                          ),
-                        ),
-                        Positioned(
-                          top: 480,
-                          left: 250,
-                          child: Container(
-                            width: 61,
-                            height: 50,
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                image: AssetImage('images/dislike.png'),
-                                fit: BoxFit.fitWidth,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
+                      ),
                     ),
-                  ),
+                    Positioned(
+                      top: 400,
+                      left: 170,
+                      child: Container(
+                        width: 45,
+                        height: 45,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage('images/replay.png'),
+                            fit: BoxFit.fitWidth,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      top: 600,
+                      left: 44,
+                      child: Divider(
+                        color: Color.fromRGBO(48, 21, 81, 1),
+                        thickness: 1,
+                      ),
+                    ),
+                    Positioned(
+                      top: 500,
+                      left: 284,
+                      child: Divider(
+                        color: Color.fromRGBO(48, 21, 81, 1),
+                        thickness: 1,
+                      ),
+                    ),
+                    Positioned(
+                      top: 460,
+                      left: 55,
+                      child: Container(
+                        width: 90,
+                        height: 85,
+                        decoration: BoxDecoration(
+                          color: Color.fromRGBO(246, 217, 18, 1),
+                          borderRadius: BorderRadius.all(
+                            Radius.elliptical(90, 85),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      top: 460,
+                      left: 235,
+                      child: Container(
+                        width: 90,
+                        height: 85,
+                        decoration: BoxDecoration(
+                          color: Color.fromRGBO(237, 138, 10, 1),
+                          borderRadius: BorderRadius.all(
+                            Radius.elliptical(90, 85),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      top: 480,
+                      left: 70,
+                      child: Container(
+                        width: 61,
+                        height: 50,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage('images/like.png'),
+                            fit: BoxFit.fitWidth,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      top: 480,
+                      left: 250,
+                      child: Container(
+                        width: 61,
+                        height: 50,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage('images/dislike.png'),
+                            fit: BoxFit.fitWidth,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-               );
+              ),
+            ),
+          );
         } else if (snapshot.hasError) {
           return Center(
             child: Text('Error fetching songs'),
