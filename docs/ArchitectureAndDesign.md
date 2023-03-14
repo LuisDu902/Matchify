@@ -48,7 +48,7 @@ The swiping feature is not working 100% well on the emulator but it works perfec
 
 The code displayed is not yet properly formatted so some screens might have some display bugs.
 
-Here is a preview: 
+Here is a preview (the gif takes time to load): 
 
 
 <p align="center" justify="center">
