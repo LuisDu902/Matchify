@@ -9,13 +9,12 @@ You can find here details about the product (or mini-app or module), from a high
   * [Product Vision](docs/ProductVision.md)
   * [Elevator Pitch](docs/ElevatorPitch.md)
 * [Requirements](docs/requirements.md)
-  * [Use Case Model](docs/requirements.md#Use-case-model)
   * [User stories](https://github.com/FEUP-LEIC-ES-2022-23/2LEIC16T4/issues)
   * [Domain model](docs/requirements.md#Domain-model)
 * [Architecture and Design](docs/ArchitectureAndDesign.md)
-  * [Logical architecture]
-  * [Physical architecture]
-  * [Vertical prototype]
+  * [Logical architecture](docs/ArchitectureAndDesign.md#Logical-architecture)
+  * [Physical architecture](docs/ArchitectureAndDesign.md#Physical-architecture)
+  * [Vertical prototype](docs/ArchitectureAndDesign.md#Vertical-prototype)
 * [Implementation]
 * [Test]
 * [Configuration and change management]
