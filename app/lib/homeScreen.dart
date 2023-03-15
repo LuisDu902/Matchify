@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:prototype/filters.dart';
 
+import 'appBar.dart';
 import 'infoScreen.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -10,51 +11,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         drawer: Info(),
-        appBar: AppBar(
-          toolbarHeight: 80,
-          centerTitle: true,
-          title: GestureDetector(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const HomeScreen()),
-              );
-            },
-            child: const Text(
-              'Matchify',
-              style: TextStyle(
-                color: Color.fromRGBO(48, 21, 81, 1),
-                fontFamily: 'Italiana',
-                fontSize: 30,
-                letterSpacing: 0,
-                fontWeight: FontWeight.normal,
-              ),
-            ),
-          ),
-          leading: Builder(
-            builder: (context) => IconButton(
-              onPressed: () {
-                Scaffold.of(context).openDrawer();
-              },
-              icon: const ImageIcon(
-                AssetImage('images/settings.png'),
-                color: Colors.black,
-                size: 100,
-              ),
-            ),
-          ),
-          actions: [
-            IconButton(
-              onPressed: () {},
-              icon: const ImageIcon(
-                AssetImage('images/user.png'),
-                color: Colors.black,
-              ),
-            ),
-          ],
-          backgroundColor: Colors.white,
-          elevation: 0,
-        ),
+        appBar:  const appBar(), 
         backgroundColor: Colors.white, // Set the body background color to white
         body: SizedBox(
             child: Stack(children: <Widget>[
