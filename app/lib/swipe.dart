@@ -1,14 +1,10 @@
 import 'dart:async';
-import 'dart:math';
-
 import 'package:firebase_database/firebase_database.dart';
 
 import 'package:flutter/material.dart';
 import 'appBar.dart';
-import 'homeScreen.dart';
-import 'filters.dart';
 import 'infoScreen.dart';
-
+import 'filters.dart';
 class SwipePage extends StatefulWidget {
   const SwipePage({super.key});
 
@@ -23,6 +19,7 @@ class _SwipeState extends State<SwipePage> {
   List<String> disliked = [];
   int index = 0;
   String songName = '';
+
   void _showResults(BuildContext context) {
     Navigator.of(context).push(
       MaterialPageRoute(
@@ -84,7 +81,7 @@ class _SwipeState extends State<SwipePage> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: fetchSongs(filters),
+      future: fetchSongs(getFilters()),
       builder: (BuildContext context, AsyncSnapshot<List<String>> snapshot) {
         if (snapshot.hasData) {
           bool isDismissed = false;
