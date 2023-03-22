@@ -9,7 +9,7 @@ class LoadingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Future.delayed(Duration(seconds: 3), () {
-      Navigator.pushNamed(context, '/home');
+      Navigator.pushNamed(context, '/auth');
     });
     return Scaffold(
       body: Center(

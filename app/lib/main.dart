@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:prototype/auth.dart';
 
-import 'homeScreen.dart';
 import 'loadingScreen.dart';
 
 Future<void> main() async {
@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       title: 'Matchify',
       home: const LoadingScreen(),
       routes: {
-        '/home': (context) => const HomeScreen(),
+        '/auth': (context) => const Auth(),
       },
     );
   }
