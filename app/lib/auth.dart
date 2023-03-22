@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'appBar.dart';
 import 'homeScreen.dart';
+import 'login.dart';
 
 class Auth extends StatefulWidget {
   const Auth({super.key});
@@ -58,7 +59,7 @@ class _AuthState extends State<Auth> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => HomeScreen(),
+                      builder: (context) => Login(),
                     ),
                   );
                 },
@@ -103,7 +104,7 @@ class _AuthState extends State<Auth> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => HomeScreen(),
+                      builder: (context) => Login(),
                     ),
                   );
                 },
