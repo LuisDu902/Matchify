@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'appBar.dart';
 import 'homeScreen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class Register extends StatefulWidget {
   const Register({super.key});
@@ -11,6 +12,7 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
+  bool _isChecked = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -113,6 +115,27 @@ class _RegisterState extends State<Register> {
                 ),
                 obscureText: true,
               ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Checkbox(
+                  value: _isChecked,
+                  onChanged: (value) {
+                    setState(() {
+                      _isChecked = value ?? false;
+                    });
+                  },
+                ),
+                Text(
+                  "I Accept Terms & Conditions of Matchify",
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'Roboto',
+                  ),
+                ),
+              ],
             ),
             SizedBox(
               height: 30,
