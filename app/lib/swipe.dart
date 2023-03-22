@@ -1,13 +1,10 @@
 import 'dart:async';
-import 'dart:math';
-
 import 'package:firebase_database/firebase_database.dart';
 
 import 'package:flutter/material.dart';
-import 'homeScreen.dart';
-import 'filters.dart';
+import 'appBar.dart';
 import 'infoScreen.dart';
-
+import 'filters.dart';
 class SwipePage extends StatefulWidget {
   const SwipePage({super.key});
 
@@ -22,6 +19,7 @@ class _SwipeState extends State<SwipePage> {
   List<String> disliked = [];
   int index = 0;
   String songName = '';
+
   void _showResults(BuildContext context) {
     Navigator.of(context).push(
       MaterialPageRoute(
@@ -83,57 +81,13 @@ class _SwipeState extends State<SwipePage> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: fetchSongs(filters),
+      future: fetchSongs(getFilters()),
       builder: (BuildContext context, AsyncSnapshot<List<String>> snapshot) {
         if (snapshot.hasData) {
           bool isDismissed = false;
           return Scaffold(
             drawer: Info(),
-            appBar: AppBar(
-              toolbarHeight: 80,
-              centerTitle: true,
-              title: GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const HomeScreen()),
-                  );
-                },
-                child: const Text(
-                  'Matchify',
-                  style: TextStyle(
-                    color: Color.fromRGBO(48, 21, 81, 1),
-                    fontFamily: 'Italiana',
-                    fontSize: 30,
-                    letterSpacing: 0,
-                    fontWeight: FontWeight.normal,
-                  ),
-                ),
-              ),
-              leading: Builder(
-                builder: (context) => IconButton(
-                  onPressed: () {
-                    Scaffold.of(context).openDrawer();
-                  },
-                  icon: const ImageIcon(
-                    AssetImage('images/settings.png'),
-                    color: Colors.black,
-                    size: 100,
-                  ),
-                ),
-              ),
-              actions: [
-                IconButton(
-                  onPressed: () {},
-                  icon: const ImageIcon(
-                    AssetImage('images/user.png'),
-                    color: Colors.black,
-                  ),
-                ),
-              ],
-              backgroundColor: Colors.white,
-              elevation: 0,
-            ),
+            appBar: const appBar(),
             backgroundColor: Colors.white,
             body: Align(
               alignment: Alignment.bottomLeft,
