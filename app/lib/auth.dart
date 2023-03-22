@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:prototype/register.dart';
 import 'appBar.dart';
 import 'homeScreen.dart';
 import 'login.dart';
@@ -104,7 +105,7 @@ class _AuthState extends State<Auth> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => Login(),
+                      builder: (context) => Register(),
                     ),
                   );
                 },
