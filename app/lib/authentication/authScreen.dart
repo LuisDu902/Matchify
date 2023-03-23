@@ -1,22 +1,28 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:prototype/register.dart';
-import 'appBar.dart';
-import 'homeScreen.dart';
+import '../appBar.dart';
 import 'login.dart';
+import 'register.dart';
+import 'widget_tree.dart';
 
-class Auth extends StatefulWidget {
-  const Auth({super.key});
+class AuthScreen extends StatefulWidget {
+  const AuthScreen({super.key});
 
   @override
-  State<Auth> createState() => _AuthState();
+  State<AuthScreen> createState() => _AuthScreenState();
 }
 
-class _AuthState extends State<Auth> {
+bool isLogin = true;
+
+bool getLogin() {
+  return isLogin;
+}
+
+class _AuthScreenState extends State<AuthScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const appBar(),
+      appBar: appBar(),
       backgroundColor: Colors.white,
       body: Align(
         alignment: Alignment.center,
@@ -60,7 +66,7 @@ class _AuthState extends State<Auth> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => Login(),
+                      builder: (context) => WidgetTree(),
                     ),
                   );
                 },
@@ -102,10 +108,11 @@ class _AuthState extends State<Auth> {
                           )),
                 ),
                 onPressed: () {
+                  isLogin = false;
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => Register(),
+                      builder: (context) => WidgetTree(),
                     ),
                   );
                 },

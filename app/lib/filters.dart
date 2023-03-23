@@ -298,7 +298,7 @@ class _FiltersState extends State<Filters> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const appBar(),
+      appBar: appBar(),
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Align(

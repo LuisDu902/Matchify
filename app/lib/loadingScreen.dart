@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:prototype/authentication/authScreen.dart';
+import 'package:prototype/authentication/widget_tree.dart';
 
 class LoadingScreen extends StatelessWidget {
   const LoadingScreen({super.key});
@@ -8,7 +10,10 @@ class LoadingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Future.delayed(Duration(seconds: 3), () {
-      Navigator.pushNamed(context, '/auth');
+      Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const WidgetTree()),
+          );
     });
     return Scaffold(
       body: Center(

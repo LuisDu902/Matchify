@@ -87,7 +87,7 @@ class _SwipeState extends State<SwipePage> {
           bool isDismissed = false;
           return Scaffold(
             drawer: Info(),
-            appBar: const appBar(),
+            appBar: appBar(),
             backgroundColor: Colors.white,
             body: Align(
               alignment: Alignment.bottomLeft,

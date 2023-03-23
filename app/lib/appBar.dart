@@ -1,9 +1,17 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import 'authentication/auth.dart';
 import 'homeScreen.dart';
 
 class appBar extends StatelessWidget implements PreferredSizeWidget {
-  const appBar({Key? key}) : super(key: key);
+  appBar({Key? key}) : super(key: key);
+
+   final User? user = Auth().currentUser;
+
+  Future<void> signOut() async {
+    await Auth().signOut();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +22,7 @@ class appBar extends StatelessWidget implements PreferredSizeWidget {
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const HomeScreen()),
+            MaterialPageRoute(builder: (context) => HomeScreen()),
           );
         },
         child: Container(
@@ -54,7 +62,7 @@ class appBar extends StatelessWidget implements PreferredSizeWidget {
       ),
       actions: [
         IconButton(
-          onPressed: () {},
+          onPressed: signOut,
           icon: const Icon(
             Icons.person,
             color: Color.fromRGBO(48, 21, 81, 1),
