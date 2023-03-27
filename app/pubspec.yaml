@@ -38,6 +38,8 @@ dependencies:
   firebase_database: ^10.0.15
   firebase_auth: ^4.3.0
   flutter_gherkin: ^1.0.5
+  audioplayers: ^3.0.1
+  http: ^0.13.5
 
 dev_dependencies:
 

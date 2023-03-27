@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-
-import 'authentication/widget_tree.dart';
 import 'loadingScreen.dart';
 
 Future<void> main() async {

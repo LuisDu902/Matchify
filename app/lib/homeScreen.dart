@@ -1,7 +1,5 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:prototype/authentication/auth.dart';
-import 'package:prototype/filters.dart';
+import 'package:matchify/filters.dart';
 
 import 'appBar.dart';
 import 'infoScreen.dart';

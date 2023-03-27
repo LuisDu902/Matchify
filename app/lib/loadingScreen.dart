@@ -1,8 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:prototype/authentication/authScreen.dart';
-import 'package:prototype/authentication/widget_tree.dart';
+import 'package:matchify/authentication/widget_tree.dart';
 
 class LoadingScreen extends StatelessWidget {
   const LoadingScreen({super.key});
