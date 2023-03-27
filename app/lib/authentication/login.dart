@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../appBar.dart';
+import '../infoScreen.dart';
 import 'auth.dart';
 
 class Login extends StatefulWidget {
@@ -379,6 +380,7 @@ class _LoginState extends State<Login> {
       );
     } else {
       return Scaffold(
+        drawer: Info(),
         appBar: appBar(),
         backgroundColor: Colors.white,
         body: Align(

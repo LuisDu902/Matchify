@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:matchify/appBar.dart';
+import 'package:matchify/infoScreen.dart';
 
 class FriendsScreen extends StatefulWidget {
   @override
@@ -201,6 +202,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: Info(),
       appBar: appBar(),
       backgroundColor: Colors.white,
       body: Column(

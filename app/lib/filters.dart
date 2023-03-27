@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:matchify/infoScreen.dart';
 import 'appBar.dart';
 import 'song/swipe.dart';
 
@@ -298,6 +299,7 @@ class _FiltersState extends State<Filters> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: Info(),
       appBar: appBar(),
       backgroundColor: Colors.white,
       body: SingleChildScrollView(

@@ -18,9 +18,9 @@ Matchify System has the following packages:
 
 External Services englobes:
 
-*  `Spotify API: `  allows developers to interact with the Spotify platform and retrive data related to music, artists, albums, and playlist. 
+*  `Spotify API:`  allows developers to interact with the Spotify platform and retrive data related to music, artists, albums, and playlist. 
 
-*  `Firebase: ` manages user authentication (Firebase Auth) and stores data in real-time across multiple clients (Firebase Realtime Database)
+*  `Firebase:` manages user authentication (Firebase Auth) and stores data in real-time across multiple clients (Firebase Realtime Database)
 
  <p align="center" justify="center">
   <img src="/images/logical_architecture.png"/>
