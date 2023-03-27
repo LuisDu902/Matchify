@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:prototype/friends.dart';
 import 'homeScreen.dart';
 
 class Info extends StatefulWidget {
@@ -9,7 +10,7 @@ class Info extends StatefulWidget {
   State<Info> createState() => _InfoState();
 }
 
-class _InfoState extends State<Info>{
+class _InfoState extends State<Info> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -44,12 +45,19 @@ class FriendsCard extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(left: 24, top: 20, bottom: 16),
           child: Divider(
-          color: Colors.white24,
-          height: 1,
+            color: Colors.white24,
+            height: 1,
           ),
         ),
         ListTile(
-          onTap: () {},
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => FriendsScreen(),
+              ),
+            );
+          },
           leading: CircleAvatar(
             backgroundColor: Colors.white24,
             child: Icon(
@@ -95,6 +103,7 @@ class AddFriendCard extends StatelessWidget {
     );
   }
 }
+
 class AboutCard extends StatelessWidget {
   const AboutCard({
     super.key,
@@ -138,12 +147,12 @@ class LibraryCard extends StatelessWidget {
       padding: const EdgeInsets.only(top: 60),
       child: ListTile(
         leading: CircleAvatar(
-        backgroundColor: Colors.white24,
-        child: Icon(
+          backgroundColor: Colors.white24,
+          child: Icon(
             CupertinoIcons.music_albums_fill,
             color: Colors.white,
+          ),
         ),
-      ),
         title: Text("Library", style: TextStyle(color: Colors.white)),
       ),
     );
