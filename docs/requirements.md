@@ -6,7 +6,7 @@
 
 The domain model of our application is composed by 7 classes.
 
-* `User:` contains information about every user that uses the app, including an unique ID, a username and a password. The last two fields are for the login.
+* `User:` contains information about every user that uses the app, including an unique ID, a username and a password. The last two fields are for the login. A user can be friend of other users.
 
 
 * `Playlist:` contains a user specified number of songs and is identified by a name.
