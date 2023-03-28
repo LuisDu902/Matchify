@@ -137,6 +137,7 @@ class _SwipeState extends State<SwipePage> {
       String filter = filters[i];
       //for (int j = 0; j < 50; j++) {
       await _searchSong(filter);
+      await _searchSong(filter);
       //}
     }
     return songs;
