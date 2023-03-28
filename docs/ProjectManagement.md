@@ -43,9 +43,9 @@ Release:
 * Better time management;
 * Try to finish our goals fully;
 
-#### What still puzzles me?
+#### What still puzzles us?
 
 * Some of the Flutter syntax;
 * Specifics of the Gherkin automated testing;
-* Some quirks of Spotify SDK and SPotify Web API;
+* Some quirks of Spotify SDK and Spotify Web API;
 
