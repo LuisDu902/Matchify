@@ -19,6 +19,6 @@ Our app allows you to discover and curate your own perfect soundtrack with just 
 * **Friend list:** add friends and combine playlists with them.
 
 ### Assumptions and dependencies
-* Spotify Web API
-* Spotify SDK
-* Spotify Play Button
+* [Spotify Web API](https://developer.spotify.com/documentation/web-api)
+* [Spotify SDK](https://developer.spotify.com/documentation/android)
+* [Spotify Play Button]
