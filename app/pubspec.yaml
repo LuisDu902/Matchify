@@ -37,7 +37,6 @@ dependencies:
   firebase_core: ^2.7.1
   firebase_database: ^10.0.15
   firebase_auth: ^4.3.0
-  flutter_gherkin: ^1.0.5
   audioplayers: ^3.0.1
   http: ^0.13.5
 

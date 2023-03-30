@@ -8,12 +8,99 @@ class FriendsScreen extends StatefulWidget {
 }
 
 class _FriendsScreenState extends State<FriendsScreen> {
-  final List<String> friends = ['Madalene Ye', 'Luis Du'];
+  final List<String> friends = ['Madaleme Ye', 'Luis Du'];
 
   void removeFriend(int index) {
     setState(() {
       friends.removeAt(index);
     });
+  }
+
+  Widget pop_up(int index) {
+    return AlertDialog(
+      backgroundColor: Color.fromRGBO(252, 241, 183, 1),
+      content: Text(
+        textAlign: TextAlign.center,
+        "Are you sure you want to remove ${friends[index]}?",
+        style: TextStyle(
+            color: Color(0xFF301551),
+            fontWeight: FontWeight.bold,
+            fontFamily: 'Roboto',
+            fontSize: 28),
+      ),
+      actions: <Widget>[
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            remove_button(index),
+            cancel_button(index),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget cancel_button(int index) {
+    return TextButton(
+      onPressed: () {
+        Navigator.of(context).pop();
+      },
+      child: Container(
+        height: 60.0,
+        padding: EdgeInsets.symmetric(
+          horizontal: 25.0,
+        ),
+        decoration: BoxDecoration(
+          color: Color.fromRGBO(193, 182, 202, 1),
+          borderRadius: BorderRadius.circular(10.0),
+          border: Border.all(
+            color: Color.fromRGBO(193, 182, 202, 1),
+          ),
+        ),
+        child: Center(
+          child: Text(
+            'Cancel',
+            style: TextStyle(
+              color: Color(0xFF301551),
+              fontWeight: FontWeight.bold,
+              fontSize: 25.0,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget remove_button(int index) {
+    return TextButton(
+      onPressed: () {
+        removeFriend(index);
+        Navigator.of(context).pop();
+      },
+      child: Container(
+        height: 60.0,
+        padding: EdgeInsets.symmetric(
+          horizontal: 25.0,
+        ),
+        decoration: BoxDecoration(
+          color: Color.fromRGBO(193, 182, 202, 1),
+          borderRadius: BorderRadius.circular(10.0),
+          border: Border.all(
+            color: Color.fromRGBO(193, 182, 202, 1),
+          ),
+        ),
+        child: Center(
+          child: Text(
+            'Remove',
+            style: TextStyle(
+              color: Color(0xFF301551),
+              fontWeight: FontWeight.bold,
+              fontSize: 25.0,
+            ),
+          ),
+        ),
+      ),
+    );
   }
 
   Widget showFriends() {
@@ -46,7 +133,12 @@ class _FriendsScreenState extends State<FriendsScreen> {
                       color: Colors.grey[600],
                     ),
                     onPressed: () {
-                      removeFriend(index);
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return pop_up(index);
+                        },
+                      );
                     },
                   ),
                 ],
@@ -99,6 +191,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
                   Text(
                     requests[index],
                     style: TextStyle(
+                      fontFamily: 'Roboto',
                       fontSize: 20.0,
                       fontWeight: FontWeight.bold,
                     ),
@@ -160,6 +253,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
               child: Text(
                 "Friends",
                 style: TextStyle(
+                  fontFamily: 'Roboto',
                   fontSize: 32.0,
                   color: friendText,
                 ),
@@ -188,6 +282,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
               child: Text(
                 "Requests",
                 style: TextStyle(
+                  fontFamily: 'Roboto',
                   fontSize: 32.0,
                   color: requestText,
                 ),
