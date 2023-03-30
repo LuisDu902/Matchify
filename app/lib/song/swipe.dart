@@ -1,10 +1,15 @@
 import 'dart:async';
+import 'dart:convert';
+import 'dart:math';
 import 'package:firebase_database/firebase_database.dart';
-
+import 'dart:convert' as convert;
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
-import 'appBar.dart';
-import 'infoScreen.dart';
-import 'filters.dart';
+import 'package:matchify/song/song.dart';
+import '../appBar.dart';
+import '../infoScreen.dart';
+import '../filters.dart';
+
 class SwipePage extends StatefulWidget {
   const SwipePage({super.key});
 
@@ -13,12 +18,79 @@ class SwipePage extends StatefulWidget {
 }
 
 class _SwipeState extends State<SwipePage> {
-  List<String> songs = [];
+  List<Song> songs = [];
 
   List<String> liked = [];
   List<String> disliked = [];
   int index = 0;
   String songName = '';
+
+  Future<String> _getAccessToken() async {
+    var clientId = '8427839fc6f24145ba2a8f64fb7f2b70';
+    var clientSecret = '2ca2a40a1ca24b878f213108e730cfc7';
+
+    var credentials = '$clientId:$clientSecret';
+    var bytes = utf8.encode(credentials);
+    var base64 = base64Encode(bytes);
+
+    var headers = {'Authorization': 'Basic $base64'};
+    var body = {'grant_type': 'client_credentials'};
+
+    var response = await http.post(
+      Uri.parse('https://accounts.spotify.com/api/token'),
+      headers: headers,
+      body: body,
+    );
+
+    if (response.statusCode == 200) {
+      var jsonResponse = json.decode(response.body);
+      var accessToken = jsonResponse['access_token'];
+      
+      return accessToken;
+    } else {
+      throw Exception('Failed to generate access token.');
+    }
+  }
+
+  Future<void> _searchSong(String genre) async {
+    var queryParameters = {
+      'q': 'genre:"$genre"',
+      'type': 'track',
+      'limit': '50',
+      'offset': '${Random().nextInt(100)}'
+    };
+    var uri = Uri.https('api.spotify.com', '/v1/search', queryParameters);
+    var accessToken = await _getAccessToken();
+    var headers = {'Authorization': 'Bearer $accessToken'};
+    var response = await http.get(uri, headers: headers);
+    if (response.statusCode == 200) {
+      var jsonResponse = convert.jsonDecode(response.body);
+      if (jsonResponse['tracks']['items'].isNotEmpty) {
+        var trackIndex =
+            Random().nextInt(jsonResponse['tracks']['items'].length);
+        var trackName = jsonResponse['tracks']['items'][trackIndex]['name'];
+        var artistName =
+            jsonResponse['tracks']['items'][trackIndex]['artists'][0]['name'];
+        var previewUrl =
+            jsonResponse['tracks']['items'][trackIndex]['preview_url'];
+        var imageUrl = jsonResponse['tracks']['items'][trackIndex]['album']
+            ['images'][0]['url'];
+
+        Song song = Song(
+          trackName: trackName,
+          artistName: artistName,
+          genre: genre,
+          previewUrl: previewUrl,
+          imageUrl: imageUrl,
+        );
+        songs.add(song);
+      } else {
+        print('No songs found for the given genre.');
+      }
+    } else {
+      print('Request failed with status: ${response.statusCode}.');
+    }
+  }
 
   void _showResults(BuildContext context) {
     Navigator.of(context).push(
@@ -60,21 +132,14 @@ class _SwipeState extends State<SwipePage> {
     );
   }
 
-  Future<List<String>> fetchSongs(List<String> filters) async {
+  Future<List<Song>> fetchSongs(List<String> filters) async {
     for (int i = 0; i < filters.length; i++) {
       String filter = filters[i];
-      Query ref = FirebaseDatabase.instance.ref().child(filter);
-      final snapshot = await ref.get();
-      if (snapshot.exists) {
-        List<String> songsList = snapshot.children.map((child) {
-          return child.value as String;
-        }).toList();
-        if (songs.length < 15) songs = List.from(songs)..addAll(songsList);
-      } else {
-        return [];
-      }
+      //for (int j = 0; j < 50; j++) {
+      await _searchSong(filter);
+      await _searchSong(filter);
+      //}
     }
-
     return songs;
   }
 
@@ -82,12 +147,12 @@ class _SwipeState extends State<SwipePage> {
   Widget build(BuildContext context) {
     return FutureBuilder(
       future: fetchSongs(getFilters()),
-      builder: (BuildContext context, AsyncSnapshot<List<String>> snapshot) {
+      builder: (BuildContext context, AsyncSnapshot<List<Song>> snapshot) {
         if (snapshot.hasData) {
           bool isDismissed = false;
           return Scaffold(
             drawer: Info(),
-            appBar: const appBar(),
+            appBar: appBar(),
             backgroundColor: Colors.white,
             body: Align(
               alignment: Alignment.bottomLeft,
@@ -100,7 +165,7 @@ class _SwipeState extends State<SwipePage> {
                       top: 360,
                       left: 100,
                       child: Text(
-                        '${songs[index]}',
+                        '${songs[index].trackName} - ${songs[index].genre}',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Color.fromRGBO(48, 21, 81, 1),
@@ -123,13 +188,13 @@ class _SwipeState extends State<SwipePage> {
                             if (songs.length == index) {
                               _showResults(context);
                             } else {
-
-                              songName = songs[index++];
+                              songs[index].pause();
+                              songName = songs[index++].trackName;
 
                               disliked.add(songName);
-                               if (songs.length == index) {
-                                 _showResults(context);
-                               }
+                              if (songs.length == index) {
+                                _showResults(context);
+                              }
                             }
                             isDismissed = true;
                           });
@@ -139,7 +204,8 @@ class _SwipeState extends State<SwipePage> {
                             if (songs.length == index) {
                               _showResults(context);
                             } else {
-                              songName = songs[index++];
+                              songs[index].pause();
+                              songName = songs[index++].trackName;
                               liked.add(songName);
                               if (liked.length == 5 || index == songs.length) {
                                 _showResults(context);
@@ -151,15 +217,11 @@ class _SwipeState extends State<SwipePage> {
                       child: Center(
                         child: Padding(
                           padding: EdgeInsets.only(bottom: 300),
-                          child: Container(
+                          child: Image.network(
+                            songs[index].imageUrl,
                             width: 250,
                             height: 250,
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                image: AssetImage('images/musicSymbol.png'),
-                                fit: BoxFit.fitWidth,
-                              ),
-                            ),
+                            fit: BoxFit.cover,
                           ),
                         ),
                       ),
@@ -167,15 +229,13 @@ class _SwipeState extends State<SwipePage> {
                     Positioned(
                       top: 400,
                       left: 170,
-                      child: Container(
-                        width: 45,
-                        height: 45,
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: AssetImage('images/replay.png'),
-                            fit: BoxFit.fitWidth,
-                          ),
-                        ),
+                      child: IconButton(
+                        icon: Icon(Icons.play_arrow_rounded),
+                        iconSize: 45,
+                        onPressed: () {
+                          songs[index].play();
+                          // Handle replay button press
+                        },
                       ),
                     ),
                     Positioned(

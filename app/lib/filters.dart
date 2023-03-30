@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:matchify/infoScreen.dart';
 import 'appBar.dart';
-import 'swipe.dart';
+import 'song/swipe.dart';
 
 class Filters extends StatefulWidget {
   const Filters({Key? key});
@@ -298,7 +299,8 @@ class _FiltersState extends State<Filters> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const appBar(),
+      drawer: Info(),
+      appBar: appBar(),
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Align(

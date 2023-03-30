@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-
-import 'homeScreen.dart';
 import 'loadingScreen.dart';
 
 Future<void> main() async {
@@ -19,9 +17,6 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Matchify',
       home: const LoadingScreen(),
-      routes: {
-        '/home': (context) => const HomeScreen(),
-      },
     );
   }
 }

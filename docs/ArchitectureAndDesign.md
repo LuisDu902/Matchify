@@ -6,8 +6,6 @@ In this section we'll describe the logical and physical architectures of our pro
 
 The logical architecture of our application is divided into two main sections: `External Services` and `Matchify System`.
 
-External Services englobes the Spotify API and the Firebase.
-
 Matchify System has the following packages:
 
 * `Matchify GUI:` responsible for drawing the widgets and the screens of the app and allows the interaction between the app and the user.
@@ -17,6 +15,12 @@ Matchify System has the following packages:
 * `Matchify Business Logic:` imports songs from the Spotify API, enables users to create playlists and connects the app to the database.
 
 * `Matchify Database Schema:` manages the database so information can be retrieved and uploaded.
+
+External Services englobes:
+
+*  `Spotify API:`  allows developers to interact with the Spotify platform and retrive data related to music, artists, albums, and playlist. 
+
+*  `Firebase:` manages user authentication (Firebase Auth) and stores data in real-time across multiple clients (Firebase Realtime Database)
 
  <p align="center" justify="center">
   <img src="/images/logical_architecture.png"/>
@@ -29,7 +33,7 @@ to interact with the application made in Dart.
 
 The mobile device connects to the Firebase server
 which features the realtime database where all the information created by
-the app is stored.
+the app is stored and manages user authentication of our application.
 
 It also connects to the Spotify API. This API is used in order to fetch songs and functionalities.
 
