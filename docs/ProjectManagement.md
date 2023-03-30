@@ -14,7 +14,7 @@ You can find below information and references related with the project managemen
 Release: https://github.com/FEUP-LEIC-ES-2022-23/2LEIC16T4/releases/tag/v0.5
 
 ## Iteration 1
-Release: 
+Release: https://github.com/FEUP-LEIC-ES-2022-23/2LEIC16T4/releases/tag/v1.0
 
 ### Board
 
