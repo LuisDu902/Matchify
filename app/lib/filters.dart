@@ -11,8 +11,6 @@ class Filters extends StatefulWidget {
   _FiltersState createState() => _FiltersState();
 }
 
-
-
 List<String> _filters = [];
 
 List<String> getFilters(){

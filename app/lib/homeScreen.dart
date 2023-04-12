@@ -10,6 +10,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: Key("Home Page"),
       drawer: Info(),
       appBar: appBar(),
       backgroundColor: Colors.white, // Set the body background color to white

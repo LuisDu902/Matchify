@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:matchify/authentication/login.dart';
 import 'loadingScreen.dart';
 
 Future<void> main() async {
@@ -13,10 +14,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Matchify',
-      home: const LoadingScreen(),
+      home: LoadingScreen(),
     );
   }
 }

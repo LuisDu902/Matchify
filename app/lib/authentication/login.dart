@@ -44,6 +44,7 @@ class _LoginState extends State<Login> {
 
   Widget _registerUsername() {
     return SizedBox(
+      key: Key("emailfield"),
       width: 260,
       height: 80,
       child: TextFormField(
@@ -74,6 +75,7 @@ class _LoginState extends State<Login> {
 
   Widget _registerPassword() {
     return SizedBox(
+      key: Key("passwordfield"),
       width: 260,
       height: 80,
       child: TextFormField(
@@ -166,6 +168,7 @@ class _LoginState extends State<Login> {
 
   Widget _registerButton() {
     return Container(
+      key: Key("registerbutton"),
       decoration: BoxDecoration(
         boxShadow: [
           BoxShadow(
@@ -245,6 +248,7 @@ class _LoginState extends State<Login> {
 
   Widget _loginUsername() {
     return SizedBox(
+      key: Key("username"),
       width: 260,
       height: 80,
       child: TextFormField(
@@ -275,6 +279,7 @@ class _LoginState extends State<Login> {
 
   Widget _loginPassword() {
     return SizedBox(
+      key: Key("password"),
       width: 260,
       height: 80,
       child: TextFormField(
@@ -306,6 +311,7 @@ class _LoginState extends State<Login> {
 
   Widget _loginButton() {
     return Container(
+      key: Key("Log In"),
       decoration: BoxDecoration(
         boxShadow: [
           BoxShadow(
@@ -358,6 +364,7 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     if (isLogin) {
       return Scaffold(
+        key: Key("Log In Page"),
         appBar: appBar(),
         backgroundColor: Colors.white,
         body: Align(
