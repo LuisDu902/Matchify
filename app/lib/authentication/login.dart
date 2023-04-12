@@ -44,7 +44,7 @@ class _LoginState extends State<Login> {
 
   Widget _registerUsername() {
     return SizedBox(
-      key: Key("emailfield"),
+      key: Key("registUsername"),
       width: 260,
       height: 80,
       child: TextFormField(
@@ -75,7 +75,7 @@ class _LoginState extends State<Login> {
 
   Widget _registerPassword() {
     return SizedBox(
-      key: Key("passwordfield"),
+      key: Key("registPassword"),
       width: 260,
       height: 80,
       child: TextFormField(
@@ -168,7 +168,7 @@ class _LoginState extends State<Login> {
 
   Widget _registerButton() {
     return Container(
-      key: Key("registerbutton"),
+      key: Key("Register"),
       decoration: BoxDecoration(
         boxShadow: [
           BoxShadow(
@@ -352,6 +352,7 @@ class _LoginState extends State<Login> {
 
   Widget change() {
     return ElevatedButton(
+      key: Key('change'),
         onPressed: () {
           setState(() {
             isLogin = !isLogin;
@@ -387,6 +388,7 @@ class _LoginState extends State<Login> {
       );
     } else {
       return Scaffold(
+         key: Key("Register Page"),
         drawer: Info(),
         appBar: appBar(),
         backgroundColor: Colors.white,

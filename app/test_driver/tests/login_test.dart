@@ -1,9 +1,10 @@
 import 'dart:async';
+import 'package:flutter_driver/flutter_driver.dart';
 import 'package:flutter_gherkin/flutter_gherkin.dart';
 import 'package:gherkin/gherkin.dart';
-import 'steps/login_steps.dart';
+import '../steps/login_steps.dart';
 
-Future<void> main() {
+Future<void> main() async {
   final config = FlutterTestConfiguration()
     ..features = ['test_driver/features/login.feature']
     ..reporters = [ProgressReporter()]
@@ -14,7 +15,9 @@ Future<void> main() {
       TapLogInButton(),
       CheckHomePage(),
     ]
-    ..targetAppPath = "test_driver/app.dart";
+    ..targetAppPath = "test_driver/app.dart"
+    ..restartAppBetweenScenarios = true;
 
-  return GherkinRunner().execute(config);
+  GherkinRunner().execute(config);
+
 }
