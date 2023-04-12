@@ -63,6 +63,7 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
             Positioned(
+               key: Key("Create playlist"),
               top: 280,
               left: 75,
               child: GestureDetector(

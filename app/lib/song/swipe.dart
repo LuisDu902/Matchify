@@ -45,7 +45,7 @@ class _SwipeState extends State<SwipePage> {
     if (response.statusCode == 200) {
       var jsonResponse = json.decode(response.body);
       var accessToken = jsonResponse['access_token'];
-      
+
       return accessToken;
     } else {
       throw Exception('Failed to generate access token.');
@@ -151,6 +151,7 @@ class _SwipeState extends State<SwipePage> {
         if (snapshot.hasData) {
           bool isDismissed = false;
           return Scaffold(
+            key: Key('Swipe page'),
             drawer: Info(),
             appBar: appBar(),
             backgroundColor: Colors.white,
