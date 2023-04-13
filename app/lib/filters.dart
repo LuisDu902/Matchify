@@ -301,7 +301,7 @@ class _FiltersState extends State<Filters> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: Key('Filters Page'),
+      key: Key('Filters page'),
       drawer: Info(),
       appBar: appBar(),
       backgroundColor: Colors.white,
