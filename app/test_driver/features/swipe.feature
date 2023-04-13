@@ -1,0 +1,1 @@
+As a user, I want to be able to choose songs I like by swiping left or right so that those songs are added or not (respectively) to the playlist I am creating#4
