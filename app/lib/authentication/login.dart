@@ -38,12 +38,13 @@ class _LoginState extends State<Login> {
     }
   }
 
-  Widget _errorMessage() {
+  /* Widget _errorMessage() {
     return Text(errorMessage == '' ? '' : 'Humm ? $errorMessage');
-  }
+  }*/
 
   Widget _registerUsername() {
     return SizedBox(
+      key: Key("Register username"),
       width: 260,
       height: 80,
       child: TextFormField(
@@ -74,6 +75,7 @@ class _LoginState extends State<Login> {
 
   Widget _registerPassword() {
     return SizedBox(
+      key: Key("Register password"),
       width: 260,
       height: 80,
       child: TextFormField(
@@ -105,6 +107,7 @@ class _LoginState extends State<Login> {
 
   Widget _confirmPassword() {
     return SizedBox(
+      key: Key("Confirm password"),
       width: 260,
       height: 80,
       child: TextFormField(
@@ -145,6 +148,7 @@ class _LoginState extends State<Login> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Checkbox(
+          key: Key("Accept terms and conditions"),
           value: _isChecked,
           onChanged: (value) {
             setState(() {
@@ -165,41 +169,70 @@ class _LoginState extends State<Login> {
   }
 
   Widget _registerButton() {
-    return Container(
-      decoration: BoxDecoration(
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.5),
-            spreadRadius: 2,
-            blurRadius: 7,
-            offset: Offset(0, 3), // changes position of shadow
-          ),
-        ],
-      ),
-      child: ElevatedButton(
-        style: ButtonStyle(
-          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-            RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10.0),
+    return Builder(
+      builder: (context) => Container(
+        key: Key("Register"),
+        decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 2,
+              blurRadius: 7,
+              offset: Offset(0, 3), // changes position of shadow
             ),
-          ),
-          backgroundColor:
-              MaterialStateProperty.all<Color>(Color.fromRGBO(246, 217, 18, 1)),
-          foregroundColor: MaterialStateProperty.all<Color>(
-            Color.fromRGBO(48, 21, 81, 1),
-          ),
-          fixedSize: MaterialStateProperty.resolveWith<Size?>(
-              (states) => Size(130, 45)),
-          textStyle: MaterialStateProperty.resolveWith<TextStyle?>(
-              (states) => TextStyle(
-                    fontSize: 25,
-                    fontFamily: 'Roboto',
-                    letterSpacing: 0.10000000149011612,
-                    fontWeight: FontWeight.w400,
-                  )),
+          ],
         ),
-        onPressed: createUserWithEmailAndPassword,
-        child: Text('register'),
+        child: ElevatedButton(
+          style: ButtonStyle(
+            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+            ),
+            backgroundColor: MaterialStateProperty.all<Color>(
+                Color.fromRGBO(246, 217, 18, 1)),
+            foregroundColor: MaterialStateProperty.all<Color>(
+              Color.fromRGBO(48, 21, 81, 1),
+            ),
+            fixedSize: MaterialStateProperty.resolveWith<Size?>(
+                (states) => Size(130, 45)),
+            textStyle: MaterialStateProperty.resolveWith<TextStyle?>(
+                (states) => TextStyle(
+                      fontSize: 25,
+                      fontFamily: 'Roboto',
+                      letterSpacing: 0.10000000149011612,
+                      fontWeight: FontWeight.w400,
+                    )),
+          ),
+          onPressed: () {
+            if (_regPassword.text != _confPassword.text) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text("Passwords do not match"),
+                  backgroundColor: Colors.red,
+                ),
+              );
+            } else if (errorMessage != null) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text("Please fill out the required fields correctly"),
+                  backgroundColor: Colors.red,
+                ),
+              );
+            } else if (!_isChecked) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(
+                      "You must accept the Terms & Conditions of Matchify"),
+                  backgroundColor: Colors.red,
+                ),
+              );
+            } else {
+              createUserWithEmailAndPassword();
+            }
+          },
+          child: Text('register'),
+        ),
       ),
     );
   }
@@ -245,6 +278,7 @@ class _LoginState extends State<Login> {
 
   Widget _loginUsername() {
     return SizedBox(
+      key: Key("Login username"),
       width: 260,
       height: 80,
       child: TextFormField(
@@ -275,6 +309,7 @@ class _LoginState extends State<Login> {
 
   Widget _loginPassword() {
     return SizedBox(
+      key: Key("Login password"),
       width: 260,
       height: 80,
       child: TextFormField(
@@ -306,6 +341,7 @@ class _LoginState extends State<Login> {
 
   Widget _loginButton() {
     return Container(
+      key: Key("Login"),
       decoration: BoxDecoration(
         boxShadow: [
           BoxShadow(
@@ -338,26 +374,51 @@ class _LoginState extends State<Login> {
                     fontWeight: FontWeight.w400,
                   )),
         ),
-        onPressed: signInWithEmailAndPassword,
+        onPressed: () {
+          if (errorMessage != null) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text("Please fill out the required fields correctly"),
+                backgroundColor: Colors.red,
+              ),
+            );
+          } else {
+            signInWithEmailAndPassword();
+          }
+        },
         child: Text('login'),
       ),
     );
   }
 
   Widget change() {
-    return ElevatedButton(
-        onPressed: () {
+    String message = isLogin
+        ? "Don't have an account? Sign up now!"
+        : "Already have an account? Log in now!";
+    return Container(
+      child: GestureDetector(
+        onTap: () {
           setState(() {
             isLogin = !isLogin;
           });
         },
-        child: Text("change"));
+        child: Text(
+          message,
+          style: TextStyle(
+            fontSize: 18.0,
+            color: Color.fromRGBO(48, 21, 81, 1),
+            decoration: TextDecoration.underline,
+          ),
+        ),
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     if (isLogin) {
       return Scaffold(
+        key: Key("Login page"),
         appBar: appBar(),
         backgroundColor: Colors.white,
         body: Align(
@@ -370,9 +431,10 @@ class _LoginState extends State<Login> {
               _loginUsername(),
               _loginPassword(),
               SizedBox(height: 30),
-              _errorMessage(),
+              //_errorMessage(),
               SizedBox(height: 10),
               _loginButton(),
+              SizedBox(height: 30),
               change(),
             ],
           ),
@@ -380,6 +442,7 @@ class _LoginState extends State<Login> {
       );
     } else {
       return Scaffold(
+        key: Key("Register page"),
         drawer: Info(),
         appBar: appBar(),
         backgroundColor: Colors.white,
@@ -389,13 +452,13 @@ class _LoginState extends State<Login> {
             children: [
               SizedBox(height: 110),
               _registerTitle(),
-              SizedBox(height: 50),
+              // SizedBox(height: 50),
               _registerUsername(),
               _registerPassword(),
               _confirmPassword(),
               _termsAndConditions(),
-              SizedBox(height: 30),
-              _errorMessage(),
+              //SizedBox(height: 30),
+              // _errorMessage(),
               _registerButton(),
               change(),
             ],
