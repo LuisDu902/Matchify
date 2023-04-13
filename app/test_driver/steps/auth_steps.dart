@@ -24,7 +24,6 @@ class CheckRegisterPage extends GivenWithWorld<FlutterWorld> {
   @override
   Future<void> executeStep() async {
     final login = find.byValueKey("Login page");
-
     bool isLoginPage = await FlutterDriverUtils.isPresent(world.driver, login);
 
     if (!isLoginPage) {
@@ -38,9 +37,7 @@ class CheckRegisterPage extends GivenWithWorld<FlutterWorld> {
     await FlutterDriverUtils.tap(world.driver, button);
 
     final register = find.byValueKey("Register page");
-
-    bool isRegisterPage =
-        await FlutterDriverUtils.isPresent(world.driver, register);
+    bool isRegisterPage = await FlutterDriverUtils.isPresent(world.driver, register);
 
     expect(isRegisterPage, true);
   }

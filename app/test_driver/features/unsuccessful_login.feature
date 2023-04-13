@@ -9,4 +9,4 @@ Feature: Login
     And the user fills the "Login password" field with "1234567"
     And the user taps "Login"
     Then an error message appears
-    And the user is in the login page
+    And the user is in the "Login page"
