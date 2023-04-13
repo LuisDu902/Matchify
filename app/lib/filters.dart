@@ -11,16 +11,13 @@ class Filters extends StatefulWidget {
   _FiltersState createState() => _FiltersState();
 }
 
-
-
 List<String> _filters = [];
 
-List<String> getFilters(){
+List<String> getFilters() {
   return _filters;
 }
 
 class _FiltersState extends State<Filters> {
-
   bool _isGenreListVisible = false;
   bool _isMoodListVisible = false;
   bool _isDecadeListVisible = false;
@@ -66,16 +63,19 @@ class _FiltersState extends State<Filters> {
     switch (filter) {
       case 'Genre':
         return Icon(
+          key: Key(filter),
           _isGenreListVisible ? Icons.arrow_drop_up : Icons.arrow_drop_down,
           size: 24.0,
         );
       case 'Mood':
         return Icon(
+          key: Key(filter),
           _isMoodListVisible ? Icons.arrow_drop_up : Icons.arrow_drop_down,
           size: 24.0,
         );
       case 'Decade':
         return Icon(
+          key: Key(filter),
           _isDecadeListVisible ? Icons.arrow_drop_up : Icons.arrow_drop_down,
           size: 24.0,
         );
@@ -99,13 +99,13 @@ class _FiltersState extends State<Filters> {
             Color.fromRGBO(48, 21, 81, 1),
           ),
           fixedSize: MaterialStateProperty.resolveWith<Size?>(
-                  (states) => Size(240, 50)),
+              (states) => Size(240, 50)),
           textStyle: MaterialStateProperty.resolveWith<TextStyle?>(
-                  (states) => TextStyle(
-                fontSize: 22,
-                fontFamily: 'Roboto',
-                letterSpacing: 0.10000000149011612,
-              )),
+              (states) => TextStyle(
+                    fontSize: 22,
+                    fontFamily: 'Roboto',
+                    letterSpacing: 0.10000000149011612,
+                  )),
         ),
         onPressed: () {
           setState(() {
@@ -170,26 +170,27 @@ class _FiltersState extends State<Filters> {
         runSpacing: 10.0,
         children: filters
             .map((genre) => GestureDetector(
-          onTap: () {
-            setState(() {
-              filters.remove(genre);
-              _filters.add(genre);
-            });
-          },
-          child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 26, vertical: 8),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: Color.fromRGBO(251, 237, 160, 1),
-            ),
-            child: Text(genre,
-                style: TextStyle(
-                  fontSize: 20,
-                  fontFamily: 'Roboto',
-                  color: Color.fromRGBO(48, 21, 81, 1),
-                )),
-          ),
-        ))
+                  onTap: () {
+                    setState(() {
+                      filters.remove(genre);
+                      _filters.add(genre);
+                    });
+                  },
+                  child: Container(
+                    key: Key(genre),
+                    padding: EdgeInsets.symmetric(horizontal: 26, vertical: 8),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Color.fromRGBO(251, 237, 160, 1),
+                    ),
+                    child: Text(genre,
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontFamily: 'Roboto',
+                          color: Color.fromRGBO(48, 21, 81, 1),
+                        )),
+                  ),
+                ))
             .toList(),
       ),
     );
@@ -247,49 +248,50 @@ class _FiltersState extends State<Filters> {
           children: _filters
               .map(
                 (genre) => Container(
-              margin: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: Color.fromRGBO(248, 206, 156, 1),
-              ),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    genre,
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontFamily: 'Roboto',
-                      color: Color.fromRGBO(48, 21, 81, 1),
-                    ),
+                  key: Key(genre),
+                  margin: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Color.fromRGBO(248, 206, 156, 1),
                   ),
-                  GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        _filters.remove(genre);
-                        if (_iniGenres.contains(genre)) {
-                          if (_genres.isEmpty) _isGenreListVisible = false;
-                          _genres.add(genre);
-                        } else if (_iniMoods.contains(genre)) {
-                          if (_moods.isEmpty) _isMoodListVisible = false;
-                          _moods.add(genre);
-                        } else if (_iniDecades.contains(genre)) {
-                          if (_decades.isEmpty)
-                            _isDecadeListVisible = false;
-                          _decades.add(genre);
-                        }
-                      });
-                    },
-                    child: Icon(
-                      color: Color.fromRGBO(48, 21, 81, 1),
-                      Icons.cancel_outlined,
-                    ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        genre,
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontFamily: 'Roboto',
+                          color: Color.fromRGBO(48, 21, 81, 1),
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            _filters.remove(genre);
+                            if (_iniGenres.contains(genre)) {
+                              if (_genres.isEmpty) _isGenreListVisible = false;
+                              _genres.add(genre);
+                            } else if (_iniMoods.contains(genre)) {
+                              if (_moods.isEmpty) _isMoodListVisible = false;
+                              _moods.add(genre);
+                            } else if (_iniDecades.contains(genre)) {
+                              if (_decades.isEmpty)
+                                _isDecadeListVisible = false;
+                              _decades.add(genre);
+                            }
+                          });
+                        },
+                        child: Icon(
+                          color: Color.fromRGBO(48, 21, 81, 1),
+                          Icons.cancel_outlined,
+                        ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-            ),
-          )
+                ),
+              )
               .toList(),
         ),
       ),
@@ -299,6 +301,7 @@ class _FiltersState extends State<Filters> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: Key('Filters page'),
       drawer: Info(),
       appBar: appBar(),
       backgroundColor: Colors.white,
@@ -319,21 +322,24 @@ class _FiltersState extends State<Filters> {
               drawButton('Decade'),
               if (_isDecadeListVisible) drawItems('Decade'),
               drawFilters(),
-
             ],
           ),
         ),
       ),
-      floatingActionButton:  _filters.isNotEmpty ?
-      ElevatedButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const SwipePage()),
-          );
-        },
-        child: Text('Continue'),
-      ): null,
+      floatingActionButton: _filters.isNotEmpty
+          ? ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const SwipePage()),
+                );
+              },
+              child: Text(
+                key: Key('Continue'),
+                'Continue',
+              ),
+            )
+          : null,
     );
   }
 }

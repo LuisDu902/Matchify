@@ -44,6 +44,7 @@ class _LoginState extends State<Login> {
 
   Widget _registerUsername() {
     return SizedBox(
+      key: Key("Register username"),
       width: 260,
       height: 80,
       child: TextFormField(
@@ -74,6 +75,7 @@ class _LoginState extends State<Login> {
 
   Widget _registerPassword() {
     return SizedBox(
+      key: Key("Register password"),
       width: 260,
       height: 80,
       child: TextFormField(
@@ -105,6 +107,7 @@ class _LoginState extends State<Login> {
 
   Widget _confirmPassword() {
     return SizedBox(
+      key: Key("Confirm password"),
       width: 260,
       height: 80,
       child: TextFormField(
@@ -145,6 +148,7 @@ class _LoginState extends State<Login> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Checkbox(
+          key: Key("Accept terms and conditions"),
           value: _isChecked,
           onChanged: (value) {
             setState(() {
@@ -166,6 +170,7 @@ class _LoginState extends State<Login> {
 
   Widget _registerButton() {
     return Container(
+      key: Key("Register"),
       decoration: BoxDecoration(
         boxShadow: [
           BoxShadow(
@@ -245,6 +250,7 @@ class _LoginState extends State<Login> {
 
   Widget _loginUsername() {
     return SizedBox(
+      key: Key("Login username"),
       width: 260,
       height: 80,
       child: TextFormField(
@@ -275,6 +281,7 @@ class _LoginState extends State<Login> {
 
   Widget _loginPassword() {
     return SizedBox(
+      key: Key("Login password"),
       width: 260,
       height: 80,
       child: TextFormField(
@@ -306,6 +313,7 @@ class _LoginState extends State<Login> {
 
   Widget _loginButton() {
     return Container(
+      key: Key("Login"),
       decoration: BoxDecoration(
         boxShadow: [
           BoxShadow(
@@ -346,6 +354,7 @@ class _LoginState extends State<Login> {
 
   Widget change() {
     return ElevatedButton(
+      key: Key('Change'),
         onPressed: () {
           setState(() {
             isLogin = !isLogin;
@@ -358,6 +367,7 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     if (isLogin) {
       return Scaffold(
+        key: Key("Login page"),
         appBar: appBar(),
         backgroundColor: Colors.white,
         body: Align(
@@ -380,6 +390,7 @@ class _LoginState extends State<Login> {
       );
     } else {
       return Scaffold(
+         key: Key("Register page"),
         drawer: Info(),
         appBar: appBar(),
         backgroundColor: Colors.white,
