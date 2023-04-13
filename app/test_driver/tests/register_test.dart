@@ -11,7 +11,7 @@ Future<void> main() async {
     ..reporters = [ProgressReporter()]
     ..stepDefinitions = [
       LaunchApp(),
-      CheckPage(),
+      CheckRegisterPage(),
       TapButton(),
       CheckPage(),
       FillField(),
