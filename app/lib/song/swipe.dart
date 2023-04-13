@@ -181,7 +181,7 @@ class _SwipeState extends State<SwipePage> {
                     Dismissible(
                       key: UniqueKey(),
                       direction:
-                          DismissDirection.horizontal, // Swipe left to dismiss
+                          DismissDirection.horizontal, 
                       onDismissed: (DismissDirection direction) {
                         if (direction == DismissDirection.startToEnd &&
                             !isDismissed) {
@@ -216,6 +216,7 @@ class _SwipeState extends State<SwipePage> {
                           });
                       },
                       child: Center(
+                        key: Key("Song image"),
                         child: Padding(
                           padding: EdgeInsets.only(bottom: 300),
                           child: Image.network(
@@ -231,6 +232,7 @@ class _SwipeState extends State<SwipePage> {
                       top: 400,
                       left: 170,
                       child: IconButton(
+                        key: Key("Play button"),
                         icon: Icon(Icons.play_arrow_rounded),
                         iconSize: 45,
                         onPressed: () {

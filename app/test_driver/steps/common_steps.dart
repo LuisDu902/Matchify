@@ -53,11 +53,16 @@ class CheckHomePage extends GivenWithWorld<FlutterWorld> {
       final password = find.byValueKey("Login password");
       final login = find.byValueKey("Login");
 
-      await FlutterDriverUtils.enterText(world.driver, username, "user1@gmail.com");
+      await FlutterDriverUtils.enterText(
+          world.driver, username, "user1@gmail.com");
       await FlutterDriverUtils.enterText(world.driver, password, "123456");
       await FlutterDriverUtils.tap(world.driver, login);
     }
-
+    
+     while (!isHomePage) {
+      await Future.delayed(Duration(milliseconds: 100)); // Sleep for 100ms
+      isHomePage = await FlutterDriverUtils.isPresent(world.driver, home);
+    }
     expect(isHomePage, true);
   }
 
