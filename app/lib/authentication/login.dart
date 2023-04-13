@@ -39,7 +39,9 @@ class _LoginState extends State<Login> {
   }
 
   Widget _errorMessage() {
-    return Text(errorMessage == '' ? '' : 'Humm ? $errorMessage');
+    return Text(
+      key : Key("Error message"),
+      errorMessage == '' ? '' : 'Humm ? $errorMessage');
   }
 
   Widget _registerUsername() {

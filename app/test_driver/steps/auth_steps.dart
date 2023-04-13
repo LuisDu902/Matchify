@@ -61,14 +61,18 @@ class FillField extends And2WithWorld<String, String, FlutterWorld> {
   RegExp get pattern =>
       RegExp(r"the user fills the {string} field with {string}");
 }
-/*
-class Registered extends And2WithWorld<String, String, FlutterWorld> {
+
+class ErrorMessage extends ThenWithWorld<FlutterWorld> {
   @override
-  Future<void> executeStep(String field, String input) async {
-    await Auth().deleteUser();
+  Future<void> executeStep() async {
+    final message = find.byValueKey("Error message");
+
+    bool isPresent = await FlutterDriverUtils.isPresent(world.driver, message);
+
+    expect(isPresent, true);
   }
 
   @override
-  RegExp get pattern => RegExp(r"the user has successfully registered ");
+  RegExp get pattern =>
+      RegExp(r"an error message appears");
 }
-*/

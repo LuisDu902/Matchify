@@ -7,19 +7,18 @@ import '../steps/auth_steps.dart';
 
 Future<void> main() async {
   final config = FlutterTestConfiguration()
-    ..features = ['test_driver/features/register.feature']
+    ..features = ['test_driver/features/successful_login.feature']
     ..reporters = [ProgressReporter()]
     ..stepDefinitions = [
       LaunchApp(),
-      CheckRegisterPage(),
+      CheckLoginPage(),
       FillField(),
       FillField(),
-      FillField(),
-      TapButton(),
       TapButton(),
       CheckHomePage(),
     ]
-    ..targetAppPath = "test_driver/app.dart";
+    ..targetAppPath = "test_driver/app.dart"
+    ..defaultTimeout = Duration(seconds: 30);
 
   GherkinRunner().execute(config);
 }

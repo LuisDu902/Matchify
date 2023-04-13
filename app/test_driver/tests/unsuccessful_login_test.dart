@@ -7,7 +7,7 @@ import '../steps/auth_steps.dart';
 
 Future<void> main() async {
   final config = FlutterTestConfiguration()
-    ..features = ['test_driver/features/login.feature']
+    ..features = ['test_driver/features/unsuccessful_login.feature']
     ..reporters = [ProgressReporter()]
     ..stepDefinitions = [
       LaunchApp(),
@@ -15,7 +15,8 @@ Future<void> main() async {
       FillField(),
       FillField(),
       TapButton(),
-      CheckHomePage(),
+      ErrorMessage(),
+      CheckLoginPage(),
     ]
     ..targetAppPath = "test_driver/app.dart"
     ..defaultTimeout = Duration(seconds: 30);
