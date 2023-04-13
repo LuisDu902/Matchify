@@ -5,7 +5,7 @@ Feature: Filters
 
   Background: 
     Given the user has launched the app
-    And the user is in the "Home page"
+    And the user is in the home page
     And the user taps "Create a new playlist"
 
   Scenario: apply filters

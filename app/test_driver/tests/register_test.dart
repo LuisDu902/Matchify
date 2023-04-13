@@ -12,19 +12,14 @@ Future<void> main() async {
     ..stepDefinitions = [
       LaunchApp(),
       CheckRegisterPage(),
-      TapButton(),
-      CheckPage(),
       FillField(),
       FillField(),
       FillField(),
       TapButton(),
       TapButton(),
-      CheckPage(),
+      CheckHomePage(),
     ]
-    ..targetAppPath = "test_driver/app.dart"
-    
-    ..restartAppBetweenScenarios = true;
+    ..targetAppPath = "test_driver/app.dart";
 
   GherkinRunner().execute(config);
-
 }

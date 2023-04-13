@@ -11,7 +11,7 @@ Future<void> main() async {
     ..reporters = [ProgressReporter()]
     ..stepDefinitions = [
       LaunchApp(),
-      CheckPage(),
+      CheckHomePage(),
       TapButton(),
       CheckPage(),
       TapButton(),
@@ -22,9 +22,7 @@ Future<void> main() async {
       CheckPage()
     ]
     ..targetAppPath = "test_driver/app.dart"
-    ..defaultTimeout = Duration(seconds: 30)
-    ..restartAppBetweenScenarios = true;
+    ..defaultTimeout = Duration(seconds: 30);
 
   GherkinRunner().execute(config);
-
 }

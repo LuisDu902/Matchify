@@ -15,11 +15,10 @@ Future<void> main() async {
       FillField(),
       FillField(),
       TapButton(),
-      CheckPage(),
+      CheckHomePage(),
     ]
     ..targetAppPath = "test_driver/app.dart"
-    ..restartAppBetweenScenarios = true;
+    ..defaultTimeout = Duration(seconds: 30);
 
   GherkinRunner().execute(config);
-
 }

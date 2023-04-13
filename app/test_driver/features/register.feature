@@ -8,9 +8,9 @@ Feature: Register
 
   Scenario: successful user registration
     Given the user is in the register page
-    When the user fills the "Register username" field with "user.1@gmail.com"
+    When the user fills the "Register username" field with "user.3@gmail.com"
     And the user fills the "Register password" field with "123456"
     And the user fills the "Confirm password" field with "123456"
     And the user taps "Accept terms and conditions"
     And the user taps "Register"
-    Then the user is in the "Home page"
+    Then the user is in the home page
