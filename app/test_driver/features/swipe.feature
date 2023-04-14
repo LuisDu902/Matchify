@@ -6,13 +6,13 @@ Feature: Choose songs
   Background: 
     Given the user has launched the app
     And the user is in the home page
-    And the user taps "Create a new playlist"
+    And the user taps "create a new playlist"
     And the user has chosen the filters to apply
-    And the user taps "Continue"
+    And the user taps "continue"
 
   Scenario: skip a song
-    Given the user is in the "Swipe page"
-    And the user taps "Play button"
+    Given the user is in the "swipe page"
+    And the user taps "play button"
     And the user listens to a short clip of a song
    
    

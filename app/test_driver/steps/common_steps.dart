@@ -5,7 +5,7 @@ import 'package:gherkin/gherkin.dart';
 class LaunchApp extends GivenWithWorld<FlutterWorld> {
   @override
   Future<void> executeStep() async {
-    final loadingPage = find.byValueKey("Loading page");
+    final loadingPage = find.byValueKey("loading page");
     bool pageExists =
         await FlutterDriverUtils.isPresent(world.driver, loadingPage);
     expect(pageExists, true);
@@ -41,17 +41,31 @@ class TapButton extends And1WithWorld<String, FlutterWorld> {
   RegExp get pattern => RegExp(r"the user taps {string}");
 }
 
+class DoubleTapButton extends And1WithWorld<String, FlutterWorld> {
+  @override
+  Future<void> executeStep(String key) async {
+    final button = find.byValueKey(key);
+
+    await FlutterDriverUtils.tap(world.driver, button);
+    await FlutterDriverUtils.tap(world.driver, button);
+  }
+
+  @override
+  RegExp get pattern => RegExp(r"the user double taps {string}");
+}
+
+
 class CheckHomePage extends GivenWithWorld<FlutterWorld> {
   @override
   Future<void> executeStep() async {
-    final home = find.byValueKey("Home page");
+    final home = find.byValueKey("home page");
 
     bool isHomePage = await FlutterDriverUtils.isPresent(world.driver, home);
 
     if (!isHomePage) {
-      final username = find.byValueKey("Login username");
-      final password = find.byValueKey("Login password");
-      final login = find.byValueKey("Login");
+      final username = find.byValueKey("login username");
+      final password = find.byValueKey("login password");
+      final login = find.byValueKey("login");
 
       await FlutterDriverUtils.enterText(
           world.driver, username, "user1@gmail.com");

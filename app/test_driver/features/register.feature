@@ -8,11 +8,11 @@ Feature: Register
 
   Scenario: successful user registration
     Given the user is in the register page
-    When the user fills the "Register username" field with "user.3@gmail.com"
-    And the user fills the "Register password" field with "123456"
-    And the user fills the "Confirm password" field with "123456"
-    And the user taps "Accept terms and conditions"
-    And the user taps "Register"
+    When the user fills the "register username" field with "user.3@gmail.com"
+    And the user fills the "register password" field with "123456"
+    And the user fills the "confirm password" field with "123456"
+    And the user taps "accept terms and conditions"
+    And the user taps "register"
     Then the user is in the home page
 
   Scenario: unsuccessful user registration
@@ -21,6 +21,6 @@ Feature: Register
     And the user fills the "Register password" field with "123456"
     And the user fills the "Confirm password" field with "123456"
     And the user taps "Accept terms and conditions"
-    And the user taps "Register"
+    And the user double taps "Register"
     Then an error message appears
     And the user is in the "Register page"

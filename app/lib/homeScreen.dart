@@ -10,7 +10,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: Key("Home page"),
+      key: Key("home page"),
       drawer: Info(),
       appBar: appBar(),
       backgroundColor: Colors.white, // Set the body background color to white
@@ -63,7 +63,7 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
             Positioned(
-               key: Key("Create a new playlist"),
+               key: Key("create a new playlist"),
               top: 280,
               left: 75,
               child: GestureDetector(

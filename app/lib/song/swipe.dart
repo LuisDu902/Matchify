@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:math';
-import 'package:firebase_database/firebase_database.dart';
 import 'dart:convert' as convert;
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
@@ -151,7 +150,7 @@ class _SwipeState extends State<SwipePage> {
         if (snapshot.hasData) {
           bool isDismissed = false;
           return Scaffold(
-            key: Key('Swipe page'),
+            key: Key('swipe page'),
             drawer: Info(),
             appBar: appBar(),
             backgroundColor: Colors.white,
@@ -216,7 +215,7 @@ class _SwipeState extends State<SwipePage> {
                           });
                       },
                       child: Center(
-                        key: Key("Song image"),
+                        key: Key("song image"),
                         child: Padding(
                           padding: EdgeInsets.only(bottom: 300),
                           child: Image.network(
@@ -232,7 +231,7 @@ class _SwipeState extends State<SwipePage> {
                       top: 400,
                       left: 170,
                       child: IconButton(
-                        key: Key("Play button"),
+                        key: Key("play button"),
                         icon: Icon(Icons.play_arrow_rounded),
                         iconSize: 45,
                         onPressed: () {

@@ -5,13 +5,13 @@ import 'package:gherkin/gherkin.dart';
 class CheckLoginPage extends GivenWithWorld<FlutterWorld> {
   @override
   Future<void> executeStep() async {
-    final loginPage = find.byValueKey("Login page");
+    final loginPage = find.byValueKey("login page");
 
     bool isLoginPage =
         await FlutterDriverUtils.isPresent(world.driver, loginPage);
 
     if (!isLoginPage) {
-      final logout = find.byValueKey("Log out");
+      final logout = find.byValueKey("log out");
       await FlutterDriverUtils.tap(world.driver, logout);
     }
   }
@@ -23,20 +23,20 @@ class CheckLoginPage extends GivenWithWorld<FlutterWorld> {
 class CheckRegisterPage extends GivenWithWorld<FlutterWorld> {
   @override
   Future<void> executeStep() async {
-    final login = find.byValueKey("Login page");
+    final login = find.byValueKey("login page");
     bool isLoginPage = await FlutterDriverUtils.isPresent(world.driver, login);
 
     if (!isLoginPage) {
-      final logout = find.byValueKey("Log out");
+      final logout = find.byValueKey("log out");
       await FlutterDriverUtils.tap(world.driver, logout);
     }
     expect(isLoginPage, true);
 
-    final button = find.byValueKey("Change");
+    final button = find.text('Sign up now!');
 
     await FlutterDriverUtils.tap(world.driver, button);
 
-    final register = find.byValueKey("Register page");
+    final register = find.byValueKey("register page");
     bool isRegisterPage = await FlutterDriverUtils.isPresent(world.driver, register);
 
     expect(isRegisterPage, true);
@@ -62,7 +62,7 @@ class FillField extends And2WithWorld<String, String, FlutterWorld> {
 class ErrorMessage extends ThenWithWorld<FlutterWorld> {
   @override
   Future<void> executeStep() async {
-    final message = find.byValueKey("Error message");
+    final message = find.byValueKey("error message");
 
     bool isPresent = await FlutterDriverUtils.isPresent(world.driver, message);
 

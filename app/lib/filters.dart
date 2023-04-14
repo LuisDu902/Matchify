@@ -177,6 +177,7 @@ class _FiltersState extends State<Filters> {
                     });
                   },
                   child: Container(
+                    key: Key(genre),
                     padding: EdgeInsets.symmetric(horizontal: 26, vertical: 8),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
@@ -247,6 +248,7 @@ class _FiltersState extends State<Filters> {
           children: _filters
               .map(
                 (genre) => Container(
+                  key: Key(genre),
                   margin: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
                   padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   decoration: BoxDecoration(
@@ -299,7 +301,7 @@ class _FiltersState extends State<Filters> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: Key('Filters page'),
+      key: Key("filters page"),
       drawer: Info(),
       appBar: appBar(),
       backgroundColor: Colors.white,
@@ -332,6 +334,16 @@ class _FiltersState extends State<Filters> {
                   MaterialPageRoute(builder: (context) => const SwipePage()),
                 );
               },
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(
+                    Color.fromRGBO(248, 206, 156, 1)),
+                foregroundColor: MaterialStateProperty.all<Color>(
+                    Color.fromRGBO(48, 21, 81, 1)),
+              ),
+              child: Text(
+                key: Key("continue"),
+                "Continue",
+              ),
             )
           : null,
     );

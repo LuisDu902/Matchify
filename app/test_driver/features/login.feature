@@ -8,15 +8,15 @@ Feature: Login
 
   Scenario: successful user log in
     Given the user is in the login page
-    When the user fills the "Login username" field with "user1@gmail.com"
-    And the user fills the "Login password" field with "123456"
-    And the user taps "Login"
+    When the user fills the "login username" field with "user1@gmail.com"
+    And the user fills the "login password" field with "123456"
+    And the user taps "login"
     Then the user is in the home page
 
   Scenario: unsuccessful user log in
     Given the user is in the login page
-    When the user fills the "Login username" field with "user1@gmail.com"
-    And the user fills the "Login password" field with "1234567"
-    And the user taps "Login"
+    When the user fills the "login username" field with "user1@gmail.com"
+    And the user fills the "login password" field with "1234567"
+    And the user double taps "login"
     Then an error message appears
-    And the user is in the "Login page"
+    And the user is in the "login page"

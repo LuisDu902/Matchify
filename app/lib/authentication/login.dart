@@ -48,11 +48,10 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   bool hasChosen = false;
   bool _isChecked = false;
-  String? errorMessage = null;
+  String? errorMessage;
   bool _obscureTextFirst = true;
   bool _obscureTextConfirm = true;
   bool _obscureTextLogin = true;
-
   bool isLogin = true;
 
   final TextEditingController _logUsername = TextEditingController();
@@ -77,7 +76,7 @@ class _LoginState extends State<Login> {
 
   Widget _registerUsername() {
     return SizedBox(
-      key: Key("Register username"),
+      key: Key("register username"),
       width: 260,
       height: 80,
       child: TextFormField(
@@ -108,7 +107,7 @@ class _LoginState extends State<Login> {
 
   Widget _registerPassword() {
     return SizedBox(
-      key: Key("Register password"),
+      key: Key("register password"),
       width: 260,
       height: 80,
       child: TextFormField(
@@ -151,7 +150,7 @@ class _LoginState extends State<Login> {
 
   Widget _confirmPassword() {
     return SizedBox(
-      key: Key("Confirm password"),
+      key: Key("confirm password"),
       width: 260,
       height: 80,
       child: TextFormField(
@@ -203,7 +202,7 @@ class _LoginState extends State<Login> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Checkbox(
-          key: Key("Accept terms and conditions"),
+          key: Key("accept terms and conditions"),
           value: _isChecked,
           onChanged: (value) {
             setState(() {
@@ -249,7 +248,25 @@ class _LoginState extends State<Login> {
     );
   }
 
+  SnackBar _errorMessage() {
+    return SnackBar(
+      key: Key("error message"),
+      content: Text("Please fill out the required fields correctly"),
+      backgroundColor: Colors.red,
+    );
+  }
+
   Widget _registerButton() {
+    return Builder(
+      builder: (context) => Container(
+        key: Key("register"),
+        decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 2,
+              blurRadius: 7,
+              offset: Offset(0, 3),
             ),
           ],
         ),
@@ -283,14 +300,6 @@ class _LoginState extends State<Login> {
                   backgroundColor: Colors.red,
                 ),
               );
-            } else if (errorMessage != null) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content:
-                      Text("Please fill out the required fields correctly"),
-                  backgroundColor: Colors.red,
-                ),
-              );
             } else if (!_isChecked) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
@@ -301,6 +310,11 @@ class _LoginState extends State<Login> {
               );
             } else {
               createUserWithEmailAndPassword();
+              if (errorMessage != null) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  _errorMessage(),
+                );
+              }
             }
           },
           child: Text('register'),
@@ -350,7 +364,7 @@ class _LoginState extends State<Login> {
 
   Widget _loginUsername() {
     return SizedBox(
-      key: Key("Login username"),
+      key: Key("login username"),
       width: 260,
       height: 80,
       child: TextFormField(
@@ -381,7 +395,7 @@ class _LoginState extends State<Login> {
 
   Widget _loginPassword() {
     return SizedBox(
-      key: Key("Login password"),
+      key: Key("login password"),
       width: 260,
       height: 80,
       child: TextFormField(
@@ -424,14 +438,14 @@ class _LoginState extends State<Login> {
 
   Widget _loginButton() {
     return Container(
-      key: Key("Login"),
+      key: Key("login"),
       decoration: BoxDecoration(
         boxShadow: [
           BoxShadow(
             color: Colors.grey.withOpacity(0.5),
             spreadRadius: 2,
             blurRadius: 7,
-            offset: Offset(0, 3), // changes position of shadow
+            offset: Offset(0, 3),
           ),
         ],
       ),
@@ -458,15 +472,11 @@ class _LoginState extends State<Login> {
                   )),
         ),
         onPressed: () {
+          signInWithEmailAndPassword();
           if (errorMessage != null) {
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text("Please fill out the required fields correctly"),
-                backgroundColor: Colors.red,
-              ),
+              _errorMessage(),
             );
-          } else {
-            signInWithEmailAndPassword();
           }
         },
         child: Text('login'),
@@ -475,7 +485,6 @@ class _LoginState extends State<Login> {
   }
 
   Widget change() {
-
     String message =
         isLogin ? "Don't have an account? " : "Already have an account? ";
     String actionText = isLogin ? "Sign up now!" : "Log in now!";
@@ -515,7 +524,7 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     if (isLogin) {
       return Scaffold(
-        key: Key("Login page"),
+        key: Key("login page"),
         appBar: appBar(),
         backgroundColor: Colors.white,
         body: Align(
@@ -528,7 +537,6 @@ class _LoginState extends State<Login> {
               _loginUsername(),
               _loginPassword(),
               SizedBox(height: 30),
-              //_errorMessage(),
               SizedBox(height: 10),
               _loginButton(),
               SizedBox(height: 30),
@@ -539,6 +547,7 @@ class _LoginState extends State<Login> {
       );
     } else {
       return Scaffold(
+        key: Key("register page"),
         drawer: Info(),
         appBar: appBar(),
         backgroundColor: Colors.white,
@@ -548,14 +557,14 @@ class _LoginState extends State<Login> {
             children: [
               SizedBox(height: 110),
               _registerTitle(),
-              // SizedBox(height: 50),
+              SizedBox(height: 50),
               _registerUsername(),
               _registerPassword(),
               _confirmPassword(),
               _termsAndConditions(),
-              //SizedBox(height: 30),
-              // _errorMessage(),
+              SizedBox(height: 20),
               _registerButton(),
+              SizedBox(height: 20),
               change(),
             ],
           ),
