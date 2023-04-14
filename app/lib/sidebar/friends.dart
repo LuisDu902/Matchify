@@ -11,7 +11,7 @@ class FriendsScreen extends StatefulWidget {
 
 class _FriendsScreenState extends State<FriendsScreen> {
   final user = Auth().currentUser;
-
+  final username = Auth().getUsername();
   bool isResquest = false;
 
   Color requestColor = Colors.white;
@@ -27,7 +27,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
     Query ref = database
         .ref()
         .child('users')
-        .child(user?.uid as String)
+        .child(username)
         .child('friends');
     final snapshot = await ref.get();
     friends.clear();
@@ -45,7 +45,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
     Query ref = database
         .reference()
         .child('users')
-        .child(user?.uid as String)
+        .child(username)
         .child('requests');
     final snapshot = await ref.get();
     requests.clear();
@@ -67,9 +67,18 @@ class _FriendsScreenState extends State<FriendsScreen> {
 
   void removeFriend(int index) {
     String friend = friends.elementAt(index);
+    final userRef = FirebaseDatabase.instance
+        .reference()
+        .child('users')
+        .child(username);
+    final friendRef =
+        FirebaseDatabase.instance.reference().child('users').child(friend);
+
+    userRef.child('friends').child(friend).remove();
+    friendRef.child('friends').child(username).remove();
   }
 
-  Widget pop_up(int index) {
+  Widget popUp(int index) {
     return AlertDialog(
       backgroundColor: Color.fromRGBO(252, 241, 183, 1),
       content: Text(
@@ -85,15 +94,15 @@ class _FriendsScreenState extends State<FriendsScreen> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            remove_button(index),
-            cancel_button(index),
+            removeButton(index),
+            cancelButton(index),
           ],
         ),
       ],
     );
   }
 
-  Widget cancel_button(int index) {
+  Widget cancelButton(int index) {
     return TextButton(
       onPressed: () {
         Navigator.of(context).pop();
@@ -124,7 +133,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
     );
   }
 
-  Widget remove_button(int index) {
+  Widget removeButton(int index) {
     return TextButton(
       onPressed: () {
         removeFriend(index);
@@ -157,50 +166,67 @@ class _FriendsScreenState extends State<FriendsScreen> {
   }
 
   Widget showFriends() {
-    return Expanded(
-      child: Container(
-        margin: EdgeInsets.only(top: 16.0),
-        child: ListView.builder(
-          padding: EdgeInsets.only(top: 8.0),
-          shrinkWrap: true,
-          itemCount: friends.length,
-          itemBuilder: (BuildContext context, int index) {
-            return Padding(
-              padding: const EdgeInsets.symmetric(
-                vertical: 8.0,
-                horizontal: 16.0,
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    friends[index],
-                    style: TextStyle(
-                      fontSize: 20.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  IconButton(
-                    icon: Icon(
-                      Icons.clear,
-                      color: Colors.grey[600],
-                    ),
-                    onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return pop_up(index);
-                        },
-                      );
-                    },
-                  ),
-                ],
-              ),
-            );
-          },
+    if (friends.isEmpty) {
+      return Padding(
+        padding: const EdgeInsets.symmetric(
+          vertical: 8.0,
+          horizontal: 16.0,
         ),
-      ),
-    );
+        child: Text(
+          "Looks like you haven't added any friends yet. Why not add some?",
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontFamily: 'Roboto',
+            fontSize: 20.0,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      );
+    } else
+      return Expanded(
+        child: Container(
+          margin: EdgeInsets.only(top: 16.0),
+          child: ListView.builder(
+            padding: EdgeInsets.only(top: 8.0),
+            shrinkWrap: true,
+            itemCount: friends.length,
+            itemBuilder: (BuildContext context, int index) {
+              return Padding(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 8.0,
+                  horizontal: 16.0,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      friends[index],
+                      style: TextStyle(
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    IconButton(
+                      icon: Icon(
+                        Icons.clear,
+                        color: Colors.grey[600],
+                      ),
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return popUp(index);
+                          },
+                        );
+                      },
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
+        ),
+      );
   }
 
   void removeRequest(int index) {
@@ -208,10 +234,10 @@ class _FriendsScreenState extends State<FriendsScreen> {
     DatabaseReference requestRef = FirebaseDatabase.instance
         .reference()
         .child('users')
-        .child(user?.uid as String)
+        .child(username)
         .child('requests');
 
-    requestRef.remove();
+    requestRef.child(request).remove();
   }
 
   void acceptRequest(int index) {
@@ -220,69 +246,86 @@ class _FriendsScreenState extends State<FriendsScreen> {
     final userRef = FirebaseDatabase.instance
         .reference()
         .child('users')
-        .child(user?.uid as String);
+        .child(username);
 
-    final userRef2 = FirebaseDatabase.instance
+    final friendRef = FirebaseDatabase.instance
         .reference()
         .child('users')
         .child(acceptedRequest);
 
     // Add the accepted request to the friends list in the database
     userRef.child('friends').push().set(acceptedRequest);
-    userRef2.child('friends').push().set(user?.uid as String);
+    friendRef.child('friends').push().set(username);
   }
 
   Widget showRequests() {
-    return Expanded(
-      child: Container(
-        margin: EdgeInsets.only(top: 16.0),
-        child: ListView.builder(
-          padding: EdgeInsets.only(top: 8.0),
-          shrinkWrap: true,
-          itemCount: requests.length,
-          itemBuilder: (BuildContext context, int index) {
-            return Padding(
-              padding: const EdgeInsets.symmetric(
-                vertical: 8.0,
-                horizontal: 16.0,
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Text(
-                    requests[index],
-                    style: TextStyle(
-                      fontFamily: 'Roboto',
-                      fontSize: 20.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Spacer(),
-                  IconButton(
-                    icon: Icon(
-                      Icons.check,
-                      color: Colors.grey[600],
-                    ),
-                    onPressed: () {
-                      acceptRequest(index);
-                    },
-                  ),
-                  IconButton(
-                    icon: Icon(
-                      Icons.clear,
-                      color: Colors.grey[600],
-                    ),
-                    onPressed: () {
-                      removeRequest(index);
-                    },
-                  ),
-                ],
-              ),
-            );
-          },
+    if (requests.isEmpty) {
+      return Padding(
+        padding: const EdgeInsets.symmetric(
+          vertical: 8.0,
+          horizontal: 16.0,
         ),
-      ),
-    );
+        child: Text(
+          "Your friend request list is empty.\n Don't worry, you'll receive some soon!",
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontFamily: 'Roboto',
+            fontSize: 20.0,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      );
+    } else
+      return Expanded(
+        child: Container(
+          margin: EdgeInsets.only(top: 16.0),
+          child: ListView.builder(
+            padding: EdgeInsets.only(top: 8.0),
+            shrinkWrap: true,
+            itemCount: requests.length,
+            itemBuilder: (BuildContext context, int index) {
+              return Padding(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 8.0,
+                  horizontal: 16.0,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                      requests[index],
+                      style: TextStyle(
+                        fontFamily: 'Roboto',
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Spacer(),
+                    IconButton(
+                      icon: Icon(
+                        Icons.check,
+                        color: Colors.grey[600],
+                      ),
+                      onPressed: () {
+                        acceptRequest(index);
+                      },
+                    ),
+                    IconButton(
+                      icon: Icon(
+                        Icons.clear,
+                        color: Colors.grey[600],
+                      ),
+                      onPressed: () {
+                        removeRequest(index);
+                      },
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
+        ),
+      );
   }
 
   Widget buttons() {
