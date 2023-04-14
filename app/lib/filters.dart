@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:matchify/infoScreen.dart';
-import 'appBar.dart';
+import 'package:matchify/appBar/infoScreen.dart';
+import 'appBar/appBar.dart';
 import 'song/swipe.dart';
 
 class Filters extends StatefulWidget {

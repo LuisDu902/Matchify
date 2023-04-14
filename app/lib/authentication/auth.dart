@@ -1,7 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 
 class Auth {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  final FirebaseDatabase _firebaseDatabase = FirebaseDatabase.instance;
 
   User? get currentUser => _firebaseAuth.currentUser;
 
@@ -25,9 +27,28 @@ class Auth {
       email: email,
       password: password,
     );
+
+    final RegExp regex = RegExp(r'^([^@]+)@');
+    final usernameMatch = regex.firstMatch(email);
+    final username = usernameMatch != null ? usernameMatch.group(1) : email;
+
+    final userObject = {
+      'email': email,
+      'username': username,
+    };
+
+    await _firebaseDatabase
+        .reference()
+        .child('users')
+        .child(username as String)
+        .set(userObject);
   }
 
   Future<void> signOut() async {
     await _firebaseAuth.signOut();
+  }
+
+  Future<void> deleteAccount() async {
+    await currentUser?.delete();
   }
 }

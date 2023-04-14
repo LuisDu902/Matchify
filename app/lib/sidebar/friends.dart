@@ -1,6 +1,8 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:matchify/appBar.dart';
-import 'package:matchify/infoScreen.dart';
+import 'package:matchify/appBar/appBar.dart';
+import 'package:matchify/appBar/infoScreen.dart';
+import 'package:matchify/authentication/auth.dart';
 
 class FriendsScreen extends StatefulWidget {
   @override
@@ -8,12 +10,63 @@ class FriendsScreen extends StatefulWidget {
 }
 
 class _FriendsScreenState extends State<FriendsScreen> {
-  final List<String> friends = ['Madaleme Ye', 'Luis Du'];
+  final user = Auth().currentUser;
+
+  bool isResquest = false;
+
+  Color requestColor = Colors.white;
+  Color friendColor = Color.fromRGBO(48, 21, 81, 1);
+  Color requestText = Color.fromRGBO(48, 21, 81, 1);
+  Color friendText = Colors.white;
+
+  List<String> friends = [];
+  List<String> requests = [];
+
+  Future<List<String>> fetchFriends() async {
+    final database = FirebaseDatabase.instance;
+    Query ref = database
+        .ref()
+        .child('users')
+        .child(user?.uid as String)
+        .child('friends');
+    final snapshot = await ref.get();
+    friends.clear();
+    if (snapshot.exists) {
+      List<String> friendsList = snapshot.children.map((child) {
+        return child.value as String;
+      }).toList();
+      friends = List.from(friends)..addAll(friendsList);
+    }
+    return friends;
+  }
+
+  Future<List<String>> fetchRequests() async {
+    final database = FirebaseDatabase.instance;
+    Query ref = database
+        .reference()
+        .child('users')
+        .child(user?.uid as String)
+        .child('requests');
+    final snapshot = await ref.get();
+    requests.clear();
+
+    if (snapshot.exists) {
+      List<String> requestsList = snapshot.children.map((child) {
+        return child.value as String;
+      }).toList();
+      requests = List.from(requests)..addAll(requestsList);
+    }
+    return requests;
+  }
+
+  Future<List<List<String>>> getFriends() async {
+    friends = await fetchFriends();
+    requests = await fetchRequests();
+    return [friends, requests];
+  }
 
   void removeFriend(int index) {
-    setState(() {
-      friends.removeAt(index);
-    });
+    String friend = friends.elementAt(index);
   }
 
   Widget pop_up(int index) {
@@ -150,25 +203,33 @@ class _FriendsScreenState extends State<FriendsScreen> {
     );
   }
 
-  bool isResquest = false;
-
-  final List<String> requests = ['Request 1', 'Request 2'];
-
-  Color requestColor = Colors.white;
-  Color friendColor = Color.fromRGBO(48, 21, 81, 1);
-  Color requestText = Color.fromRGBO(48, 21, 81, 1);
-  Color friendText = Colors.white;
-
   void removeRequest(int index) {
-    setState(() {
-      requests.removeAt(index);
-    });
+    String request = requests.elementAt(index);
+    DatabaseReference requestRef = FirebaseDatabase.instance
+        .reference()
+        .child('users')
+        .child(user?.uid as String)
+        .child('requests');
+
+    requestRef.remove();
   }
 
   void acceptRequest(int index) {
-    setState(() {
-      friends.add(requests.elementAt(index) as String);
-    });
+    final acceptedRequest = requests.elementAt(index);
+    removeRequest(index);
+    final userRef = FirebaseDatabase.instance
+        .reference()
+        .child('users')
+        .child(user?.uid as String);
+
+    final userRef2 = FirebaseDatabase.instance
+        .reference()
+        .child('users')
+        .child(acceptedRequest);
+
+    // Add the accepted request to the friends list in the database
+    userRef.child('friends').push().set(acceptedRequest);
+    userRef2.child('friends').push().set(user?.uid as String);
   }
 
   Widget showRequests() {
@@ -203,7 +264,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
                       color: Colors.grey[600],
                     ),
                     onPressed: () {
-                      removeRequest(index);
+                      acceptRequest(index);
                     },
                   ),
                   IconButton(
@@ -296,17 +357,33 @@ class _FriendsScreenState extends State<FriendsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      drawer: Info(),
-      appBar: appBar(),
-      backgroundColor: Colors.white,
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          buttons(),
-          isResquest ? showRequests() : showFriends(),
-        ],
-      ),
+    return FutureBuilder(
+      future: getFriends(),
+      builder:
+          (BuildContext context, AsyncSnapshot<List<List<String>>> snapshot) {
+        if (snapshot.hasData) {
+          return Scaffold(
+            drawer: Info(),
+            appBar: appBar(),
+            backgroundColor: Colors.white,
+            body: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                buttons(),
+                isResquest ? showRequests() : showFriends(),
+              ],
+            ),
+          );
+        } else if (snapshot.hasError) {
+          return Center(
+            child: Text('Error fetching friends'),
+          );
+        } else {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+      },
     );
   }
 }
