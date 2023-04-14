@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:matchify/sidebar/friends.dart';
+import 'package:matchify/sidebar/addFriends.dart';
 
 class Info extends StatefulWidget {
   const Info({super.key});
@@ -88,7 +89,16 @@ class AddFriendCard extends StatelessWidget {
           ),
         ),
         ListTile(
-          onTap: () {},
+          onTap: () {
+              Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => AddFriendsScreen(),
+              ),
+            );
+
+
+          },
           leading: CircleAvatar(
             backgroundColor: Colors.white24,
             child: Icon(
