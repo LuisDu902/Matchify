@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import '../appBar.dart';
-import '../infoScreen.dart';
+import '../appBar/appBar.dart';
+import '../appBar/infoScreen.dart';
 import 'auth.dart';
 
 class MyTermsAndConditionsDialog extends StatelessWidget {

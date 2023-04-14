@@ -5,8 +5,8 @@ import 'dart:convert' as convert;
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:matchify/song/song.dart';
-import '../appBar.dart';
-import '../infoScreen.dart';
+import '../appBar/appBar.dart';
+import '../appBar/infoScreen.dart';
 import '../filters.dart';
 
 class SwipePage extends StatefulWidget {

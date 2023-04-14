@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:matchify/authentication/login.dart';
+import 'package:matchify/homeScreen.dart';
+import 'authentication/widget_tree.dart';
 import 'loadingScreen.dart';
 
 Future<void> main() async {
@@ -14,10 +16,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Matchify',
+      
       home: LoadingScreen(),
+      routes: {
+        '/widget_tree' : (context) => WidgetTree(),
+      },
+      
     );
   }
 }

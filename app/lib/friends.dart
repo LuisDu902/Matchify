@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:matchify/appBar.dart';
-import 'package:matchify/infoScreen.dart';
+import 'package:matchify/appBar/appBar.dart';
+import 'package:matchify/appBar/infoScreen.dart';
 
 class FriendsScreen extends StatefulWidget {
   @override

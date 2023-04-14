@@ -37,7 +37,6 @@ class Auth {
       'username': username,
     };
 
-    // Save user object to the Firebase Realtime Database
     await _firebaseDatabase
         .reference()
         .child('users')
@@ -47,5 +46,9 @@ class Auth {
 
   Future<void> signOut() async {
     await _firebaseAuth.signOut();
+  }
+
+  Future<void> deleteAccount() async {
+    await currentUser?.delete();
   }
 }
