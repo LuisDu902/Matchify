@@ -63,16 +63,19 @@ class _FiltersState extends State<Filters> {
     switch (filter) {
       case 'Genre':
         return Icon(
+          key: Key(filter),
           _isGenreListVisible ? Icons.arrow_drop_up : Icons.arrow_drop_down,
           size: 24.0,
         );
       case 'Mood':
         return Icon(
+          key: Key(filter),
           _isMoodListVisible ? Icons.arrow_drop_up : Icons.arrow_drop_down,
           size: 24.0,
         );
       case 'Decade':
         return Icon(
+          key: Key(filter),
           _isDecadeListVisible ? Icons.arrow_drop_up : Icons.arrow_drop_down,
           size: 24.0,
         );
@@ -296,6 +299,7 @@ class _FiltersState extends State<Filters> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: Key('Filters page'),
       drawer: Info(),
       appBar: appBar(),
       backgroundColor: Colors.white,
@@ -328,13 +332,6 @@ class _FiltersState extends State<Filters> {
                   MaterialPageRoute(builder: (context) => const SwipePage()),
                 );
               },
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(
-                    Color.fromRGBO(248, 206, 156, 1)),
-                foregroundColor: MaterialStateProperty.all<Color>(
-                    Color.fromRGBO(48, 21, 81, 1)),
-              ),
-              child: Text('Continue'),
             )
           : null,
     );

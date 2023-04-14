@@ -62,6 +62,7 @@ class appBar extends StatelessWidget implements PreferredSizeWidget {
       ),
       actions: [
         IconButton(
+          key: Key('Log out'),
           onPressed: signOut,
           icon: const Icon(
             Icons.person,

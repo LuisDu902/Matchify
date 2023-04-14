@@ -250,16 +250,6 @@ class _LoginState extends State<Login> {
   }
 
   Widget _registerButton() {
-    return Builder(
-      builder: (context) => Container(
-        key: Key("Register"),
-        decoration: BoxDecoration(
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.5),
-              spreadRadius: 2,
-              blurRadius: 7,
-              offset: Offset(0, 3), // changes position of shadow
             ),
           ],
         ),
@@ -485,6 +475,7 @@ class _LoginState extends State<Login> {
   }
 
   Widget change() {
+
     String message =
         isLogin ? "Don't have an account? " : "Already have an account? ";
     String actionText = isLogin ? "Sign up now!" : "Log in now!";
@@ -548,7 +539,6 @@ class _LoginState extends State<Login> {
       );
     } else {
       return Scaffold(
-        key: Key("Register page"),
         drawer: Info(),
         appBar: appBar(),
         backgroundColor: Colors.white,
