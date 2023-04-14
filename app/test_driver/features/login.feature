@@ -17,6 +17,6 @@ Feature: Login
     Given the user is in the login page
     When the user fills the "login username" field with "user1@gmail.com"
     And the user fills the "login password" field with "1234567"
-    And the user double taps "login"
+    And the user taps "login"
     Then an error message appears
     And the user is in the "login page"

@@ -41,20 +41,6 @@ class TapButton extends And1WithWorld<String, FlutterWorld> {
   RegExp get pattern => RegExp(r"the user taps {string}");
 }
 
-class DoubleTapButton extends And1WithWorld<String, FlutterWorld> {
-  @override
-  Future<void> executeStep(String key) async {
-    final button = find.byValueKey(key);
-
-    await FlutterDriverUtils.tap(world.driver, button);
-    await FlutterDriverUtils.tap(world.driver, button);
-  }
-
-  @override
-  RegExp get pattern => RegExp(r"the user double taps {string}");
-}
-
-
 class CheckHomePage extends GivenWithWorld<FlutterWorld> {
   @override
   Future<void> executeStep() async {

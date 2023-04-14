@@ -21,7 +21,7 @@ Future<void> main() async {
       CheckLoginPage(),
       FillField(),
       FillField(),
-      DoubleTapButton(),
+      TapButton(),
       ErrorMessage(),
       CheckPage(),
     ]

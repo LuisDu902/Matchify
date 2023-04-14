@@ -21,6 +21,6 @@ Feature: Register
     And the user fills the "Register password" field with "123456"
     And the user fills the "Confirm password" field with "123456"
     And the user taps "Accept terms and conditions"
-    And the user double taps "Register"
+    And the user taps "Register"
     Then an error message appears
     And the user is in the "Register page"

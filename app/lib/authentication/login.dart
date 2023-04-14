@@ -292,7 +292,7 @@ class _LoginState extends State<Login> {
                       fontWeight: FontWeight.w400,
                     )),
           ),
-          onPressed: () {
+          onPressed: () async {
             if (_regPassword.text != _confPassword.text) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
@@ -309,7 +309,7 @@ class _LoginState extends State<Login> {
                 ),
               );
             } else {
-              createUserWithEmailAndPassword();
+              await createUserWithEmailAndPassword();
               if (errorMessage != null) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   _errorMessage(),
@@ -471,8 +471,8 @@ class _LoginState extends State<Login> {
                     fontWeight: FontWeight.w400,
                   )),
         ),
-        onPressed: () {
-          signInWithEmailAndPassword();
+        onPressed: () async {
+          await signInWithEmailAndPassword();
           if (errorMessage != null) {
             ScaffoldMessenger.of(context).showSnackBar(
               _errorMessage(),
