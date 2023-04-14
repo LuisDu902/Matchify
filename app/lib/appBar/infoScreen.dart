@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:matchify/friends.dart';
+import 'package:matchify/sidebar/friends.dart';
 
 class Info extends StatefulWidget {
   const Info({super.key});

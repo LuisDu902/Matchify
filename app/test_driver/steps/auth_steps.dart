@@ -6,7 +6,7 @@ class CheckLoginPage extends GivenWithWorld<FlutterWorld> {
   @override
   Future<void> executeStep() async {
     final loginPage = find.byValueKey("login page");
-
+  
     bool isLoginPage =
         await FlutterDriverUtils.isPresent(world.driver, loginPage);
 
