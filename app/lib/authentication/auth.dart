@@ -40,7 +40,7 @@ class Auth {
     await _firebaseDatabase
         .reference()
         .child('users')
-        .child(currentUser!.uid)
+        .child(username as String)
         .set(userObject);
   }
 
