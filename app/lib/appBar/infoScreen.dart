@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:matchify/sidebar/friends.dart';
 import 'package:matchify/sidebar/addFriends.dart';
 
+import '../sidebar/about.dart';
 import '../sidebar/library.dart';
 
 class Info extends StatefulWidget {
@@ -132,7 +133,15 @@ class AboutCard extends StatelessWidget {
           ),
         ),
         ListTile(
-          onTap: () {},
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => AboutScreen(),
+              ),
+            );
+
+          },
           leading: CircleAvatar(
             backgroundColor: Colors.white24,
             child: Icon(
