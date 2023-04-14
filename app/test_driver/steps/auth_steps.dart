@@ -32,7 +32,7 @@ class CheckRegisterPage extends GivenWithWorld<FlutterWorld> {
     }
     expect(isLoginPage, true);
 
-    final button = find.text('Sign up now!');
+    final button = find.byValueKey("change");
 
     await FlutterDriverUtils.tap(world.driver, button);
 

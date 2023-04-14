@@ -17,10 +17,10 @@ Feature: Register
 
   Scenario: unsuccessful user registration
     Given I am on the register page
-    When I fill the "Register username" field with "user1@gmail.com"
-    And I fill the "Register password" field with "123456"
-    And I fill the "Confirm password" field with "123456"
-    And I tap the "Accept terms and conditions" button
-    And I tap the "Register" button
+    When I fill the "register username" field with "user1@gmail.com"
+    And I fill the "register password" field with "123456"
+    And I fill the "confirm password" field with "123456"
+    And I tap the "accept terms and conditions" button
+    And I tap the "register" button
     Then an error message appears
-    And I am on the "Register page"
+    And I am on the "register page"
