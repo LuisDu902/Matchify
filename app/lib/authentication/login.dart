@@ -1,8 +1,42 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import '../appBar.dart';
 import '../infoScreen.dart';
 import 'auth.dart';
+
+class MyTermsAndConditionsDialog extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: Text('Terms & Conditions'),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'In order to use Matchify, you must create an account. You are responsible for maintaining the confidentiality of your account information and password. You are also responsible for all activities that occur under your account.',
+          ),
+          SizedBox(height: 16),
+          Text(
+            'Matchify is provided "as is" and without warranty of any kind. We do not warrant that the application will be uninterrupted or error-free.',
+          ),
+          SizedBox(height: 16),
+          Text(
+              'Matchify and all of its content, including but not limited to text, graphics, logos, images, and software, are the property of Matchify and are protected by copyright and other intellectual property laws.'),
+        ],
+      ),
+      actions: <Widget>[
+        TextButton(
+          child: Text('Close'),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+      ],
+    );
+  }
+}
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -14,7 +48,10 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   bool hasChosen = false;
   bool _isChecked = false;
-  String? errorMessage = '';
+  String? errorMessage = null;
+  bool _obscureTextFirst = true;
+  bool _obscureTextConfirm = true;
+  bool _obscureTextLogin = true;
 
   bool isLogin = true;
 
@@ -37,10 +74,6 @@ class _LoginState extends State<Login> {
       });
     }
   }
-
-  /* Widget _errorMessage() {
-    return Text(errorMessage == '' ? '' : 'Humm ? $errorMessage');
-  }*/
 
   Widget _registerUsername() {
     return SizedBox(
@@ -99,8 +132,19 @@ class _LoginState extends State<Login> {
               width: 1.0,
             ),
           ),
+          suffixIcon: GestureDetector(
+            onTap: () {
+              setState(() {
+                _obscureTextFirst = !_obscureTextFirst;
+              });
+            },
+            child: Icon(
+              _obscureTextFirst ? Icons.visibility_off : Icons.visibility,
+              color: Colors.grey,
+            ),
+          ),
         ),
-        obscureText: true,
+        obscureText: _obscureTextFirst,
       ),
     );
   }
@@ -131,8 +175,19 @@ class _LoginState extends State<Login> {
               width: 1.0,
             ),
           ),
+          suffixIcon: GestureDetector(
+            onTap: () {
+              setState(() {
+                _obscureTextConfirm = !_obscureTextConfirm;
+              });
+            },
+            child: Icon(
+              _obscureTextConfirm ? Icons.visibility_off : Icons.visibility,
+              color: Colors.grey,
+            ),
+          ),
         ),
-        obscureText: true,
+        obscureText: _obscureTextConfirm,
         validator: (value) {
           if (value != _regPassword.text) {
             return 'Passwords do not match';
@@ -156,14 +211,40 @@ class _LoginState extends State<Login> {
             });
           },
         ),
-        Text(
-          "I Accept Terms & Conditions of Matchify",
-          style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-            fontFamily: 'Roboto',
+        RichText(
+          text: TextSpan(
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              fontFamily: 'Roboto',
+              color: Colors.black,
+            ),
+            children: [
+              TextSpan(
+                text: 'I Accept ',
+              ),
+              TextSpan(
+                text: 'Terms & Conditions',
+                style: TextStyle(
+                  decoration: TextDecoration.underline,
+                  color: Colors.lightBlue,
+                ),
+                recognizer: TapGestureRecognizer()
+                  ..onTap = () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return MyTermsAndConditionsDialog();
+                      },
+                    );
+                  },
+              ),
+              TextSpan(
+                text: ' of Matchify',
+              ),
+            ],
           ),
-        ),
+        )
       ],
     );
   }
@@ -215,7 +296,8 @@ class _LoginState extends State<Login> {
             } else if (errorMessage != null) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: Text("Please fill out the required fields correctly"),
+                  content:
+                      Text("Please fill out the required fields correctly"),
                   backgroundColor: Colors.red,
                 ),
               );
@@ -333,8 +415,19 @@ class _LoginState extends State<Login> {
               width: 1.0,
             ),
           ),
+          suffixIcon: GestureDetector(
+            onTap: () {
+              setState(() {
+                _obscureTextLogin = !_obscureTextLogin;
+              });
+            },
+            child: Icon(
+              _obscureTextLogin ? Icons.visibility_off : Icons.visibility,
+              color: Colors.grey,
+            ),
+          ),
         ),
-        obscureText: true,
+        obscureText: _obscureTextLogin,
       ),
     );
   }
@@ -392,23 +485,36 @@ class _LoginState extends State<Login> {
   }
 
   Widget change() {
-    String message = isLogin
-        ? "Don't have an account? Sign up now!"
-        : "Already have an account? Log in now!";
+    String message =
+        isLogin ? "Don't have an account? " : "Already have an account? ";
+    String actionText = isLogin ? "Sign up now!" : "Log in now!";
     return Container(
-      child: GestureDetector(
-        onTap: () {
-          setState(() {
-            isLogin = !isLogin;
-          });
-        },
-        child: Text(
-          message,
+      child: RichText(
+        text: TextSpan(
+          text: message,
           style: TextStyle(
             fontSize: 18.0,
-            color: Color.fromRGBO(48, 21, 81, 1),
-            decoration: TextDecoration.underline,
+            color: Colors.black,
           ),
+          children: <TextSpan>[
+            TextSpan(
+              text: actionText,
+              style: TextStyle(
+                fontSize: 18.0,
+                color: Colors.lightBlue,
+                decoration: TextDecoration.underline,
+              ),
+              recognizer: TapGestureRecognizer()
+                ..onTap = () {
+                  if ((isLogin && actionText == 'Sign up now!') ||
+                      (!isLogin && actionText == 'Log in now!')) {
+                    setState(() {
+                      isLogin = !isLogin;
+                    });
+                  }
+                },
+            ),
+          ],
         ),
       ),
     );
