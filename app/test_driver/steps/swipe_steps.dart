@@ -25,16 +25,27 @@ class SelectFilters extends AndWithWorld<FlutterWorld> {
   }
 
   @override
-  RegExp get pattern => RegExp(r'the user has chosen the filters to apply');
+  RegExp get pattern => RegExp(r'I have chosen the filters to apply');
 }
 
 class ListenToShortClip extends AndWithWorld<FlutterWorld> {
   @override
   Future<void> executeStep() async {
-     await Future.delayed(const Duration(seconds: 10));
+    await Future.delayed(const Duration(seconds: 10));
   }
 
   @override
-  RegExp get pattern => RegExp(r'the user listens to a short clip of a song');
+  RegExp get pattern => RegExp(r'I listen to a short clip of a song');
 }
 
+class SkipSong extends ThenWithWorld<FlutterWorld> {
+  @override
+  Future<void> executeStep() async {
+    final page = find.byValueKey('swipe page');
+    bool isSwipePage = await FlutterDriverUtils.isPresent(world.driver, page);
+    expect(isSwipePage, true);
+  }
+
+  @override
+  RegExp get pattern => RegExp(r'the song was skipped');
+}

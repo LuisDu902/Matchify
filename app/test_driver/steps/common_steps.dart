@@ -14,7 +14,7 @@ class LaunchApp extends GivenWithWorld<FlutterWorld> {
   }
 
   @override
-  RegExp get pattern => RegExp(r"the user has launched the app");
+  RegExp get pattern => RegExp(r"I have launched the app");
 }
 
 class CheckPage extends And1WithWorld<String, FlutterWorld> {
@@ -26,20 +26,10 @@ class CheckPage extends And1WithWorld<String, FlutterWorld> {
   }
 
   @override
-  RegExp get pattern => RegExp(r"the user is in the {string}");
+  RegExp get pattern => RegExp(r"I am on the {string}")
+;
 }
 
-class TapButton extends And1WithWorld<String, FlutterWorld> {
-  @override
-  Future<void> executeStep(String key) async {
-    final button = find.byValueKey(key);
-
-    await FlutterDriverUtils.tap(world.driver, button);
-  }
-
-  @override
-  RegExp get pattern => RegExp(r"the user taps {string}");
-}
 
 class CheckHomePage extends GivenWithWorld<FlutterWorld> {
   @override
@@ -67,5 +57,5 @@ class CheckHomePage extends GivenWithWorld<FlutterWorld> {
   }
 
   @override
-  RegExp get pattern => RegExp(r"the user is in the home page");
+  RegExp get pattern => RegExp(r"I am on the home page");
 }

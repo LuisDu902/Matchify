@@ -231,7 +231,7 @@ class _SwipeState extends State<SwipePage> {
                       top: 400,
                       left: 170,
                       child: IconButton(
-                        key: Key("play button"),
+                        key: Key("play"),
                         icon: Icon(Icons.play_arrow_rounded),
                         iconSize: 45,
                         onPressed: () {

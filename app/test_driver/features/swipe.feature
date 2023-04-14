@@ -4,15 +4,17 @@ Feature: Choose songs
   so that those songs are added or not (respectively) to the playlist I am creating
 
   Background: 
-    Given the user has launched the app
-    And the user is in the home page
-    And the user taps "create a new playlist"
-    And the user has chosen the filters to apply
-    And the user taps "continue"
+    Given I have launched the app
+    And I am on the home page
+    And I tap the "create a new playlist" button
+    And I have chosen the filters to apply
+    And I tap the "continue" button
 
   Scenario: skip a song
-    Given the user is in the "swipe page"
-    And the user taps "play button"
-    And the user listens to a short clip of a song
+    Given I am on the "swipe page"
+    And I tap the "play" button
+    And I listen to a short clip of a song
+    When I swipe left by 300 pixels on the "song image"
+    Then the song was skipped
    
    

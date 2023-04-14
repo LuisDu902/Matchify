@@ -12,22 +12,11 @@ Future<void> main() async {
     ..stepDefinitions = [
       LaunchApp(),
       CheckRegisterPage(),
-      FillField(),
-      FillField(),
-      FillField(),
-      TapButton(),
-      TapButton(),
-      CheckHomePage(),
-
-      LaunchApp(),
-      CheckRegisterPage(),
-      FillField(),
-      FillField(),
-      FillField(),
-      TapButton(),
-      TapButton(),
+      TapWidgetOfTypeStep(),
+      WhenFillFieldStep(),
       ErrorMessage(),
       CheckPage(),
+      CheckHomePage(),
     ]
     ..targetAppPath = "test_driver/app.dart";
 
