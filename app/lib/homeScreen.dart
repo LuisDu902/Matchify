@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:matchify/filters.dart';
 
-import 'appBar.dart';
-import 'infoScreen.dart';
+import 'appBar/appBar.dart';
+import 'appBar/infoScreen.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({Key? key});
-
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,7 +14,7 @@ class HomeScreen extends StatelessWidget {
       drawer: Info(),
       appBar: appBar(),
       backgroundColor: Colors.white, // Set the body background color to white
-
+      
       body: SizedBox(
         child: Stack(
           children: <Widget>[
