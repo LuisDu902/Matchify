@@ -12,14 +12,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   Future<void> signOut() async {
     await Auth().signOut();
-     Navigator.pushNamedAndRemoveUntil(
-        context, '/widget_tree', (route) => false);
+     Navigator.pushNamedAndRemoveUntil(context, '/widget_tree', (route) => false);
   }
 
   Future<void> deleteAccount() async {
     await Auth().deleteAccount();
-    Navigator.pushNamedAndRemoveUntil(
-        context, '/widget_tree', (route) => false);
+    Navigator.pushNamedAndRemoveUntil(context, '/widget_tree', (route) => false);
   }
 
   @override
