@@ -209,24 +209,27 @@ class _FriendsScreenState extends State<FriendsScreen> {
         .reference()
         .child('users')
         .child(user?.uid as String)
-        .child('requests')
-        .child('jkldaskdjakljklajklasjklds');
+        .child('requests');
 
-    // Remove the request from the database
     requestRef.remove();
   }
 
   void acceptRequest(int index) {
     final acceptedRequest = requests.elementAt(index);
-     removeRequest(index);
+    removeRequest(index);
     final userRef = FirebaseDatabase.instance
         .reference()
         .child('users')
         .child(user?.uid as String);
 
+    final userRef2 = FirebaseDatabase.instance
+        .reference()
+        .child('users')
+        .child(acceptedRequest);
+
     // Add the accepted request to the friends list in the database
     userRef.child('friends').push().set(acceptedRequest);
-   
+    userRef2.child('friends').push().set(user?.uid as String);
   }
 
   Widget showRequests() {
