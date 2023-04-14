@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:matchify/sidebar/friends.dart';
 import 'package:matchify/sidebar/addFriends.dart';
 
+import '../sidebar/library.dart';
+
 class Info extends StatefulWidget {
   const Info({super.key});
 
@@ -152,18 +154,35 @@ class LibraryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 60),
-      child: ListTile(
-        leading: CircleAvatar(
-          backgroundColor: Colors.white24,
-          child: Icon(
-            CupertinoIcons.music_albums_fill,
-            color: Colors.white,
+   return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(left: 24, top: 20, bottom: 16),
+          child: Divider(
+            color: Colors.white24,
+            height: 1,
           ),
         ),
-        title: Text("Library", style: TextStyle(color: Colors.white)),
-      ),
+        ListTile(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => LibraryScreen(),
+              ),
+            );
+          },
+          leading: CircleAvatar(
+            backgroundColor: Colors.white24,
+            child: Icon(
+              CupertinoIcons.music_albums_fill,
+              color: Colors.white,
+            ),
+          ),
+          title: Text("Library", style: TextStyle(color: Colors.white)),
+        ),
+      ],
     );
+    
   }
 }
