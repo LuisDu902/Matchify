@@ -177,7 +177,6 @@ class _FiltersState extends State<Filters> {
                     });
                   },
                   child: Container(
-                    key: Key(genre),
                     padding: EdgeInsets.symmetric(horizontal: 26, vertical: 8),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
@@ -248,7 +247,6 @@ class _FiltersState extends State<Filters> {
           children: _filters
               .map(
                 (genre) => Container(
-                  key: Key(genre),
                   margin: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
                   padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   decoration: BoxDecoration(
@@ -334,10 +332,6 @@ class _FiltersState extends State<Filters> {
                   MaterialPageRoute(builder: (context) => const SwipePage()),
                 );
               },
-              child: Text(
-                key: Key('Continue'),
-                'Continue',
-              ),
             )
           : null,
     );
