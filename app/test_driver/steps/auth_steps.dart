@@ -17,7 +17,7 @@ class CheckLoginPage extends GivenWithWorld<FlutterWorld> {
   }
 
   @override
-  RegExp get pattern => RegExp(r"the user is in the login page");
+  RegExp get pattern => RegExp(r"I am on the login page");
 }
 
 class CheckRegisterPage extends GivenWithWorld<FlutterWorld> {
@@ -32,7 +32,7 @@ class CheckRegisterPage extends GivenWithWorld<FlutterWorld> {
     }
     expect(isLoginPage, true);
 
-    final button = find.text('Sign up now!');
+    final button = find.byValueKey("change");
 
     await FlutterDriverUtils.tap(world.driver, button);
 
@@ -43,21 +43,9 @@ class CheckRegisterPage extends GivenWithWorld<FlutterWorld> {
   }
 
   @override
-  RegExp get pattern => RegExp(r"the user is in the register page");
+  RegExp get pattern => RegExp(r"I am on the register page");
 }
 
-class FillField extends And2WithWorld<String, String, FlutterWorld> {
-  @override
-  Future<void> executeStep(String field, String input) async {
-    final form = find.byValueKey(field);
-
-    await FlutterDriverUtils.enterText(world.driver, form, input);
-  }
-
-  @override
-  RegExp get pattern =>
-      RegExp(r"the user fills the {string} field with {string}");
-}
 
 class ErrorMessage extends ThenWithWorld<FlutterWorld> {
   @override

@@ -12,6 +12,6 @@ class ChooseFilters extends And2WithWorld<String, String, FlutterWorld> {
   }
 
   @override
-  RegExp get pattern => RegExp(r'the user chooses {string} and {string}');
+  RegExp get pattern => RegExp(r'I choose {string} and {string}');
 }
 

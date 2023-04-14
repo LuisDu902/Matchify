@@ -12,13 +12,8 @@ Future<void> main() async {
     ..stepDefinitions = [
       LaunchApp(),
       CheckHomePage(),
-      TapButton(),
-      CheckPage(),
-      TapButton(),
+      TapWidgetOfTypeStep(),
       ChooseFilters(),
-      TapButton(),
-      ChooseFilters(),
-      TapButton(),
       CheckPage()
     ]
     ..targetAppPath = "test_driver/app.dart"

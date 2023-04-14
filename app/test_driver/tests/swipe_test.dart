@@ -13,12 +13,12 @@ Future<void> main() async {
     ..stepDefinitions = [
       LaunchApp(),
       CheckHomePage(),
-      TapButton(),
       SelectFilters(),
-      TapButton(),
+      TapWidgetOfTypeStep(),
       CheckPage(),
-      TapButton(),
-      ListenToShortClip()
+      ListenToShortClip(),
+      SwipeOnKeyStep(),
+      SkipSong()
     ]
     ..targetAppPath = "test_driver/app.dart"
     ..defaultTimeout = Duration(seconds: 30);

@@ -292,7 +292,7 @@ class _LoginState extends State<Login> {
                       fontWeight: FontWeight.w400,
                     )),
           ),
-          onPressed: () {
+          onPressed: () async {
             if (_regPassword.text != _confPassword.text) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
@@ -309,7 +309,7 @@ class _LoginState extends State<Login> {
                 ),
               );
             } else {
-              createUserWithEmailAndPassword();
+              await createUserWithEmailAndPassword();
               if (errorMessage != null) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   _errorMessage(),
@@ -471,8 +471,8 @@ class _LoginState extends State<Login> {
                     fontWeight: FontWeight.w400,
                   )),
         ),
-        onPressed: () {
-          signInWithEmailAndPassword();
+        onPressed: () async {
+          await signInWithEmailAndPassword();
           if (errorMessage != null) {
             ScaffoldMessenger.of(context).showSnackBar(
               _errorMessage(),
@@ -488,33 +488,33 @@ class _LoginState extends State<Login> {
     String message =
         isLogin ? "Don't have an account? " : "Already have an account? ";
     String actionText = isLogin ? "Sign up now!" : "Log in now!";
-    return Container(
-      child: RichText(
-        text: TextSpan(
-          text: message,
-          style: TextStyle(
-            fontSize: 18.0,
-            color: Colors.black,
-          ),
-          children: <TextSpan>[
-            TextSpan(
-              text: actionText,
-              style: TextStyle(
-                fontSize: 18.0,
-                color: Colors.lightBlue,
-                decoration: TextDecoration.underline,
-              ),
-              recognizer: TapGestureRecognizer()
-                ..onTap = () {
-                  if ((isLogin && actionText == 'Sign up now!') ||
-                      (!isLogin && actionText == 'Log in now!')) {
-                    setState(() {
-                      isLogin = !isLogin;
-                    });
-                  }
-                },
+    return GestureDetector(
+      key: Key("change"),
+      onTap: () {
+        setState(() {
+          isLogin = !isLogin;
+        });
+      },
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 16.0),
+        child: Text.rich(
+          TextSpan(
+            text: message,
+            style: const TextStyle(
+              fontSize: 18.0,
+              color: Colors.black,
             ),
-          ],
+            children: [
+              TextSpan(
+                text: actionText,
+                style: TextStyle(
+                  fontSize: 18.0,
+                  color: Colors.lightBlue,
+                  decoration: TextDecoration.underline,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

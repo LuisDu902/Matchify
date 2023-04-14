@@ -12,24 +12,14 @@ Future<void> main() async {
     ..stepDefinitions = [
       LaunchApp(),
       CheckRegisterPage(),
-      FillField(),
-      FillField(),
-      FillField(),
-      TapButton(),
-      TapButton(),
-      CheckHomePage(),
-
-      LaunchApp(),
-      CheckRegisterPage(),
-      FillField(),
-      FillField(),
-      FillField(),
-      TapButton(),
-      DoubleTapButton(),
+      TapWidgetOfTypeStep(),
+      WhenFillFieldStep(),
       ErrorMessage(),
       CheckPage(),
+      CheckHomePage(),
     ]
-    ..targetAppPath = "test_driver/app.dart";
+    ..targetAppPath = "test_driver/app.dart"
+    ..defaultTimeout = Duration(seconds: 30);
 
   GherkinRunner().execute(config);
 }

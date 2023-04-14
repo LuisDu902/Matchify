@@ -12,16 +12,9 @@ Future<void> main() async {
     ..stepDefinitions = [
       LaunchApp(),
       CheckLoginPage(),
-      FillField(),
-      FillField(),
-      TapButton(),
+      WhenFillFieldStep(),
+      TapWidgetOfTypeStep(),
       CheckHomePage(),
-
-      LaunchApp(),
-      CheckLoginPage(),
-      FillField(),
-      FillField(),
-      DoubleTapButton(),
       ErrorMessage(),
       CheckPage(),
     ]
