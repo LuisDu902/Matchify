@@ -145,6 +145,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
             SizedBox(height: 100),
             ElevatedButton(
+              key: Key('log out'),
               style: ButtonStyle(
                 shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                   RoundedRectangleBorder(
@@ -170,6 +171,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
             SizedBox(height: 20),
             ElevatedButton(
+              key: Key('delete account'),
               style: ButtonStyle(
                 shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                   RoundedRectangleBorder(

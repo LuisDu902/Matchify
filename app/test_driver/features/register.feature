@@ -8,7 +8,7 @@ Feature: Register
 
   Scenario: successful user registration
     Given I am on the register page
-    When I fill the "register username" field with "user.3@gmail.com"
+    When I fill the "register username" field with "register@gmail.com"
     And I fill the "register password" field with "123456"
     And I fill the "confirm password" field with "123456"
     And I tap the "accept terms and conditions" button

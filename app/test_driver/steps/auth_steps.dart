@@ -6,11 +6,13 @@ class CheckLoginPage extends GivenWithWorld<FlutterWorld> {
   @override
   Future<void> executeStep() async {
     final loginPage = find.byValueKey("login page");
-  
+
     bool isLoginPage =
         await FlutterDriverUtils.isPresent(world.driver, loginPage);
 
     if (!isLoginPage) {
+      final profile = find.byValueKey("profile");
+      await FlutterDriverUtils.tap(world.driver, profile);
       final logout = find.byValueKey("log out");
       await FlutterDriverUtils.tap(world.driver, logout);
     }
@@ -27,8 +29,11 @@ class CheckRegisterPage extends GivenWithWorld<FlutterWorld> {
     bool isLoginPage = await FlutterDriverUtils.isPresent(world.driver, login);
 
     if (!isLoginPage) {
+      final profile = find.byValueKey("profile");
+      await FlutterDriverUtils.tap(world.driver, profile);
       final logout = find.byValueKey("log out");
       await FlutterDriverUtils.tap(world.driver, logout);
+      await Future.delayed(Duration(milliseconds: 100));
     }
     expect(isLoginPage, true);
 
@@ -37,7 +42,8 @@ class CheckRegisterPage extends GivenWithWorld<FlutterWorld> {
     await FlutterDriverUtils.tap(world.driver, button);
 
     final register = find.byValueKey("register page");
-    bool isRegisterPage = await FlutterDriverUtils.isPresent(world.driver, register);
+    bool isRegisterPage =
+        await FlutterDriverUtils.isPresent(world.driver, register);
 
     expect(isRegisterPage, true);
   }
@@ -45,7 +51,6 @@ class CheckRegisterPage extends GivenWithWorld<FlutterWorld> {
   @override
   RegExp get pattern => RegExp(r"I am on the register page");
 }
-
 
 class ErrorMessage extends ThenWithWorld<FlutterWorld> {
   @override
@@ -58,6 +63,5 @@ class ErrorMessage extends ThenWithWorld<FlutterWorld> {
   }
 
   @override
-  RegExp get pattern =>
-      RegExp(r"an error message appears");
+  RegExp get pattern => RegExp(r"an error message appears");
 }
