@@ -1,10 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:matchify/sidebar/friends.dart';
+import 'package:matchify/sidebar/about.dart';
 import 'package:matchify/sidebar/addFriends.dart';
-
-import '../sidebar/about.dart';
-import '../sidebar/library.dart';
+import 'package:matchify/sidebar/friends.dart';
+import 'package:matchify/sidebar/library.dart';
 
 class Info extends StatefulWidget {
   const Info({super.key});
@@ -93,14 +92,12 @@ class AddFriendCard extends StatelessWidget {
         ),
         ListTile(
           onTap: () {
-              Navigator.push(
+             Navigator.push(
               context,
               MaterialPageRoute(
                 builder: (context) => AddFriendsScreen(),
               ),
             );
-
-
           },
           leading: CircleAvatar(
             backgroundColor: Colors.white24,
@@ -134,13 +131,12 @@ class AboutCard extends StatelessWidget {
         ),
         ListTile(
           onTap: () {
-            Navigator.push(
+             Navigator.push(
               context,
               MaterialPageRoute(
                 builder: (context) => AboutScreen(),
               ),
             );
-
           },
           leading: CircleAvatar(
             backgroundColor: Colors.white24,
@@ -163,24 +159,16 @@ class LibraryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-   return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(left: 24, top: 20, bottom: 16),
-          child: Divider(
-            color: Colors.white24,
-            height: 1,
-          ),
-        ),
-        ListTile(
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => LibraryScreen(),
-              ),
-            );
-          },
+    return Padding(
+      padding: const EdgeInsets.only(top: 60),
+      child: GestureDetector(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => LibraryScreen()),
+          );
+        },
+        child: ListTile(
           leading: CircleAvatar(
             backgroundColor: Colors.white24,
             child: Icon(
@@ -190,8 +178,7 @@ class LibraryCard extends StatelessWidget {
           ),
           title: Text("Library", style: TextStyle(color: Colors.white)),
         ),
-      ],
+      ),
     );
-    
   }
 }

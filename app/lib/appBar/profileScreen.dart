@@ -31,12 +31,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              user?.email as String,
-              style: TextStyle(fontSize: 20),
-            ),
-            SizedBox(height: 20),
-            Text(
-              user?.uid as String,
+              Auth().getUsername(),
               style: TextStyle(fontSize: 20),
             ),
             SizedBox(height: 20),

@@ -9,6 +9,14 @@ class Auth {
 
   Stream<User?> get authStateChanges => _firebaseAuth.authStateChanges();
 
+  String getUsername() {
+     final RegExp regex = RegExp(r'^([^@]+)@');
+    final usernameMatch = regex.firstMatch(currentUser?.email as String);
+    final username = usernameMatch != null ? usernameMatch.group(1) : currentUser?.email as String;
+
+    return username as String;
+  }
+
   Future<void> signInWithEmailAndPassword({
     required String email,
     required String password,
@@ -28,20 +36,18 @@ class Auth {
       password: password,
     );
 
-    final RegExp regex = RegExp(r'^([^@]+)@');
+   final RegExp regex = RegExp(r'^([^@]+)@');
     final usernameMatch = regex.firstMatch(email);
     final username = usernameMatch != null ? usernameMatch.group(1) : email;
-
-    final userObject = {
-      'email': email,
-      'username': username,
-    };
 
     await _firebaseDatabase
         .reference()
         .child('users')
         .child(username as String)
-        .set(userObject);
+        .set({"email": email,
+        "requests": {},
+        "friends" : {},
+        "playlists" : {}});
   }
 
   Future<void> signOut() async {
