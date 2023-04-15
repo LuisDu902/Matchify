@@ -17,6 +17,10 @@ List<String> getFilters() {
   return _filters;
 }
 
+void clearFilters() {
+  _filters.clear();
+}
+
 class _FiltersState extends State<Filters> {
   bool _isGenreListVisible = false;
   bool _isMoodListVisible = false;
@@ -329,6 +333,8 @@ class _FiltersState extends State<Filters> {
       floatingActionButton: _filters.isNotEmpty
           ? ElevatedButton(
               onPressed: () {
+                clearDislikedSongs();
+                clearLikedSongs();
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const SwipePage()),
