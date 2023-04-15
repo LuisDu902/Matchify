@@ -24,11 +24,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
 
   Future<List<String>> fetchFriends() async {
     final database = FirebaseDatabase.instance;
-    Query ref = database
-        .ref()
-        .child('users')
-        .child(username)
-        .child('friends');
+    Query ref = database.ref().child('users').child(username).child('friends');
     final snapshot = await ref.get();
     friends.clear();
     if (snapshot.exists) {
@@ -42,11 +38,8 @@ class _FriendsScreenState extends State<FriendsScreen> {
 
   Future<List<String>> fetchRequests() async {
     final database = FirebaseDatabase.instance;
-    Query ref = database
-        .reference()
-        .child('users')
-        .child(username)
-        .child('requests');
+    Query ref =
+        database.reference().child('users').child(username).child('requests');
     final snapshot = await ref.get();
     requests.clear();
 
@@ -67,10 +60,8 @@ class _FriendsScreenState extends State<FriendsScreen> {
 
   void removeFriend(int index) {
     String friend = friends.elementAt(index);
-    final userRef = FirebaseDatabase.instance
-        .reference()
-        .child('users')
-        .child(username);
+    final userRef =
+        FirebaseDatabase.instance.reference().child('users').child(username);
     final friendRef =
         FirebaseDatabase.instance.reference().child('users').child(friend);
 
@@ -246,16 +237,17 @@ class _FriendsScreenState extends State<FriendsScreen> {
     final userRef = FirebaseDatabase.instance
         .reference()
         .child('users')
-        .child(username);
+        .child(username)
+        .child('friends');
 
     final friendRef = FirebaseDatabase.instance
         .reference()
         .child('users')
-        .child(acceptedRequest);
+        .child(acceptedRequest)
+        .child('friends');
 
-    // Add the accepted request to the friends list in the database
-    userRef.child('friends').push().set(acceptedRequest);
-    friendRef.child('friends').push().set(username);
+    friendRef.update({username: username});
+    userRef.update({acceptedRequest: acceptedRequest});
   }
 
   Widget showRequests() {

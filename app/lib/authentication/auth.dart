@@ -44,7 +44,10 @@ class Auth {
         .reference()
         .child('users')
         .child(username as String)
-        .set(email);
+        .set({"email": email,
+        "requests": {},
+        "friends" : {},
+        "playlists" : {}});
   }
 
   Future<void> signOut() async {
