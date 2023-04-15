@@ -83,6 +83,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   Widget deleteButton() {
     return TextButton(
+      key: Key('confirm delete'),
       onPressed: () {
         deleteAccount();
         Navigator.of(context).pop();

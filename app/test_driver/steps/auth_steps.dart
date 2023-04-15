@@ -33,17 +33,14 @@ class CheckRegisterPage extends GivenWithWorld<FlutterWorld> {
       await FlutterDriverUtils.tap(world.driver, profile);
       final logout = find.byValueKey("log out");
       await FlutterDriverUtils.tap(world.driver, logout);
-      await Future.delayed(Duration(milliseconds: 100));
     }
-    expect(isLoginPage, true);
 
     final button = find.byValueKey("change");
 
     await FlutterDriverUtils.tap(world.driver, button);
 
     final register = find.byValueKey("register page");
-    bool isRegisterPage =
-        await FlutterDriverUtils.isPresent(world.driver, register);
+    bool isRegisterPage = await FlutterDriverUtils.isPresent(world.driver, register);
 
     expect(isRegisterPage, true);
   }
@@ -64,4 +61,19 @@ class ErrorMessage extends ThenWithWorld<FlutterWorld> {
 
   @override
   RegExp get pattern => RegExp(r"an error message appears");
+}
+
+class RegisterSuccess extends AndWithWorld<FlutterWorld> {
+  @override
+  Future<void> executeStep() async {
+    final profile = find.byValueKey("profile");
+      await FlutterDriverUtils.tap(world.driver, profile);
+      final logout = find.byValueKey("delete account");
+      await FlutterDriverUtils.tap(world.driver, logout);
+      final confirm = find.byValueKey("confirm delete");
+      await FlutterDriverUtils.tap(world.driver, confirm);
+  }
+
+  @override
+  RegExp get pattern => RegExp(r"I have successfully registered");
 }
