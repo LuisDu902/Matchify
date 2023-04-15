@@ -93,7 +93,7 @@ class AddFriendCard extends StatelessWidget {
         ),
         ListTile(
           onTap: () {
-            Navigator.push(
+             Navigator.push(
               context,
               MaterialPageRoute(
                 builder: (context) => AddFriendsScreen(),
@@ -132,7 +132,7 @@ class AboutCard extends StatelessWidget {
         ),
         ListTile(
           onTap: () {
-            Navigator.push(
+             Navigator.push(
               context,
               MaterialPageRoute(
                 builder: (context) => AboutScreen(),

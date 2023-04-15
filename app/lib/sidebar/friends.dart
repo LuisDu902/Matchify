@@ -11,7 +11,6 @@ class FriendsScreen extends StatefulWidget {
 
 class _FriendsScreenState extends State<FriendsScreen> {
   final user = Auth().currentUser;
-
   final username = Auth().getUsername();
   bool isResquest = false;
 
@@ -90,7 +89,6 @@ class _FriendsScreenState extends State<FriendsScreen> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-
             removeButton(index),
             cancelButton(index),
           ],
@@ -98,7 +96,6 @@ class _FriendsScreenState extends State<FriendsScreen> {
       ],
     );
   }
-
 
   Widget cancelButton(int index) {
     return TextButton(
@@ -130,7 +127,6 @@ class _FriendsScreenState extends State<FriendsScreen> {
       ),
     );
   }
-
 
   Widget removeButton(int index) {
     return TextButton(

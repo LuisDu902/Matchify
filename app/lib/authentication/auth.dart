@@ -36,7 +36,6 @@ class Auth {
       password: password,
     );
 
-
    final RegExp regex = RegExp(r'^([^@]+)@');
     final usernameMatch = regex.firstMatch(email);
     final username = usernameMatch != null ? usernameMatch.group(1) : email;
