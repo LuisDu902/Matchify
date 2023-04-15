@@ -179,8 +179,7 @@ class _SwipeState extends State<SwipePage> {
                     ),
                     Dismissible(
                       key: UniqueKey(),
-                      direction:
-                          DismissDirection.horizontal, 
+                      direction: DismissDirection.horizontal,
                       onDismissed: (DismissDirection direction) {
                         if (direction == DismissDirection.startToEnd &&
                             !isDismissed) {
