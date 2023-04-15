@@ -15,9 +15,11 @@ class SwipePage extends StatefulWidget {
 
   @override
   _SwipeState createState() => _SwipeState();
+
 }
 
 class _SwipeState extends State<SwipePage> {
+
   List<Song> songs = [];
 
   List<String> liked = [];
