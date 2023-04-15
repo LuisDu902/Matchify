@@ -10,7 +10,6 @@ class AddFriendsScreen extends StatefulWidget {
 }
 
 class _AddFriendsPageScreen extends State<AddFriendsScreen> {
-
   final user = Auth().currentUser;
   final username = Auth().getUsername();
   final TextEditingController friendRequest = TextEditingController();
@@ -94,65 +93,71 @@ class _AddFriendsPageScreen extends State<AddFriendsScreen> {
                             ),
                           ),
                         ),
-                       Positioned(
-                    bottom: 0,
-                    right: 0,
-                    child: ElevatedButton(
-                      onPressed: () async {
-                        if (friendRequest.text.isEmpty)
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content:
-                                  Text("Please enter your friend's username"),
-                              backgroundColor: Colors.red,
+                        Positioned(
+                          bottom: 0,
+                          right: 0,
+                          child: ElevatedButton(
+                            onPressed: () async {
+                              if (friendRequest.text.isEmpty)
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                        "Please enter your friend's username"),
+                                    backgroundColor: Colors.red,
+                                  ),
+                                );
+                              else {
+                                if (!await userExists()) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text("The user does not exist"),
+                                      backgroundColor: Colors.red,
+                                    ),
+                                  );
+                                } else if (username == friendRequest.text) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                          "You can't send a request to yourself"),
+                                      backgroundColor: Colors.red,
+                                    ),
+                                  );
+                                } else if (await isAlreadyFriend()) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(friendRequest.text +
+                                          " is already your friend"),
+                                      backgroundColor: Colors.red,
+                                    ),
+                                  );
+                                } else {
+                                  sendRequest();
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text("Friend request sent"),
+                                      backgroundColor: Colors.green,
+                                    ),
+                                  );
+                                }
+                              }
+                            },
+                            child: Text(
+                              'Send',
+                              style: TextStyle(
+                                color: Color.fromRGBO(48, 21, 81, 1),
+                              ),
                             ),
-                          );
-                        else {
-                          if (!await userExists()) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text("The user does not exist"),
-                                backgroundColor: Colors.red,
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all<Color>(
+                                Color.fromRGBO(246, 217, 18, 1),
                               ),
-                            );
-                          } else if (username == friendRequest.text) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text(
-                                    "You can't send a request to yourself"),
-                                backgroundColor: Colors.red,
-                              ),
-                            );
-                          } else if (await isAlreadyFriend()) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text(
-                                    friendRequest.text + " is already your friend"),
-                                backgroundColor: Colors.red,
-                              ),
-                            );
-                          } else {
-                            sendRequest();
-                          }
-                        }
-                      },
-                      child: Text(
-                        'Send',
-                        style: TextStyle(
-                          color: Color.fromRGBO(48, 21, 81, 1),
+                            ),
+                          ),
                         ),
-                      ),
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all<Color>(
-                          Color.fromRGBO(246, 217, 18, 1),
-                        ),
-                      ),
+                      ],
                     ),
                   ),
-],
-                    ),
-                  ),
-                                 ],
+                ],
               ),
             ],
           ),
