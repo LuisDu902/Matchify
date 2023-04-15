@@ -67,6 +67,10 @@ class _FriendsScreenState extends State<FriendsScreen> {
 
     userRef.child('friends').child(friend).remove();
     friendRef.child('friends').child(username).remove();
+    
+    setState(() {
+      friends.removeAt(index);
+    });
   }
 
   Widget popUp(int index) {
@@ -229,6 +233,10 @@ class _FriendsScreenState extends State<FriendsScreen> {
         .child('requests');
 
     requestRef.child(request).remove();
+
+    setState(() {
+      requests.removeAt(index);
+    });
   }
 
   void acceptRequest(int index) {
@@ -248,6 +256,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
 
     friendRef.update({username: username});
     userRef.update({acceptedRequest: acceptedRequest});
+    
   }
 
   Widget showRequests() {

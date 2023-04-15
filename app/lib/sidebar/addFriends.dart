@@ -15,11 +15,22 @@ class _AddFriendsPageScreen extends State<AddFriendsScreen> {
   final TextEditingController friendRequest = TextEditingController();
 
   Future<bool> userExists() async {
-   
     final database = FirebaseDatabase.instance;
     Query ref = database.ref().child('users').child(friendRequest.text);
     final snapshot = await ref.get();
 
+    return snapshot.exists;
+  }
+
+  Future<bool> isAlreadyFriend() async {
+    final database = FirebaseDatabase.instance;
+    Query ref = database
+        .ref()
+        .child('users')
+        .child(username)
+        .child('friends')
+        .child(friendRequest.text);
+    final snapshot = await ref.get();
     return snapshot.exists;
   }
 
@@ -30,7 +41,7 @@ class _AddFriendsPageScreen extends State<AddFriendsScreen> {
         .child('users')
         .child(friendRequest.text)
         .child('requests');
-    friendRef.update({username:username});
+    friendRef.update({username: username});
   }
 
   @override
@@ -99,23 +110,30 @@ class _AddFriendsPageScreen extends State<AddFriendsScreen> {
                             ),
                           );
                         else {
-                          bool valid = await userExists();
-                          if (!valid) {
+                          if (!await userExists()) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
                                 content: Text("The user does not exist"),
                                 backgroundColor: Colors.red,
                               ),
                             );
-                          } else if (username == friendRequest.text){
+                          } else if (username == friendRequest.text) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
-                                content: Text("You can't send a request to yourself"),
+                                content: Text(
+                                    "You can't send a request to yourself"),
                                 backgroundColor: Colors.red,
                               ),
                             );
-                            
-                          } else{
+                          } else if (await isAlreadyFriend()) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                    friendRequest.text + " is already your friend"),
+                                backgroundColor: Colors.red,
+                              ),
+                            );
+                          } else {
                             sendRequest();
                           }
                         }
