@@ -98,15 +98,16 @@ class _LibraryScreenState extends State<LibraryScreen> {
                   height: 146,
                 ),
                 SizedBox(
-                    height: 20), // add a SizedBox for spacing between Image and Text
+                    height:
+                        20), // add a SizedBox for spacing between Image and Text
                 Text(
                   library[i++].name,
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                      color: Color.fromRGBO(48, 21, 81, 1),
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    color: Color.fromRGBO(48, 21, 81, 1),
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ],
             ),
@@ -116,10 +117,15 @@ class _LibraryScreenState extends State<LibraryScreen> {
     );
   }
 
+  Future<List<Playlist>> getLibrary() async {
+    library = await fetchLibrary();
+    return library;
+  }
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: fetchLibrary(),
+      future: getLibrary(),
       builder: (BuildContext context, AsyncSnapshot<List<Playlist>> snapshot) {
         if (snapshot.hasData) {
           return Scaffold(
@@ -140,7 +146,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
                     ),
                   ),
                   SizedBox(height: 64),
-                  showPlaylists(),
+                  library.isEmpty ? showPlaylists() : emptyLibrary(),
                 ],
               ),
             ),

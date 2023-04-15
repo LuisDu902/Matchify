@@ -29,6 +29,14 @@ List<Song> getDislikedSongs() {
   return disliked;
 }
 
+void clearLikedSongs() {
+  liked.clear();
+}
+
+void clearDislikedSongs() {
+  disliked.clear();
+}
+
 class _SwipeState extends State<SwipePage> {
   List<Song> songs = [];
 
@@ -166,6 +174,7 @@ class _SwipeState extends State<SwipePage> {
                             currentSong = songs[index++];
                             liked.add(currentSong);
                             if (liked.length == 5) {
+                              clearFilters();
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(

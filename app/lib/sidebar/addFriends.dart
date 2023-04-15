@@ -93,10 +93,7 @@ class _AddFriendsPageScreen extends State<AddFriendsScreen> {
                             ),
                           ),
                         ),
-                      ],
-                    ),
-                  ),
-                  Positioned(
+                       Positioned(
                     bottom: 0,
                     right: 0,
                     child: ElevatedButton(
@@ -151,7 +148,10 @@ class _AddFriendsPageScreen extends State<AddFriendsScreen> {
                       ),
                     ),
                   ),
-                ],
+],
+                    ),
+                  ),
+                                 ],
               ),
             ],
           ),
