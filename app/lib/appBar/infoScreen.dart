@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
 import 'package:matchify/sidebar/about.dart';
 import 'package:matchify/sidebar/addFriends.dart';
 import 'package:matchify/sidebar/friends.dart';

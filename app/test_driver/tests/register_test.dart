@@ -14,6 +14,7 @@ Future<void> main() async {
       CheckRegisterPage(),
       TapWidgetOfTypeStep(),
       WhenFillFieldStep(),
+      RegisterSuccess(),
       ErrorMessage(),
       CheckPage(),
       CheckHomePage(),

@@ -6,11 +6,13 @@ class CheckLoginPage extends GivenWithWorld<FlutterWorld> {
   @override
   Future<void> executeStep() async {
     final loginPage = find.byValueKey("login page");
-  
+
     bool isLoginPage =
         await FlutterDriverUtils.isPresent(world.driver, loginPage);
 
     if (!isLoginPage) {
+      final profile = find.byValueKey("profile");
+      await FlutterDriverUtils.tap(world.driver, profile);
       final logout = find.byValueKey("log out");
       await FlutterDriverUtils.tap(world.driver, logout);
     }
@@ -27,10 +29,11 @@ class CheckRegisterPage extends GivenWithWorld<FlutterWorld> {
     bool isLoginPage = await FlutterDriverUtils.isPresent(world.driver, login);
 
     if (!isLoginPage) {
+      final profile = find.byValueKey("profile");
+      await FlutterDriverUtils.tap(world.driver, profile);
       final logout = find.byValueKey("log out");
       await FlutterDriverUtils.tap(world.driver, logout);
     }
-    expect(isLoginPage, true);
 
     final button = find.byValueKey("change");
 
@@ -46,7 +49,6 @@ class CheckRegisterPage extends GivenWithWorld<FlutterWorld> {
   RegExp get pattern => RegExp(r"I am on the register page");
 }
 
-
 class ErrorMessage extends ThenWithWorld<FlutterWorld> {
   @override
   Future<void> executeStep() async {
@@ -58,6 +60,20 @@ class ErrorMessage extends ThenWithWorld<FlutterWorld> {
   }
 
   @override
-  RegExp get pattern =>
-      RegExp(r"an error message appears");
+  RegExp get pattern => RegExp(r"an error message appears");
+}
+
+class RegisterSuccess extends AndWithWorld<FlutterWorld> {
+  @override
+  Future<void> executeStep() async {
+    final profile = find.byValueKey("profile");
+      await FlutterDriverUtils.tap(world.driver, profile);
+      final logout = find.byValueKey("delete account");
+      await FlutterDriverUtils.tap(world.driver, logout);
+      final confirm = find.byValueKey("confirm delete");
+      await FlutterDriverUtils.tap(world.driver, confirm);
+  }
+
+  @override
+  RegExp get pattern => RegExp(r"I have successfully registered");
 }

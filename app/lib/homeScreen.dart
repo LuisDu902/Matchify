@@ -13,8 +13,7 @@ class HomeScreen extends StatelessWidget {
       key: Key("home page"),
       drawer: Info(),
       appBar: appBar(),
-      backgroundColor: Colors.white, // Set the body background color to white
-      
+      backgroundColor: Colors.white,
       body: SizedBox(
         child: Stack(
           children: <Widget>[

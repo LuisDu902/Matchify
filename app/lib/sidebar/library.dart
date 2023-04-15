@@ -98,15 +98,16 @@ class _LibraryScreenState extends State<LibraryScreen> {
                   height: 146,
                 ),
                 SizedBox(
-                    height: 20), // add a SizedBox for spacing between Image and Text
+                    height: 20),
                 Text(
                   library[i++].name,
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                      color: Color.fromRGBO(48, 21, 81, 1),
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
+
+                    color: Color.fromRGBO(48, 21, 81, 1),
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ],
             ),
@@ -140,6 +141,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
                     ),
                   ),
                   SizedBox(height: 64),
+
                   showPlaylists(),
                 ],
               ),
