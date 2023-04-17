@@ -17,7 +17,9 @@ class _LoginState extends State<Login> {
   String? errorMessage = '';
 
   bool isLogin = true;
-
+  String? getMessage(){
+    return errorMessage;
+  }
   final TextEditingController _logUsername = TextEditingController();
   final TextEditingController _logPassword = TextEditingController();
 

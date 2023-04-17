@@ -38,9 +38,9 @@ dependencies:
   firebase_database: ^10.0.15
   firebase_auth: ^4.3.0
   flutter_gherkin: ^2.0.0
+  
   audioplayers: ^3.0.1
   http: ^0.13.5
-  mockito: ^5.4.0
 
 dev_dependencies:
 
