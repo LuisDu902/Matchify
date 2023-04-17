@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:matchify/infoScreen.dart';
-import 'appBar.dart';
+import 'package:matchify/appBar/infoScreen.dart';
+import 'appBar/appBar.dart';
 import 'song/swipe.dart';
 
 class Filters extends StatefulWidget {
@@ -15,6 +15,10 @@ List<String> _filters = [];
 
 List<String> getFilters() {
   return _filters;
+}
+
+void clearFilters() {
+  _filters.clear();
 }
 
 class _FiltersState extends State<Filters> {
@@ -302,7 +306,7 @@ class _FiltersState extends State<Filters> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: Key('Filters page'),
+      key: Key("filters page"),
       drawer: Info(),
       appBar: appBar(),
       backgroundColor: Colors.white,
@@ -330,14 +334,22 @@ class _FiltersState extends State<Filters> {
       floatingActionButton: _filters.isNotEmpty
           ? ElevatedButton(
               onPressed: () {
+                clearDislikedSongs();
+                clearLikedSongs();
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const SwipePage()),
                 );
               },
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(
+                    Color.fromRGBO(248, 206, 156, 1)),
+                foregroundColor: MaterialStateProperty.all<Color>(
+                    Color.fromRGBO(48, 21, 81, 1)),
+              ),
               child: Text(
-                key: Key('Continue'),
-                'Continue',
+                key: Key("continue"),
+                "Continue",
               ),
             )
           : null,

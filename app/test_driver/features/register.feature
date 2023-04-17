@@ -4,15 +4,24 @@ Feature: Register
   so that I can use the application
 
   Background:
-    Given the user has launched the app
-    And the user is in the "Login page"
-    And the user taps "Change"
+    Given I have launched the app
 
   Scenario: successful user registration
-    Given the user is in the "Register page"
-    When the user fills the "Register username" field with "user.1@gmail.com"
-    And the user fills the "Register password" field with "123456"
-    And the user fills the "Confirm password" field with "123456"
-    And the user taps "Accept terms and conditions"
-    And the user taps "Register"
-    Then the user is in the "Home page"
+    Given I am on the register page
+    When I fill the "register username" field with "register8@gmail.com"
+    And I fill the "register password" field with "123456"
+    And I fill the "confirm password" field with "123456"
+    And I tap the "accept terms and conditions" button
+    And I tap the "register" button
+    Then I am on the "home page"
+    And I have successfully registered
+
+  Scenario: unsuccessful user registration
+    Given I am on the register page
+    When I fill the "register username" field with "user1@gmail.com"
+    And I fill the "register password" field with "123456"
+    And I fill the "confirm password" field with "123456"
+    And I tap the "accept terms and conditions" button
+    And I tap the "register" button
+    Then an error message appears
+    And I am on the "register page"

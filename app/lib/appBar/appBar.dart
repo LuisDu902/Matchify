@@ -1,17 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:matchify/appBar/profileScreen.dart';
 
-import 'authentication/auth.dart';
-import 'homeScreen.dart';
+import '../authentication/auth.dart';
+import '../homeScreen.dart';
 
 class appBar extends StatelessWidget implements PreferredSizeWidget {
   appBar({Key? key}) : super(key: key);
-
-   final User? user = Auth().currentUser;
-
-  Future<void> signOut() async {
-    await Auth().signOut();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +57,15 @@ class appBar extends StatelessWidget implements PreferredSizeWidget {
       ),
       actions: [
         IconButton(
-          onPressed: signOut,
+          key: Key('profile'),
+          onPressed: (){
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ProfileScreen(),
+              ),
+            );
+          },
           icon: const Icon(
             Icons.person,
             color: Color.fromRGBO(48, 21, 81, 1),

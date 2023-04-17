@@ -4,15 +4,15 @@ Feature: Filters
   so that only the songs that match those filters are displayed.
 
   Background: 
-    Given the user has launched the app
-    And the user is in the "Home page"
-    And the user taps "Create a new playlist"
+    Given I have launched the app
+    And I am on the home page
+    And I tap the "create a new playlist" button
 
   Scenario: apply filters
-    Given the user is in the "Filters page"
-    When the user taps "Genre"
-    And the user chooses "Funk" and "Pop"
-    And the user taps "Mood"
-    And the user chooses "Happy" and "Energetic"
-    And the user taps "Continue"
-    Then the user is in the "Swipe page"
+    Given I am on the "filters page"
+    When I tap the "Genre" button
+    And I choose "Funk" and "Pop"
+    And I tap the "Mood" button
+    And I choose "Happy" and "Energetic"
+    And I tap the "continue" button
+    Then I am on the "swipe page"

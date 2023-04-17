@@ -14,7 +14,7 @@ class LoadingScreen extends StatelessWidget {
           );
     });
     return Scaffold(
-      key : Key('Loading page'),
+      key : Key('loading page'),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

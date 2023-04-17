@@ -1,13 +1,13 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:math';
-import 'package:firebase_database/firebase_database.dart';
 import 'dart:convert' as convert;
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:matchify/song/finalPlaylistScreen.dart';
 import 'package:matchify/song/song.dart';
-import '../appBar.dart';
-import '../infoScreen.dart';
+import '../appBar/appBar.dart';
+import '../appBar/infoScreen.dart';
 import '../filters.dart';
 
 class SwipePage extends StatefulWidget {
@@ -18,14 +18,33 @@ class SwipePage extends StatefulWidget {
 
 }
 
+List<Song> liked = [];
+
+List<Song> getLikedSongs() {
+  return liked;
+}
+
+List<Song> disliked = [];
+
+List<Song> getDislikedSongs() {
+  return disliked;
+}
+
+void clearLikedSongs() {
+  liked.clear();
+}
+
+void clearDislikedSongs() {
+  disliked.clear();
+}
+
 class _SwipeState extends State<SwipePage> {
 
   List<Song> songs = [];
 
-  List<String> liked = [];
-  List<String> disliked = [];
   int index = 0;
-  String songName = '';
+
+  late Song currentSong;
 
   Future<String> _getAccessToken() async {
     var clientId = '8427839fc6f24145ba2a8f64fb7f2b70';
@@ -94,53 +113,11 @@ class _SwipeState extends State<SwipePage> {
     }
   }
 
-  void _showResults(BuildContext context) {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (BuildContext context) {
-          return Scaffold(
-            appBar: AppBar(
-              title: Text('Results'),
-            ),
-            body: Column(
-              children: [
-                Expanded(
-                  child: ListView.builder(
-                    itemCount: liked.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return ListTile(
-                        title: Text(liked[index]),
-                        leading: Icon(Icons.thumb_up),
-                      );
-                    },
-                  ),
-                ),
-                Expanded(
-                  child: ListView.builder(
-                    itemCount: disliked.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return ListTile(
-                        title: Text(disliked[index]),
-                        leading: Icon(Icons.thumb_down),
-                      );
-                    },
-                  ),
-                ),
-              ],
-            ),
-          );
-        },
-      ),
-    );
-  }
-
   Future<List<Song>> fetchSongs(List<String> filters) async {
     for (int i = 0; i < filters.length; i++) {
       String filter = filters[i];
-      //for (int j = 0; j < 50; j++) {
       await _searchSong(filter);
       await _searchSong(filter);
-      //}
     }
     return songs;
   }
@@ -153,7 +130,7 @@ class _SwipeState extends State<SwipePage> {
         if (snapshot.hasData) {
           bool isDismissed = false;
           return Scaffold(
-            key: Key('Swipe page'),
+            key: Key('swipe page'),
             drawer: Info(),
             appBar: appBar(),
             backgroundColor: Colors.white,
@@ -182,42 +159,36 @@ class _SwipeState extends State<SwipePage> {
                     ),
                     Dismissible(
                       key: UniqueKey(),
-                      direction:
-                          DismissDirection.horizontal, // Swipe left to dismiss
+                      direction: DismissDirection.horizontal,
                       onDismissed: (DismissDirection direction) {
                         if (direction == DismissDirection.startToEnd &&
                             !isDismissed) {
                           setState(() {
-                            if (songs.length == index) {
-                              _showResults(context);
-                            } else {
-                              songs[index].pause();
-                              songName = songs[index++].trackName;
-
-                              disliked.add(songName);
-                              if (songs.length == index) {
-                                _showResults(context);
-                              }
-                            }
+                            songs[index].pause();
+                            currentSong = songs[index++];
+                            disliked.add(currentSong);
                             isDismissed = true;
                           });
                         } else if (direction == DismissDirection.endToStart &&
                             !isDismissed)
                           setState(() {
-                            if (songs.length == index) {
-                              _showResults(context);
-                            } else {
-                              songs[index].pause();
-                              songName = songs[index++].trackName;
-                              liked.add(songName);
-                              if (liked.length == 5 || index == songs.length) {
-                                _showResults(context);
-                              }
+                            songs[index].pause();
+                            currentSong = songs[index++];
+                            liked.add(currentSong);
+                            if (liked.length == 5) {
+                              clearFilters();
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => FinalPlaylistScreen(),
+                                ),
+                              );
                             }
                             isDismissed = true;
                           });
                       },
                       child: Center(
+                        key: Key("song image"),
                         child: Padding(
                           padding: EdgeInsets.only(bottom: 300),
                           child: Image.network(
@@ -233,11 +204,11 @@ class _SwipeState extends State<SwipePage> {
                       top: 400,
                       left: 170,
                       child: IconButton(
+                        key: Key("play"),
                         icon: Icon(Icons.play_arrow_rounded),
                         iconSize: 45,
                         onPressed: () {
                           songs[index].play();
-                          // Handle replay button press
                         },
                       ),
                     ),
