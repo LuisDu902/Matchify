@@ -53,7 +53,9 @@ class _LoginState extends State<Login> {
   bool _obscureTextConfirm = true;
   bool _obscureTextLogin = true;
   bool isLogin = true;
-
+  String? getMessage(){
+    return errorMessage;
+  }
   final TextEditingController _logUsername = TextEditingController();
   final TextEditingController _logPassword = TextEditingController();
 

@@ -25,7 +25,9 @@ class _FiltersState extends State<Filters> {
   bool _isGenreListVisible = false;
   bool _isMoodListVisible = false;
   bool _isDecadeListVisible = false;
-
+  List<String> getGenres(){
+    return _genres;
+  }
   List<String> _genres = [
     'Pop',
     'Funk',
@@ -62,7 +64,6 @@ class _FiltersState extends State<Filters> {
     'Sad',
     'Energetic',
   ];
-
   Widget drawIcon(String filter) {
     switch (filter) {
       case 'Genre':
