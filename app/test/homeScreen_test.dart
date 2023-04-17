@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:matchify/homeScreen.dart';
 import 'package:matchify/filters.dart';
-import 'package:matchify/infoScreen.dart';
 import 'mock.dart';
 
 void main() {
@@ -14,7 +13,7 @@ void main() {
       home: HomeScreen(),
     ));
 
-    final addPlaylistFinder = find.byKey(Key('Create a new playlist'));
+    final addPlaylistFinder = find.byKey(Key('create a new playlist'));
     expect(addPlaylistFinder, findsOneWidget);
     final yellowButtonFinder = find.byWidgetPredicate((widget) =>
         widget is Container &&
@@ -37,7 +36,7 @@ void main() {
     await tester.pumpWidget(MaterialApp(home: HomeScreen()));
 
     // Tap the "Create a new playlist" button
-    await tester.tap(find.byKey(Key('Create a new playlist')));
+    await tester.tap(find.byKey(Key('create a new playlist')));
     await tester.pumpAndSettle();
 
     // Check if the Filters screen was navigated to
