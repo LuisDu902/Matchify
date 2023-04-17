@@ -15,7 +15,6 @@ class SwipePage extends StatefulWidget {
 
   @override
   _SwipeState createState() => _SwipeState();
-
 }
 
 List<Song> liked = [];
@@ -39,8 +38,9 @@ void clearDislikedSongs() {
 }
 
 class _SwipeState extends State<SwipePage> {
-
   List<Song> songs = [];
+
+  Random random = Random();
 
   int index = 0;
 
@@ -73,12 +73,12 @@ class _SwipeState extends State<SwipePage> {
     }
   }
 
-  Future<void> _searchSong(String genre) async {
+  Future<void> _searchSong(String filter) async {
     var queryParameters = {
-      'q': 'genre:"$genre"',
+      'q': filter,
       'type': 'track',
       'limit': '50',
-      'offset': '${Random().nextInt(100)}'
+      'offset': '${random.nextInt(100)}'
     };
     var uri = Uri.https('api.spotify.com', '/v1/search', queryParameters);
     var accessToken = await _getAccessToken();
@@ -100,7 +100,7 @@ class _SwipeState extends State<SwipePage> {
         Song song = Song(
           trackName: trackName,
           artistName: artistName,
-          genre: genre,
+          genre: filter,
           previewUrl: previewUrl,
           imageUrl: imageUrl,
         );
@@ -114,9 +114,10 @@ class _SwipeState extends State<SwipePage> {
   }
 
   Future<List<Song>> fetchSongs(List<String> filters) async {
-    for (int i = 0; i < filters.length; i++) {
-      String filter = filters[i];
-      await _searchSong(filter);
+    if (filters.length == 1) {
+      await _searchSong(filters[0]);
+    }
+    for (String filter in filters) {
       await _searchSong(filter);
     }
     return songs;
