@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:matchify/song/finalPlaylistScreen.dart';
 import 'package:matchify/song/song.dart';
+import 'package:scroll_loop_auto_scroll/scroll_loop_auto_scroll.dart';
 import '../appBar/appBar.dart';
 import '../appBar/infoScreen.dart';
 import '../filters.dart';
@@ -41,7 +42,7 @@ class _SwipeState extends State<SwipePage> {
   List<Song> songs = [];
 
   Random random = Random();
-
+  bool play = true;
   int index = 0;
 
   late Song currentSong;
@@ -144,17 +145,35 @@ class _SwipeState extends State<SwipePage> {
                   children: <Widget>[
                     Positioned(
                       top: 360,
-                      left: 100,
-                      child: Text(
-                        '${songs[index].trackName} - ${songs[index].genre}',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Color.fromRGBO(48, 21, 81, 1),
-                          fontFamily: 'Istok Web',
-                          fontSize: 25,
-                          letterSpacing: 0,
-                          fontWeight: FontWeight.normal,
-                          height: 1,
+                      left: 0,
+                      right: 0,
+                      child: SizedBox(
+                        height: 30,
+                        child: ScrollLoopAutoScroll(
+                          scrollDirection: Axis.horizontal,
+                          child: RichText(
+                            textAlign: TextAlign.center,
+                            text: TextSpan(
+                              style: TextStyle(
+                                fontSize: 25.0,
+                                color: Color.fromRGBO(48, 21, 81, 1),
+                                fontFamily: 'Istok Web',
+                                fontWeight: FontWeight.normal,
+                                height: 1,
+                              ),
+                              children: <TextSpan>[
+                                TextSpan(
+                                  text: '${songs[index].trackName}',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ),
+                                TextSpan(text: ' - '),
+                                TextSpan(
+                                  text: '${songs[index].artistName}',
+                                  style: TextStyle(fontStyle: FontStyle.italic),
+                                ),
+                              ],
+                            ),
+                          ),
                         ),
                       ),
                     ),
@@ -169,13 +188,15 @@ class _SwipeState extends State<SwipePage> {
                             currentSong = songs[index++];
                             disliked.add(currentSong);
                             isDismissed = true;
+                            play = true;
                           });
                         } else if (direction == DismissDirection.endToStart &&
-                            !isDismissed)
+                            !isDismissed) {
                           setState(() {
                             songs[index].pause();
                             currentSong = songs[index++];
                             liked.add(currentSong);
+                            play = true;
                             if (liked.length == 5) {
                               clearFilters();
                               Navigator.push(
@@ -187,6 +208,7 @@ class _SwipeState extends State<SwipePage> {
                             }
                             isDismissed = true;
                           });
+                        }
                       },
                       child: Center(
                         key: Key("song image"),
@@ -205,11 +227,19 @@ class _SwipeState extends State<SwipePage> {
                       top: 400,
                       left: 170,
                       child: IconButton(
-                        key: Key("play"),
-                        icon: Icon(Icons.play_arrow_rounded),
+                        icon: play ? Icon(Icons.play_arrow_rounded) : Icon(Icons.pause_rounded),
                         iconSize: 45,
                         onPressed: () {
-                          songs[index].play();
+                          if (play) {
+                            songs[index].play();
+                            play = false;
+                          }
+                          else {
+                            songs[index].pause();
+                            play = true;
+                          }
+                          // Handle replay button press
+                          setState((){});
                         },
                       ),
                     ),
@@ -245,7 +275,7 @@ class _SwipeState extends State<SwipePage> {
                     ),
                     Positioned(
                       top: 460,
-                      left: 235,
+                      left: 260,
                       child: Container(
                         width: 90,
                         height: 85,
@@ -272,8 +302,8 @@ class _SwipeState extends State<SwipePage> {
                       ),
                     ),
                     Positioned(
-                      top: 480,
-                      left: 250,
+                      top: 478,
+                      left: 275,
                       child: Container(
                         width: 61,
                         height: 50,

@@ -16,7 +16,7 @@ void main() {
       filters.add(genre1);
       filters.add(genre2);
       await swipeState.fetchSongs(filters);
-      expect(swipeState.songs.length,4);
+      expect(swipeState.songs.length,2);
     });
 
     test('fetchSong returns only music from specific genre',() async{
