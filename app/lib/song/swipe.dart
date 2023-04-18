@@ -108,14 +108,14 @@ class _SwipeState extends State<SwipePage> {
       var jsonResponse = convert.jsonDecode(response.body);
       if (jsonResponse['tracks']['items'].isNotEmpty) {
         var trackIndex =
-            Random().nextInt(jsonResponse['tracks']['items'].length);
+        Random().nextInt(jsonResponse['tracks']['items'].length);
         var trackName = jsonResponse['tracks']['items'][trackIndex]['name'];
         var artistName =
-            jsonResponse['tracks']['items'][trackIndex]['artists'][0]['name'];
+        jsonResponse['tracks']['items'][trackIndex]['artists'][0]['name'];
         var previewUrl =
-            jsonResponse['tracks']['items'][trackIndex]['preview_url'];
+        jsonResponse['tracks']['items'][trackIndex]['preview_url'];
         var imageUrl = jsonResponse['tracks']['items'][trackIndex]['album']
-            ['images'][0]['url'];
+        ['images'][0]['url'];
 
         Song song = Song(
           trackName: trackName,
