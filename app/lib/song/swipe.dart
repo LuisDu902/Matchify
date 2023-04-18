@@ -32,8 +32,8 @@ Map<String, String> queries = {
   '70\'s': 'year:1970-1979',
   '80\'s': 'year:1980-1989',
   '90\'s': 'year:1990-1999',
-  'Lonely': 'energy:0.1',
-  'Calm': 'energy:0.4',
+  'Lonely': 'lonely',
+  'Calm': 'calm',
   'Energetic': 'energy:1.0'
 };
 
