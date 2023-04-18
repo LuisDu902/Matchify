@@ -18,6 +18,25 @@ class SwipePage extends StatefulWidget {
   _SwipeState createState() => _SwipeState();
 }
 
+Map<String, String> queries = {
+  'Pop': 'genre:pop',
+  'Funk': 'genre:funk',
+  'Rock': 'genre:rock',
+  'Heavy metal': 'genre:metal',
+  'Classical': 'genre:classical',
+  'Happy': 'genre:happy',
+  'Sad': 'genre:sad',
+  'Jazz': 'genre:jazz',
+  'Rap': 'genre:rap',
+  'EDM': 'genre:electronic',
+  '70\'s': 'year:1970-1979',
+  '80\'s': 'year:1980-1989',
+  '90\'s': 'year:1990-1999',
+  'Lonely': 'lonely',
+  'Calm': 'calm',
+  'Energetic': 'energy:1.0'
+};
+
 List<Song> liked = [];
 
 List<Song> getLikedSongs() {
@@ -76,7 +95,7 @@ class _SwipeState extends State<SwipePage> {
 
   Future<void> _searchSong(String filter) async {
     var queryParameters = {
-      'q': filter,
+      'q': queries[filter],
       'type': 'track',
       'limit': '50',
       'offset': '${random.nextInt(100)}'
@@ -89,14 +108,14 @@ class _SwipeState extends State<SwipePage> {
       var jsonResponse = convert.jsonDecode(response.body);
       if (jsonResponse['tracks']['items'].isNotEmpty) {
         var trackIndex =
-            Random().nextInt(jsonResponse['tracks']['items'].length);
+        Random().nextInt(jsonResponse['tracks']['items'].length);
         var trackName = jsonResponse['tracks']['items'][trackIndex]['name'];
         var artistName =
-            jsonResponse['tracks']['items'][trackIndex]['artists'][0]['name'];
+        jsonResponse['tracks']['items'][trackIndex]['artists'][0]['name'];
         var previewUrl =
-            jsonResponse['tracks']['items'][trackIndex]['preview_url'];
+        jsonResponse['tracks']['items'][trackIndex]['preview_url'];
         var imageUrl = jsonResponse['tracks']['items'][trackIndex]['album']
-            ['images'][0]['url'];
+        ['images'][0]['url'];
 
         Song song = Song(
           trackName: trackName,
