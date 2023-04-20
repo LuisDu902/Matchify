@@ -1,6 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:matchify/friends.dart';
+
+import 'package:matchify/sidebar/about.dart';
+import 'package:matchify/sidebar/addFriends.dart';
+import 'package:matchify/sidebar/friends.dart';
+import 'package:matchify/sidebar/library.dart';
 
 class Info extends StatefulWidget {
   const Info({super.key});
@@ -88,7 +92,14 @@ class AddFriendCard extends StatelessWidget {
           ),
         ),
         ListTile(
-          onTap: () {},
+          onTap: () {
+             Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => AddFriendsScreen(),
+              ),
+            );
+          },
           leading: CircleAvatar(
             backgroundColor: Colors.white24,
             child: Icon(
@@ -120,7 +131,14 @@ class AboutCard extends StatelessWidget {
           ),
         ),
         ListTile(
-          onTap: () {},
+          onTap: () {
+             Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => AboutScreen(),
+              ),
+            );
+          },
           leading: CircleAvatar(
             backgroundColor: Colors.white24,
             child: Icon(
@@ -144,15 +162,23 @@ class LibraryCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 60),
-      child: ListTile(
-        leading: CircleAvatar(
-          backgroundColor: Colors.white24,
-          child: Icon(
-            CupertinoIcons.music_albums_fill,
-            color: Colors.white,
+      child: GestureDetector(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => LibraryScreen()),
+          );
+        },
+        child: ListTile(
+          leading: CircleAvatar(
+            backgroundColor: Colors.white24,
+            child: Icon(
+              CupertinoIcons.music_albums_fill,
+              color: Colors.white,
+            ),
           ),
+          title: Text("Library", style: TextStyle(color: Colors.white)),
         ),
-        title: Text("Library", style: TextStyle(color: Colors.white)),
       ),
     );
   }

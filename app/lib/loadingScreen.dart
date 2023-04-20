@@ -1,4 +1,3 @@
-import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:matchify/authentication/widget_tree.dart';
@@ -8,13 +7,14 @@ class LoadingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Future.delayed(Duration(seconds: 3), () {
+    Future.delayed(const Duration(seconds: 3), () {
       Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => const WidgetTree()),
           );
     });
     return Scaffold(
+      key : Key('loading page'),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

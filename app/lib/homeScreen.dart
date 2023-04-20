@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:matchify/filters.dart';
 
-import 'appBar.dart';
-import 'infoScreen.dart';
+import 'appBar/appBar.dart';
+import 'appBar/infoScreen.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({Key? key});
-
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: Key("home page"),
       drawer: Info(),
       appBar: appBar(),
-      backgroundColor: Colors.white, // Set the body background color to white
-
+      backgroundColor: Colors.white,
       body: SizedBox(
         child: Stack(
           children: <Widget>[
@@ -22,6 +22,7 @@ class HomeScreen extends StatelessWidget {
               left: 36,
               child: GestureDetector(
                 onTap: () {
+                   clearFilters();
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => const Filters()),
@@ -44,6 +45,7 @@ class HomeScreen extends StatelessWidget {
               left: 225,
               child: GestureDetector(
                 onTap: () {
+                   clearFilters();
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => Filters()),
@@ -62,10 +64,12 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
             Positioned(
+               key: Key("create a new playlist"),
               top: 280,
               left: 75,
               child: GestureDetector(
                 onTap: () {
+                   clearFilters();
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => Filters()),
@@ -88,6 +92,7 @@ class HomeScreen extends StatelessWidget {
               left: 250,
               child: GestureDetector(
                 onTap: () {
+                   clearFilters();
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => Filters()),

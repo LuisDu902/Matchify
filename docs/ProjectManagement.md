@@ -49,3 +49,36 @@ Release: https://github.com/FEUP-LEIC-ES-2022-23/2LEIC16T4/releases/tag/v1.0
 * Specifics of the Gherkin automated testing;
 * Some quirks of Spotify SDK and Spotify Web API;
 
+## Iteration 2
+Release: https://github.com/FEUP-LEIC-ES-2022-23/2LEIC16T4/releases/tag/v2.0
+
+### Board
+
+`Before`
+
+![beforeI2](https://user-images.githubusercontent.com/87833818/232909706-14eae634-f41a-4732-ae06-03a5a2c690f9.png)
+
+`After`
+
+![afterI2](https://user-images.githubusercontent.com/87833818/232909790-f573908f-d701-4afe-a31d-42e336e7da7e.png)
+
+
+### What went well?
+
+* We managed to implement most of what we had on the iteration backlog;
+* We managed to test most of our implemented features;
+* We improved on what we had designed previously for the UI mockups;
+* Good relationship between team members.
+
+### What should we do differently?
+
+* Better communication;
+* Better time management;
+* Try to finish our goals fully.
+
+### What still puzzles us?
+
+* Some of the Flutter syntax;
+* Connection to Firebase Realtime Database;
+* Specifics of the Gherkin automated testing;
+* Some quirks of Spotify SDK.
