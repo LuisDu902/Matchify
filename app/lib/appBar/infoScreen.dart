@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:matchify/authentication/auth.dart';
 
 import 'package:matchify/sidebar/about.dart';
 import 'package:matchify/sidebar/addFriends.dart';
@@ -167,7 +168,7 @@ class LibraryCard extends StatelessWidget {
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => LibraryScreen()),
+            MaterialPageRoute(builder: (context) => LibraryScreen(username: Auth().getUsername())),
           );
         },
         child: ListTile(
