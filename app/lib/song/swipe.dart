@@ -217,7 +217,7 @@ class _SwipeState extends State<SwipePage> {
                             liked.add(currentSong);
                             play = true;
                             if (liked.length == 5) {
-                              clearFilters();
+                             
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
