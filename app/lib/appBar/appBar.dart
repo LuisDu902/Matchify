@@ -1,12 +1,41 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:matchify/appBar/profileScreen.dart';
-
 import '../authentication/auth.dart';
 import '../homeScreen.dart';
+import '../constants.dart';
 
-class appBar extends StatelessWidget implements PreferredSizeWidget {
-  appBar({Key? key}) : super(key: key);
+class appBar extends StatefulWidget implements PreferredSizeWidget {
+  const appBar({Key? key}) : super(key: key);
+
+  @override
+  _appBarState createState() => _appBarState();
+
+  @override
+  Size get preferredSize => const Size.fromHeight(80);
+}
+
+class _appBarState extends State<appBar> {
+  late Color bgColor;
+  late Color textColor;
+  late Color mixPlaylistColor;
+
+  @override
+  void initState() {
+    super.initState();
+    updateColors();
+  }
+
+  void updateColors() {
+    setState(() {
+      bgColor =
+          isDarkModeEnabled ? Color.fromRGBO(59, 59, 59, 1) : Colors.white;
+      textColor = isDarkModeEnabled ? Colors.white : Colors.black;
+      mixPlaylistColor = isDarkModeEnabled
+          ? Color.fromARGB(255, 255, 255, 255)
+          : Color.fromRGBO(73, 43, 124, 1);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +53,7 @@ class appBar extends StatelessWidget implements PreferredSizeWidget {
           decoration: BoxDecoration(
             border: Border(
               bottom: BorderSide(
-                color: Color.fromRGBO(48, 21, 81, 1),
+                color: textColor,
                 width: 2.0,
               ),
             ),
@@ -34,7 +63,7 @@ class appBar extends StatelessWidget implements PreferredSizeWidget {
             child: Text(
               '   Matchify   ',
               style: TextStyle(
-                color: Color.fromRGBO(48, 21, 81, 1),
+                color: textColor,
                 fontFamily: 'Italiana',
                 fontSize: 30,
                 letterSpacing: 0,
@@ -49,16 +78,16 @@ class appBar extends StatelessWidget implements PreferredSizeWidget {
             onPressed: () {
               Scaffold.of(context).openDrawer();
             },
-            icon: const Icon(
+            icon: Icon(
               Icons.menu,
-              color: Color.fromRGBO(48, 21, 81, 1),
+              color: textColor,
               size: 30,
             )),
       ),
       actions: [
         IconButton(
           key: Key('profile'),
-          onPressed: (){
+          onPressed: () {
             Navigator.push(
               context,
               MaterialPageRoute(
@@ -66,18 +95,15 @@ class appBar extends StatelessWidget implements PreferredSizeWidget {
               ),
             );
           },
-          icon: const Icon(
+          icon:  Icon(
             Icons.person,
-            color: Color.fromRGBO(48, 21, 81, 1),
+            color: textColor,
             size: 30,
           ),
         ),
       ],
-      backgroundColor: Colors.white,
+      backgroundColor: bgColor,
       elevation: 0,
     );
   }
-
-  @override
-  Size get preferredSize => const Size.fromHeight(80);
 }

@@ -3,17 +3,47 @@ import 'package:matchify/filters.dart';
 
 import 'appBar/appBar.dart';
 import 'appBar/infoScreen.dart';
+import 'constants.dart';
 
-class HomeScreen extends StatelessWidget {
-  HomeScreen({Key? key});
+
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({Key? key}) : super(key: key);
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   
+
+  late Color bgColor;
+  late Color textColor;
+  late Color mixPlaylistColor;
+
+  @override
+  void initState() {
+    super.initState();
+    updateColors();
+  }
+
+  void updateColors() {
+    setState(() {
+      bgColor =
+          isDarkModeEnabled ? Color.fromRGBO(59, 59, 59, 1) : Colors.white;
+      textColor = isDarkModeEnabled ? Colors.white : Colors.black;
+      mixPlaylistColor = isDarkModeEnabled
+          ? Color.fromARGB(255, 255, 255, 255)
+          : Color.fromRGBO(73, 43, 124, 1);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: Key("home page"),
       drawer: Info(),
       appBar: appBar(),
-      backgroundColor: Colors.white,
+      backgroundColor: bgColor,
       body: SizedBox(
         child: Stack(
           children: <Widget>[
@@ -52,8 +82,8 @@ class HomeScreen extends StatelessWidget {
                 child: Container(
                   width: 154,
                   height: 147,
-                  decoration: const BoxDecoration(
-                    color: Color.fromRGBO(73, 43, 124, 1),
+                  decoration: BoxDecoration(
+                    color: mixPlaylistColor,
                     borderRadius: BorderRadius.all(
                       Radius.elliptical(154, 147),
                     ),
@@ -62,7 +92,7 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
             Positioned(
-               key: Key("create a new playlist"),
+              key: Key("create a new playlist"),
               top: 280,
               left: 75,
               child: GestureDetector(
@@ -106,14 +136,14 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
             ),
-            const Positioned(
+            Positioned(
               top: 420,
               left: 48,
               child: Text(
                 'Add playlist',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  color: Color.fromRGBO(48, 21, 81, 1),
+                  color: textColor,
                   fontFamily: 'Istok Web',
                   fontSize: 25,
                   letterSpacing: 0,
@@ -122,14 +152,14 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
             ),
-            const Positioned(
+            Positioned(
               top: 420,
               left: 236,
               child: Text(
                 'Mix playlist',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                    color: Color.fromRGBO(48, 21, 81, 1),
+                    color: textColor,
                     fontFamily: 'Istok Web',
                     fontSize: 25,
                     letterSpacing:
