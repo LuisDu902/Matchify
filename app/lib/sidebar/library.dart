@@ -8,20 +8,20 @@ import 'package:matchify/song/playlist.dart';
 import '../song/song.dart';
 
 class LibraryScreen extends StatefulWidget {
+  final String username;
+
+  LibraryScreen({required this.username});
+
   @override
   _LibraryScreenState createState() => _LibraryScreenState();
 }
 
 class _LibraryScreenState extends State<LibraryScreen> {
-  final user = Auth().currentUser;
-  final username = Auth().getUsername();
-
   List<Playlist> library = [];
-
   Future<List<Playlist>> fetchLibrary() async {
     final database = FirebaseDatabase.instance;
     final playlistRef =
-        database.ref().child('users').child(username).child('playlists');
+        database.ref().child('users').child(widget.username).child('playlists');
 
     final snapshot = await playlistRef.get();
     if (snapshot.value != null) {
@@ -97,13 +97,11 @@ class _LibraryScreenState extends State<LibraryScreen> {
                   width: 146,
                   height: 146,
                 ),
-                SizedBox(
-                    height: 20),
+                SizedBox(height: 20),
                 Text(
                   library[i++].name,
                   textAlign: TextAlign.center,
                   style: TextStyle(
-
                     color: Color.fromRGBO(48, 21, 81, 1),
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
@@ -133,7 +131,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
                 children: [
                   SizedBox(height: 50),
                   Text(
-                    'My Playlists',
+                    widget.username +'\'s Library',
                     style: TextStyle(
                       color: Color.fromRGBO(48, 21, 81, 1),
                       fontSize: 24,
@@ -141,7 +139,6 @@ class _LibraryScreenState extends State<LibraryScreen> {
                     ),
                   ),
                   SizedBox(height: 64),
-
                   showPlaylists(),
                 ],
               ),

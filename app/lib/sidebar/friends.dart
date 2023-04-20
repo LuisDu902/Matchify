@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:matchify/appBar/appBar.dart';
 import 'package:matchify/appBar/infoScreen.dart';
 import 'package:matchify/authentication/auth.dart';
+import 'package:matchify/sidebar/library.dart';
 
 class FriendsScreen extends StatefulWidget {
   @override
@@ -67,7 +68,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
 
     userRef.child('friends').child(friend).remove();
     friendRef.child('friends').child(username).remove();
-    
+
     setState(() {
       friends.removeAt(index);
     });
@@ -194,11 +195,21 @@ class _FriendsScreenState extends State<FriendsScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      friends[index],
-                      style: TextStyle(
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.bold,
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  LibraryScreen(username: friends[index])),
+                        );
+                      },
+                      child: Text(
+                        friends[index],
+                        style: TextStyle(
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                     IconButton(
@@ -256,7 +267,6 @@ class _FriendsScreenState extends State<FriendsScreen> {
 
     friendRef.update({username: username});
     userRef.update({acceptedRequest: acceptedRequest});
-    
   }
 
   Widget showRequests() {

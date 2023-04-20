@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:matchify/authentication/auth.dart';
 
 import 'package:matchify/sidebar/about.dart';
 import 'package:matchify/sidebar/addFriends.dart';
@@ -103,6 +104,7 @@ class AddFriendCard extends StatelessWidget {
           leading: CircleAvatar(
             backgroundColor: Colors.white24,
             child: Icon(
+              key: Key('add friend'),
               CupertinoIcons.person_add_solid,
               color: Colors.white,
             ),
@@ -166,7 +168,7 @@ class LibraryCard extends StatelessWidget {
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => LibraryScreen()),
+            MaterialPageRoute(builder: (context) => LibraryScreen(username: Auth().getUsername())),
           );
         },
         child: ListTile(
