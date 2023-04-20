@@ -50,6 +50,7 @@ class appBar extends StatelessWidget implements PreferredSizeWidget {
               Scaffold.of(context).openDrawer();
             },
             icon: const Icon(
+              key: Key('side bar'),
               Icons.menu,
               color: Color.fromRGBO(48, 21, 81, 1),
               size: 30,

@@ -103,6 +103,7 @@ class AddFriendCard extends StatelessWidget {
           leading: CircleAvatar(
             backgroundColor: Colors.white24,
             child: Icon(
+              key: Key('add friend'),
               CupertinoIcons.person_add_solid,
               color: Colors.white,
             ),

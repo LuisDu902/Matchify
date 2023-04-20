@@ -34,7 +34,7 @@ class CheckPage extends And1WithWorld<String, FlutterWorld> {
 class CheckHomePage extends GivenWithWorld<FlutterWorld> {
   @override
   Future<void> executeStep() async {
-    
+    await Future.delayed(Duration(seconds: 1)); 
     final home = find.byValueKey("home page");
 
     bool isHomePage = await FlutterDriverUtils.isPresent(world.driver, home);
@@ -51,7 +51,7 @@ class CheckHomePage extends GivenWithWorld<FlutterWorld> {
     }
     
      while (!isHomePage) {
-      await Future.delayed(Duration(milliseconds: 100)); // Sleep for 100ms
+      await Future.delayed(Duration(seconds: 1)); 
       isHomePage = await FlutterDriverUtils.isPresent(world.driver, home);
     }
     expect(isHomePage, true);

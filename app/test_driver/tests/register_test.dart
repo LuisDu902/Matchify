@@ -12,8 +12,6 @@ Future<void> main() async {
     ..stepDefinitions = [
       LaunchApp(),
       CheckRegisterPage(),
-      TapWidgetOfTypeStep(),
-      WhenFillFieldStep(),
       RegisterSuccess(),
       ErrorMessage(),
       CheckPage(),
