@@ -29,9 +29,9 @@ class _HomeScreenState extends State<HomeScreen> {
   void updateColors() {
     setState(() {
       bgColor =
-          isDarkModeEnabled ? Color.fromRGBO(59, 59, 59, 1) : Colors.white;
-      textColor = isDarkModeEnabled ? Colors.white : Colors.black;
-      mixPlaylistColor = isDarkModeEnabled
+           DarkMode.isDarkModeEnabled ? Color.fromRGBO(59, 59, 59, 1) : Colors.white;
+      textColor =  DarkMode.isDarkModeEnabled ? Colors.white : Colors.black;
+      mixPlaylistColor =  DarkMode.isDarkModeEnabled
           ? Color.fromARGB(255, 255, 255, 255)
           : Color.fromRGBO(73, 43, 124, 1);
     });

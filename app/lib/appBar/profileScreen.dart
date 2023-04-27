@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:matchify/appBar/appBar.dart';
 import 'package:matchify/appBar/infoScreen.dart';
 import 'package:matchify/authentication/auth.dart';
+import '../constants.dart';
 
 class ProfileScreen extends StatefulWidget {
   @override
@@ -11,6 +12,29 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  late Color bgColor;
+  late Color textColor;
+  late Color boxTextColor;
+  late Color boxColor;
+
+  @override
+  void initState() {
+    super.initState();
+    updateColors();
+  }
+
+  void updateColors() {
+    setState(() {
+      bgColor =
+           DarkMode.isDarkModeEnabled ? Color.fromRGBO(59, 59, 59, 1) : Colors.white;
+      textColor =  DarkMode.isDarkModeEnabled ? Colors.white : Colors.black;
+      boxTextColor =
+           DarkMode.isDarkModeEnabled ? Color.fromRGBO(20, 6, 74, 1): Color.fromRGBO(48, 21, 81, 1);
+      boxColor =
+           DarkMode.isDarkModeEnabled ? Colors.white :Color.fromRGBO(48, 21, 81, 1);
+    });
+  }
+
   final User? user = Auth().currentUser;
 
   Future<void> signOut() async {
@@ -119,7 +143,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
       drawer: Info(),
       appBar: appBar(),
-      backgroundColor: Colors.white,
+      backgroundColor: bgColor,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -128,21 +152,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
             Text(
               'My profile',
               style: TextStyle(
-                color: Color.fromRGBO(48, 21, 81, 1),
+                color: textColor,
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
               ),
             ),
             SizedBox(height: 20),
-            Image.network(
-              'https://cdn-icons-png.flaticon.com/512/6522/6522516.png',
-              fit: BoxFit.contain,
-              width: 250,
-              height: 260,
-            ),
+            
+              Icon(
+                   Icons.person,
+                       size: 250,
+                     color: textColor,
+                    ),
+
+              
+            
             Text(
               Auth().getUsername(),
-              style: TextStyle(fontSize: 20),
+              style: TextStyle(fontSize: 20, color: textColor),
             ),
             SizedBox(height: 100),
             ElevatedButton(
@@ -154,9 +181,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                 ),
                 backgroundColor: MaterialStateProperty.all<Color>(
-                    Color.fromRGBO(224, 217, 228, 1)),
+                    boxTextColor),
                 foregroundColor: MaterialStateProperty.all<Color>(
-                  Color.fromRGBO(48, 21, 81, 1),
+                  boxColor,
                 ),
                 fixedSize: MaterialStateProperty.resolveWith<Size?>(
                     (states) => Size(240, 50)),
@@ -180,9 +207,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                 ),
                 backgroundColor: MaterialStateProperty.all<Color>(
-                    Color.fromRGBO(224, 217, 228, 1)),
+                    boxTextColor),
                 foregroundColor: MaterialStateProperty.all<Color>(
-                  Color.fromRGBO(48, 21, 81, 1),
+                  boxColor,
                 ),
                 fixedSize: MaterialStateProperty.resolveWith<Size?>(
                     (states) => Size(240, 50)),

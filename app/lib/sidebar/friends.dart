@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:matchify/appBar/appBar.dart';
 import 'package:matchify/appBar/infoScreen.dart';
 import 'package:matchify/authentication/auth.dart';
+import '../constants.dart';
 
 class FriendsScreen extends StatefulWidget {
   @override
@@ -10,14 +11,39 @@ class FriendsScreen extends StatefulWidget {
 }
 
 class _FriendsScreenState extends State<FriendsScreen> {
+  //darkmode
+  late Color bgColor;
+  late Color textColor;
+
+  @override
+  void initState() {
+    super.initState();
+    updateColors();
+  }
+
+  void updateColors() {
+    setState(() {
+      bgColor =  DarkMode.isDarkModeEnabled
+          ? Color.fromRGBO(59, 59, 59, 1)
+          : Color.fromRGBO(255, 255, 255, 1);
+      textColor =  DarkMode.isDarkModeEnabled
+          ? Color.fromRGBO(255, 255, 255, 1)
+          : Color.fromRGBO(48, 21, 81, 1);
+          
+    });
+  }
+
   final user = Auth().currentUser;
   final username = Auth().getUsername();
   bool isResquest = false;
 
-  Color requestColor = Colors.white;
-  Color friendColor = Color.fromRGBO(48, 21, 81, 1);
-  Color requestText = Color.fromRGBO(48, 21, 81, 1);
-  Color friendText = Colors.white;
+  
+  late Color requestColor = bgColor;
+          late Color friendColor =textColor;
+           late Color requestText = textColor;
+            late Color friendText = bgColor;
+ 
+
 
   List<String> friends = [];
   List<String> requests = [];
@@ -67,7 +93,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
 
     userRef.child('friends').child(friend).remove();
     friendRef.child('friends').child(username).remove();
-    
+
     setState(() {
       friends.removeAt(index);
     });
@@ -174,6 +200,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
             fontFamily: 'Roboto',
             fontSize: 20.0,
             fontWeight: FontWeight.bold,
+            color: textColor
           ),
         ),
       );
@@ -256,7 +283,6 @@ class _FriendsScreenState extends State<FriendsScreen> {
 
     friendRef.update({username: username});
     userRef.update({acceptedRequest: acceptedRequest});
-    
   }
 
   Widget showRequests() {
@@ -273,6 +299,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
             fontFamily: 'Roboto',
             fontSize: 20.0,
             fontWeight: FontWeight.bold,
+            color: textColor,
           ),
         ),
       );
@@ -409,7 +436,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
           return Scaffold(
             drawer: Info(),
             appBar: appBar(),
-            backgroundColor: Colors.white,
+            backgroundColor: bgColor,
             body: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [

@@ -1,1 +1,3 @@
-bool isDarkModeEnabled = true;
+class DarkMode {
+  static bool isDarkModeEnabled = false;
+}

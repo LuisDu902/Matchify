@@ -10,6 +10,7 @@ import 'package:scroll_loop_auto_scroll/scroll_loop_auto_scroll.dart';
 import '../appBar/appBar.dart';
 import '../appBar/infoScreen.dart';
 import '../filters.dart';
+import '../constants.dart';
 
 class SwipePage extends StatefulWidget {
   const SwipePage({super.key});
@@ -58,6 +59,31 @@ void clearDislikedSongs() {
 }
 
 class _SwipeState extends State<SwipePage> {
+  //darkmode
+  late Color bgColor;
+  late Color textColor;
+  late Color mixPlaylistColor;
+
+  @override
+  void initState() {
+    super.initState();
+    updateColors();
+  }
+
+  void updateColors() {
+    setState(() {
+      bgColor =
+           DarkMode.isDarkModeEnabled ? Color.fromRGBO(59, 59, 59, 1) : Colors.white;
+      
+      textColor =  DarkMode.isDarkModeEnabled
+          ? Colors.white
+          : Color.fromRGBO(48, 21, 81, 1);
+    });
+  }
+
+  //rest of code
+  
+  
   List<Song> songs = [];
 
   Random random = Random();
@@ -154,7 +180,7 @@ class _SwipeState extends State<SwipePage> {
             key: Key('swipe page'),
             drawer: Info(),
             appBar: appBar(),
-            backgroundColor: Colors.white,
+            backgroundColor: bgColor,
             body: Align(
               alignment: Alignment.bottomLeft,
               child: Container(
@@ -175,7 +201,7 @@ class _SwipeState extends State<SwipePage> {
                             text: TextSpan(
                               style: TextStyle(
                                 fontSize: 25.0,
-                                color: Color.fromRGBO(48, 21, 81, 1),
+                                color: textColor,
                                 fontFamily: 'Istok Web',
                                 fontWeight: FontWeight.normal,
                                 height: 1,
@@ -243,97 +269,86 @@ class _SwipeState extends State<SwipePage> {
                       ),
                     ),
                     Positioned(
-                      top: 400,
-                      left: 170,
-                      child: IconButton(
-                        icon: play ? Icon(Icons.play_arrow_rounded) : Icon(Icons.pause_rounded),
-                        iconSize: 45,
-                        onPressed: () {
-                          if (play) {
-                            songs[index].play();
-                            play = false;
-                          }
-                          else {
-                            songs[index].pause();
-                            play = true;
-                          }
-                          // Handle replay button press
-                          setState((){});
-                        },
-                      ),
-                    ),
+  top: 400,
+  left: 170,
+  child: IconButton(
+    icon: play ? Icon(Icons.play_arrow_rounded, color: textColor) : Icon(Icons.pause_rounded, color: textColor),
+    iconSize: 45,
+    onPressed: () {
+      if (play) {
+        songs[index].play();
+        play = false;
+      }
+      else {
+        songs[index].pause();
+        play = true;
+      }
+      // Handle replay button press
+      setState((){});
+    },
+  ),
+),
+
                     Positioned(
-                      top: 600,
-                      left: 44,
-                      child: Divider(
-                        color: Color.fromRGBO(48, 21, 81, 1),
-                        thickness: 1,
-                      ),
-                    ),
-                    Positioned(
-                      top: 500,
-                      left: 284,
-                      child: Divider(
-                        color: Color.fromRGBO(48, 21, 81, 1),
-                        thickness: 1,
-                      ),
-                    ),
-                    Positioned(
-                      top: 460,
-                      left: 55,
-                      child: Container(
-                        width: 90,
-                        height: 85,
-                        decoration: BoxDecoration(
-                          color: Color.fromRGBO(246, 217, 18, 1),
-                          borderRadius: BorderRadius.all(
-                            Radius.elliptical(90, 85),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Positioned(
-                      top: 460,
-                      left: 260,
-                      child: Container(
-                        width: 90,
-                        height: 85,
-                        decoration: BoxDecoration(
-                          color: Color.fromRGBO(237, 138, 10, 1),
-                          borderRadius: BorderRadius.all(
-                            Radius.elliptical(90, 85),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Positioned(
-                      top: 480,
-                      left: 70,
-                      child: Container(
-                        width: 61,
-                        height: 50,
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: AssetImage('images/like.png'),
-                            fit: BoxFit.fitWidth,
-                          ),
-                        ),
-                      ),
-                    ),
-                    Positioned(
-                      top: 478,
-                      left: 275,
-                      child: Container(
-                        width: 61,
-                        height: 50,
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: AssetImage('images/dislike.png'),
-                            fit: BoxFit.fitWidth,
-                          ),
-                        ),
-                      ),
-                    ),
+  top: 600,
+  left: 44,
+  child: Divider(
+    color: textColor,
+    thickness: 1,
+  ),
+),
+Positioned(
+  top: 500,
+  left: 284,
+  child: Divider(
+    color: textColor,
+    thickness: 1,
+  ),
+),
+Positioned(
+  top: 460,
+  left: 55,
+  child: Container(
+    width: 90,
+    height: 85,
+    decoration: BoxDecoration(
+      color: Color.fromRGBO(246, 217, 18, 1),
+      borderRadius: BorderRadius.all(
+        Radius.elliptical(90, 85),
+      ),
+    ),
+    child: Center(
+      child: Icon(
+        Icons.favorite,
+        color: textColor,
+        size: 60,
+      ),
+    ),
+  ),
+),
+Positioned(
+  top: 460,
+  left: 260,
+  child: Container(
+    width: 90,
+    height: 85,
+    decoration: BoxDecoration(
+      color: Color.fromRGBO(237, 138, 10, 1),
+      borderRadius: BorderRadius.all(
+        Radius.elliptical(90, 85),
+      ),
+    ),
+    child: Center(
+      child: Icon(
+        Icons.close,
+        color: textColor,
+        size: 60,
+      ),
+    ),
+  ),
+),
+
+
                   ],
                 ),
               ),

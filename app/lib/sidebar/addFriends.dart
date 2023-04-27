@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:matchify/appBar/appBar.dart';
 import 'package:matchify/appBar/infoScreen.dart';
 import 'package:matchify/authentication/auth.dart';
+import '../constants.dart';
 
 class AddFriendsScreen extends StatefulWidget {
   @override
@@ -10,6 +11,29 @@ class AddFriendsScreen extends StatefulWidget {
 }
 
 class _AddFriendsPageScreen extends State<AddFriendsScreen> {
+  //darkmode
+  late Color bgColor;
+  late Color textColor;
+  
+
+  @override
+  void initState() {
+    super.initState();
+    updateColors();
+  }
+
+  void updateColors() {
+    setState(() {
+      bgColor =
+           DarkMode.isDarkModeEnabled ? Color.fromRGBO(59, 59, 59, 1): Color.fromRGBO(255, 255, 255, 1);
+      textColor =
+           DarkMode.isDarkModeEnabled ? Color.fromRGBO(255, 255, 255, 1): Color.fromRGBO(48, 21, 81, 1);
+
+     
+          
+    });
+  }
+  
   final user = Auth().currentUser;
   final username = Auth().getUsername();
   final TextEditingController friendRequest = TextEditingController();
@@ -49,7 +73,7 @@ class _AddFriendsPageScreen extends State<AddFriendsScreen> {
     return Scaffold(
         drawer: Info(),
         appBar: appBar(),
-        backgroundColor: Colors.white,
+        backgroundColor: bgColor,
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -57,7 +81,7 @@ class _AddFriendsPageScreen extends State<AddFriendsScreen> {
               Text(
                 'Send a friend request!',
                 style: TextStyle(
-                    fontSize: 24, color: Color.fromRGBO(48, 21, 81, 1)),
+                    fontSize: 24, color: textColor),
               ),
               SizedBox(height: 16),
               Stack(
