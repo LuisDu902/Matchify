@@ -6,6 +6,7 @@ import 'package:matchify/sidebar/about.dart';
 import 'package:matchify/sidebar/addFriends.dart';
 import 'package:matchify/sidebar/friends.dart';
 import 'package:matchify/sidebar/library.dart';
+import '../constants.dart';
 
 class Info extends StatefulWidget {
   const Info({super.key});
@@ -15,13 +16,36 @@ class Info extends StatefulWidget {
 }
 
 class _InfoState extends State<Info> {
+
+  //darkmode
+  late Color bgColor;
+  
+
+  @override
+  void initState() {
+    super.initState();
+    updateColors();
+  }
+
+  void updateColors() {
+    setState(() {
+      bgColor =
+           DarkMode.isDarkModeEnabled ? Color.fromRGBO(28, 28, 28, 1): Color.fromRGBO(73, 43, 124, 1);
+
+     
+          
+    });
+  }
+
+  
+//rest of code
   @override
   Widget build(BuildContext context) {
     return Drawer(
       child: Container(
         width: 288,
         height: double.infinity,
-        color: Color.fromRGBO(73, 43, 124, 1),
+        color: bgColor,
         child: SafeArea(
           child: Column(
             children: [
@@ -29,6 +53,7 @@ class _InfoState extends State<Info> {
               FriendsCard(),
               AddFriendCard(),
               AboutCard(),
+              
             ],
           ),
         ),

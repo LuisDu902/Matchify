@@ -75,6 +75,7 @@ void main() {
     expect(find.text('Continue'), findsNothing);
 
     // Tap the "Filter" button to open the filter selection page.
+    playlistSize=5;
     await tester.tap(find.text('Genre'));
     await tester.pumpAndSettle();
     await tester.tap(find.text('Rock'));
@@ -94,6 +95,7 @@ void main() {
       expect(find.text('Continue'), findsNothing);
 
       // Tap the "Filter" button to open the filter selection page.
+      playlistSize=5;
       await tester.tap(find.text('Genre'));
       await tester.pumpAndSettle();
       await tester.tap(find.text('Rock'));

@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:matchify/appBar/infoScreen.dart';
 import 'appBar/appBar.dart';
 import 'song/swipe.dart';
+import 'constants.dart';
 
 class Filters extends StatefulWidget {
   const Filters({Key? key});
@@ -21,9 +22,46 @@ void clearFilters() {
   _filters.clear();
 }
 
- int playListSize = 0;
+int playlistSize = 0;
+
 class _FiltersState extends State<Filters> {
- 
+  //darkmode
+  late Color bgColor;
+  late Color boxFilter;
+  late Color singularFilter;
+  late Color sizeColor;
+
+  @override
+  void initState() {
+    super.initState();
+    updateColors();
+  }
+
+  void updateColors() {
+    setState(() {
+      bgColor = DarkMode.isDarkModeEnabled
+          ? Color.fromRGBO(59, 59, 59, 1)
+          : Colors.white;
+
+      boxFilter = DarkMode.isDarkModeEnabled
+          ? //Color.fromRGBO(68, 47, 100, 1)
+          Colors.white
+          : Color.fromRGBO(151, 138, 168, 1);
+
+      singularFilter = DarkMode.isDarkModeEnabled
+          ? //Color.fromRGBO(179, 178, 174, 1)
+          Color.fromRGBO(224, 217, 228, 1)
+          : Color.fromRGBO(251, 237, 160, 1);
+
+      sizeColor = DarkMode.isDarkModeEnabled
+          ? // Color.fromRGBO(179, 178, 174, 1)
+          Colors.white
+          : Color.fromRGBO(248, 206, 156, 1);
+    });
+  }
+
+//rest of code
+
   bool _isGenreListVisible = false;
   bool _isMoodListVisible = false;
   bool _isDecadeListVisible = false;
@@ -169,7 +207,7 @@ class _FiltersState extends State<Filters> {
       margin: EdgeInsets.fromLTRB(16.0, 0, 16, 10),
       padding: EdgeInsets.all(16.0), // add padding here
       decoration: BoxDecoration(
-        color: Color.fromRGBO(151, 138, 168, 1),
+        color: boxFilter,
         borderRadius: BorderRadius.circular(10),
       ),
       child: Wrap(
@@ -189,7 +227,7 @@ class _FiltersState extends State<Filters> {
                     padding: EdgeInsets.symmetric(horizontal: 26, vertical: 8),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
-                      color: Color.fromRGBO(251, 237, 160, 1),
+                      color: singularFilter,
                     ),
                     child: Text(genre,
                         style: TextStyle(
@@ -210,7 +248,7 @@ class _FiltersState extends State<Filters> {
       height: 50,
       margin: EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Color.fromRGBO(248, 206, 156, 1),
+        color: sizeColor,
         borderRadius: BorderRadius.circular(10),
       ),
       child: TextFormField(
@@ -234,11 +272,11 @@ class _FiltersState extends State<Filters> {
           return null;
         },
         onChanged: (value) {
-            if (value.isNotEmpty) {
-              setState(() {
-                playListSize = int.parse(value);
-              });
-            }           
+          if (value.isNotEmpty) {
+            setState(() {
+              playlistSize = int.parse(value);
+            });
+          }
         },
         style: TextStyle(
           fontFamily: 'Roboto',
@@ -315,7 +353,7 @@ class _FiltersState extends State<Filters> {
       key: Key("filters page"),
       drawer: Info(),
       appBar: appBar(),
-      backgroundColor: Colors.white,
+      backgroundColor: bgColor,
       body: SingleChildScrollView(
         child: Align(
           alignment: Alignment.centerLeft,
@@ -337,7 +375,7 @@ class _FiltersState extends State<Filters> {
           ),
         ),
       ),
-      floatingActionButton: (_filters.isNotEmpty && playListSize >= 5)
+      floatingActionButton:( _filters.isNotEmpty && playlistSize >=5)
           ? ElevatedButton(
               onPressed: () {
                 clearDislikedSongs();

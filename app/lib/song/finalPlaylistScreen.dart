@@ -17,12 +17,24 @@ class FinalPlaylistScreen extends StatefulWidget {
 class _FinalPlaylistScreenState extends State<FinalPlaylistScreen> {
   List<Song> songs = [];
   String playlistName = "New Playlist";
-
-  @override
+ 
+ @override
   void initState() {
     super.initState();
     _loadPlaylist();
+   
   }
+
+ 
+  void _loadPlaylist() async {
+    List<Song> newSongs = await fillPlaylist();
+    
+     setState(() {
+      songs = newSongs;
+    });
+  }
+
+  
 
   void savePlaylist() async {
     
@@ -49,13 +61,7 @@ class _FinalPlaylistScreenState extends State<FinalPlaylistScreen> {
 
   }
 
-  void _loadPlaylist() async {
-    List<Song> newSongs = await fillPlaylist();
-
-    setState(() {
-      songs = newSongs;
-    });
-  }
+  
 
   @override
   Widget build(BuildContext context) {

@@ -11,6 +11,7 @@ import 'package:scroll_loop_auto_scroll/scroll_loop_auto_scroll.dart';
 import '../appBar/appBar.dart';
 import '../appBar/infoScreen.dart';
 import '../filters.dart';
+import '../constants.dart';
 
 class SwipePage extends StatefulWidget {
   const SwipePage({super.key});
@@ -59,7 +60,7 @@ void clearDislikedSongs() {
 }
 
 Future<List<Song>> fillPlaylist() async {
-  while (liked.length != playListSize) {
+  while (liked.length != playlistSize) {
     Song song = await _searchSong(
         getFilters().elementAt(Random().nextInt(getFilters().length)));
     if (!disliked.contains(song)) {
@@ -157,7 +158,7 @@ class _SwipeState extends State<SwipePage> {
   bool play = true;
   int index = 0;
 
-   late Color bgColor;
+  late Color bgColor;
   late Color textColor;
   late Color mixPlaylistColor;
 
@@ -169,13 +170,15 @@ class _SwipeState extends State<SwipePage> {
 
   void updateColors() {
     setState(() {
-      bgColor = Colors.white;
-      
-      textColor =  
-           Color.fromRGBO(48, 21, 81, 1);
+      bgColor = DarkMode.isDarkModeEnabled
+          ? Color.fromRGBO(59, 59, 59, 1)
+          : Colors.white;
+
+      textColor = DarkMode.isDarkModeEnabled
+          ? Colors.white
+          : Color.fromRGBO(48, 21, 81, 1);
     });
   }
-
 
   late Song currentSong;
 
