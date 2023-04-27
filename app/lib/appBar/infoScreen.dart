@@ -36,13 +36,7 @@ class _InfoState extends State<Info> {
     });
   }
 
-  void toggleDarkMode() {
-    setState(() {
-       DarkMode.isDarkModeEnabled = ! DarkMode.isDarkModeEnabled;
-      updateColors();
-    });
-  }
-
+  
 //rest of code
   @override
   Widget build(BuildContext context) {
@@ -58,19 +52,7 @@ class _InfoState extends State<Info> {
               FriendsCard(),
               AddFriendCard(),
               AboutCard(),
-              ListTile(
-                onTap: toggleDarkMode, // Call toggleDarkMode when tapped
-                leading: Icon(
-                   DarkMode.isDarkModeEnabled
-                      ? Icons.light_mode_outlined
-                      : Icons.dark_mode_outlined,
-                  color: Colors.white,
-                ),
-                title: Text(
-                   DarkMode.isDarkModeEnabled ? 'Light mode' : 'Dark mode',
-                  style: TextStyle(color: Colors.white),
-                ),
-              ),
+              
             ],
           ),
         ),
