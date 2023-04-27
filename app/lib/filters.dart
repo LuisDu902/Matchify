@@ -22,13 +22,14 @@ void clearFilters() {
   _filters.clear();
 }
 
+int playlistSize = 0;
+
 class _FiltersState extends State<Filters> {
   //darkmode
   late Color bgColor;
   late Color boxFilter;
   late Color singularFilter;
   late Color sizeColor;
-  
 
   @override
   void initState() {
@@ -38,26 +39,24 @@ class _FiltersState extends State<Filters> {
 
   void updateColors() {
     setState(() {
-      bgColor =
-           DarkMode.isDarkModeEnabled ? Color.fromRGBO(59, 59, 59, 1) : Colors.white;
+      bgColor = DarkMode.isDarkModeEnabled
+          ? Color.fromRGBO(59, 59, 59, 1)
+          : Colors.white;
 
-      boxFilter =  DarkMode.isDarkModeEnabled
+      boxFilter = DarkMode.isDarkModeEnabled
           ? //Color.fromRGBO(68, 47, 100, 1)
           Colors.white
           : Color.fromRGBO(151, 138, 168, 1);
 
-      singularFilter =  DarkMode.isDarkModeEnabled
+      singularFilter = DarkMode.isDarkModeEnabled
           ? //Color.fromRGBO(179, 178, 174, 1)
           Color.fromRGBO(224, 217, 228, 1)
           : Color.fromRGBO(251, 237, 160, 1);
 
-      sizeColor =  DarkMode.isDarkModeEnabled
-          ?// Color.fromRGBO(179, 178, 174, 1)
+      sizeColor = DarkMode.isDarkModeEnabled
+          ? // Color.fromRGBO(179, 178, 174, 1)
           Colors.white
           : Color.fromRGBO(248, 206, 156, 1);
-      
-     
-          
     });
   }
 
@@ -272,9 +271,12 @@ class _FiltersState extends State<Filters> {
           }
           return null;
         },
-        onSaved: (value) {
-          int intValue = int.parse(value!);
-          // Do something with the integer value
+        onChanged: (value) {
+          if (value.isNotEmpty) {
+            setState(() {
+              playlistSize = int.parse(value);
+            });
+          }
         },
         style: TextStyle(
           fontFamily: 'Roboto',
@@ -373,7 +375,7 @@ class _FiltersState extends State<Filters> {
           ),
         ),
       ),
-      floatingActionButton: _filters.isNotEmpty
+      floatingActionButton:( _filters.isNotEmpty && playlistSize >=5)
           ? ElevatedButton(
               onPressed: () {
                 clearDislikedSongs();

@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:math';
 import 'dart:convert' as convert;
+import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:matchify/song/finalPlaylistScreen.dart';
@@ -58,8 +59,105 @@ void clearDislikedSongs() {
   disliked.clear();
 }
 
+Future<List<Song>> fillPlaylist() async {
+  while (liked.length != playlistSize) {
+    Song song = await _searchSong(
+        getFilters().elementAt(Random().nextInt(getFilters().length)));
+    if (!disliked.contains(song)) {
+      liked.add(song);
+    }
+  }
+  return liked;
+}
+
+Future<String> _getAccessToken() async {
+  var clientId = '8427839fc6f24145ba2a8f64fb7f2b70';
+  var clientSecret = '2ca2a40a1ca24b878f213108e730cfc7';
+
+  var credentials = '$clientId:$clientSecret';
+  var bytes = utf8.encode(credentials);
+  var base64 = base64Encode(bytes);
+
+  var headers = {'Authorization': 'Basic $base64'};
+  var body = {'grant_type': 'client_credentials'};
+
+  var response = await http.post(
+    Uri.parse('https://accounts.spotify.com/api/token'),
+    headers: headers,
+    body: body,
+  );
+
+  if (response.statusCode == 200) {
+    var jsonResponse = json.decode(response.body);
+    var accessToken = jsonResponse['access_token'];
+
+    return accessToken;
+  } else {
+    throw Exception('Failed to generate access token.');
+  }
+}
+
+Random random = Random();
+
+List<Song> songs = [];
+
+Future<Song> _searchSong(String filter) async {
+  var queryParameters = {
+    'q': queries[filter],
+    'type': 'track',
+    'limit': '50',
+    'offset': '${random.nextInt(100)}'
+  };
+  var uri = Uri.https('api.spotify.com', '/v1/search', queryParameters);
+  var accessToken = await _getAccessToken();
+  var headers = {'Authorization': 'Bearer $accessToken'};
+  var response = await http.get(uri, headers: headers);
+  if (response.statusCode == 200) {
+    var jsonResponse = convert.jsonDecode(response.body);
+    if (jsonResponse['tracks']['items'].isNotEmpty) {
+      var trackIndex = Random().nextInt(jsonResponse['tracks']['items'].length);
+      var trackName = jsonResponse['tracks']['items'][trackIndex]['name'];
+      var artistName =
+          jsonResponse['tracks']['items'][trackIndex]['artists'][0]['name'];
+      var previewUrl =
+          jsonResponse['tracks']['items'][trackIndex]['preview_url'];
+      var imageUrl = jsonResponse['tracks']['items'][trackIndex]['album']
+          ['images'][0]['url'];
+
+      Song song = Song(
+        trackName: trackName,
+        artistName: artistName,
+        genre: filter,
+        previewUrl: previewUrl,
+        imageUrl: imageUrl,
+      );
+      return song;
+    } else {
+      print('No songs found for the given genre.');
+    }
+  } else {
+    print('Request failed with status: ${response.statusCode}.');
+  }
+  return Song(
+      trackName: '', artistName: '', genre: '', previewUrl: '', imageUrl: '');
+}
+
+Future<List<Song>> fetchSongs(List<String> filters) async {
+  if (filters.length == 1) {
+    Song song = await _searchSong(filters[0]);
+    songs.add(song);
+  }
+  for (String filter in filters) {
+    Song song = await _searchSong(filter);
+    songs.add(song);
+  }
+  return songs;
+}
+
 class _SwipeState extends State<SwipePage> {
-  //darkmode
+  bool play = true;
+  int index = 0;
+
   late Color bgColor;
   late Color textColor;
   late Color mixPlaylistColor;
@@ -72,102 +170,17 @@ class _SwipeState extends State<SwipePage> {
 
   void updateColors() {
     setState(() {
-      bgColor =
-           DarkMode.isDarkModeEnabled ? Color.fromRGBO(59, 59, 59, 1) : Colors.white;
-      
-      textColor =  DarkMode.isDarkModeEnabled
+      bgColor = DarkMode.isDarkModeEnabled
+          ? Color.fromRGBO(59, 59, 59, 1)
+          : Colors.white;
+
+      textColor = DarkMode.isDarkModeEnabled
           ? Colors.white
           : Color.fromRGBO(48, 21, 81, 1);
     });
   }
 
-  //rest of code
-  
-  
-  List<Song> songs = [];
-
-  Random random = Random();
-  bool play = true;
-  int index = 0;
-
   late Song currentSong;
-
-  Future<String> _getAccessToken() async {
-    var clientId = '8427839fc6f24145ba2a8f64fb7f2b70';
-    var clientSecret = '2ca2a40a1ca24b878f213108e730cfc7';
-
-    var credentials = '$clientId:$clientSecret';
-    var bytes = utf8.encode(credentials);
-    var base64 = base64Encode(bytes);
-
-    var headers = {'Authorization': 'Basic $base64'};
-    var body = {'grant_type': 'client_credentials'};
-
-    var response = await http.post(
-      Uri.parse('https://accounts.spotify.com/api/token'),
-      headers: headers,
-      body: body,
-    );
-
-    if (response.statusCode == 200) {
-      var jsonResponse = json.decode(response.body);
-      var accessToken = jsonResponse['access_token'];
-
-      return accessToken;
-    } else {
-      throw Exception('Failed to generate access token.');
-    }
-  }
-
-  Future<void> _searchSong(String filter) async {
-    var queryParameters = {
-      'q': queries[filter],
-      'type': 'track',
-      'limit': '50',
-      'offset': '${random.nextInt(100)}'
-    };
-    var uri = Uri.https('api.spotify.com', '/v1/search', queryParameters);
-    var accessToken = await _getAccessToken();
-    var headers = {'Authorization': 'Bearer $accessToken'};
-    var response = await http.get(uri, headers: headers);
-    if (response.statusCode == 200) {
-      var jsonResponse = convert.jsonDecode(response.body);
-      if (jsonResponse['tracks']['items'].isNotEmpty) {
-        var trackIndex =
-        Random().nextInt(jsonResponse['tracks']['items'].length);
-        var trackName = jsonResponse['tracks']['items'][trackIndex]['name'];
-        var artistName =
-        jsonResponse['tracks']['items'][trackIndex]['artists'][0]['name'];
-        var previewUrl =
-        jsonResponse['tracks']['items'][trackIndex]['preview_url'];
-        var imageUrl = jsonResponse['tracks']['items'][trackIndex]['album']
-        ['images'][0]['url'];
-
-        Song song = Song(
-          trackName: trackName,
-          artistName: artistName,
-          genre: filter,
-          previewUrl: previewUrl,
-          imageUrl: imageUrl,
-        );
-        songs.add(song);
-      } else {
-        print('No songs found for the given genre.');
-      }
-    } else {
-      print('Request failed with status: ${response.statusCode}.');
-    }
-  }
-
-  Future<List<Song>> fetchSongs(List<String> filters) async {
-    if (filters.length == 1) {
-      await _searchSong(filters[0]);
-    }
-    for (String filter in filters) {
-      await _searchSong(filter);
-    }
-    return songs;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -243,7 +256,6 @@ class _SwipeState extends State<SwipePage> {
                             liked.add(currentSong);
                             play = true;
                             if (liked.length == 5) {
-                              
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -269,86 +281,84 @@ class _SwipeState extends State<SwipePage> {
                       ),
                     ),
                     Positioned(
-  top: 400,
-  left: 170,
-  child: IconButton(
-    icon: play ? Icon(Icons.play_arrow_rounded, color: textColor) : Icon(Icons.pause_rounded, color: textColor),
-    iconSize: 45,
-    onPressed: () {
-      if (play) {
-        songs[index].play();
-        play = false;
-      }
-      else {
-        songs[index].pause();
-        play = true;
-      }
-      // Handle replay button press
-      setState((){});
-    },
-  ),
-),
-
+                      top: 400,
+                      left: 170,
+                      child: IconButton(
+                        icon: play
+                            ? Icon(Icons.play_arrow_rounded, color: textColor)
+                            : Icon(Icons.pause_rounded, color: textColor),
+                        iconSize: 45,
+                        onPressed: () {
+                          if (play) {
+                            songs[index].play();
+                            play = false;
+                          } else {
+                            songs[index].pause();
+                            play = true;
+                          }
+                          // Handle replay button press
+                          setState(() {});
+                        },
+                      ),
+                    ),
                     Positioned(
-  top: 600,
-  left: 44,
-  child: Divider(
-    color: textColor,
-    thickness: 1,
-  ),
-),
-Positioned(
-  top: 500,
-  left: 284,
-  child: Divider(
-    color: textColor,
-    thickness: 1,
-  ),
-),
-Positioned(
-  top: 460,
-  left: 55,
-  child: Container(
-    width: 90,
-    height: 85,
-    decoration: BoxDecoration(
-      color: Color.fromRGBO(246, 217, 18, 1),
-      borderRadius: BorderRadius.all(
-        Radius.elliptical(90, 85),
-      ),
-    ),
-    child: Center(
-      child: Icon(
-        Icons.favorite,
-        color: textColor,
-        size: 60,
-      ),
-    ),
-  ),
-),
-Positioned(
-  top: 460,
-  left: 260,
-  child: Container(
-    width: 90,
-    height: 85,
-    decoration: BoxDecoration(
-      color: Color.fromRGBO(237, 138, 10, 1),
-      borderRadius: BorderRadius.all(
-        Radius.elliptical(90, 85),
-      ),
-    ),
-    child: Center(
-      child: Icon(
-        Icons.close,
-        color: textColor,
-        size: 60,
-      ),
-    ),
-  ),
-),
-
-
+                      top: 600,
+                      left: 44,
+                      child: Divider(
+                        color: textColor,
+                        thickness: 1,
+                      ),
+                    ),
+                    Positioned(
+                      top: 500,
+                      left: 284,
+                      child: Divider(
+                        color: textColor,
+                        thickness: 1,
+                      ),
+                    ),
+                    Positioned(
+                      top: 460,
+                      left: 55,
+                      child: Container(
+                        width: 90,
+                        height: 85,
+                        decoration: BoxDecoration(
+                          color: Color.fromRGBO(246, 217, 18, 1),
+                          borderRadius: BorderRadius.all(
+                            Radius.elliptical(90, 85),
+                          ),
+                        ),
+                        child: Center(
+                          child: Icon(
+                            Icons.favorite,
+                            color: textColor,
+                            size: 60,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      top: 460,
+                      left: 260,
+                      child: Container(
+                        width: 90,
+                        height: 85,
+                        decoration: BoxDecoration(
+                          color: Color.fromRGBO(237, 138, 10, 1),
+                          borderRadius: BorderRadius.all(
+                            Radius.elliptical(90, 85),
+                          ),
+                        ),
+                        child: Center(
+                          child: Icon(
+                            Icons.close,
+                            color: textColor,
+                            size: 60,
+                          ),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),

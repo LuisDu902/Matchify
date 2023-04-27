@@ -13,8 +13,27 @@ class FinalPlaylistScreen extends StatefulWidget {
 }
 
 class _FinalPlaylistScreenState extends State<FinalPlaylistScreen> {
-  List<Song> songs = getLikedSongs();
+  List<Song> songs = [];
   String playlistName = "New Playlist";
+ 
+ @override
+  void initState() {
+    super.initState();
+    _loadPlaylist();
+   
+  }
+
+  void savePlaylist() async{
+    
+  }
+
+  void _loadPlaylist() async {
+    List<Song> newSongs = await fillPlaylist();
+    
+     setState(() {
+      songs = newSongs;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
