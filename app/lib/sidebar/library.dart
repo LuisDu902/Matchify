@@ -4,6 +4,7 @@ import 'package:matchify/appBar/appBar.dart';
 import 'package:matchify/appBar/infoScreen.dart';
 import 'package:matchify/authentication/auth.dart';
 import 'package:matchify/song/playlist.dart';
+import '../constants.dart';
 
 import '../song/song.dart';
 
@@ -17,6 +18,30 @@ class LibraryScreen extends StatefulWidget {
 }
 
 class _LibraryScreenState extends State<LibraryScreen> {
+  //darkmode
+  late Color bgColor;
+  late Color textColor;
+
+  @override
+  void initState() {
+    super.initState();
+    updateColors();
+  }
+
+  void updateColors() {
+    setState(() {
+      bgColor =  DarkMode.isDarkModeEnabled
+          ? Color.fromRGBO(59, 59, 59, 1)
+          : Color.fromRGBO(255, 255, 255, 1);
+      textColor =  DarkMode.isDarkModeEnabled
+          ? Color.fromRGBO(255, 255, 255, 1)
+          : Color.fromRGBO(48, 21, 81, 1);
+    });
+  }
+
+  final user = Auth().currentUser;
+  final username = Auth().getUsername();
+
   List<Playlist> library = [];
   Future<List<Playlist>> fetchLibrary() async {
     final database = FirebaseDatabase.instance;
@@ -59,7 +84,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
           "Looks like you haven't created any playlists yet.",
           textAlign: TextAlign.center,
           style: TextStyle(
-            color: Color.fromRGBO(28, 27, 31, 1),
+            color: textColor,
             fontSize: 20,
           ),
         ),
@@ -68,7 +93,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
           "But don't miss out on the fun! Start creating your own personalized playlists and discover new music that you'll love.",
           textAlign: TextAlign.center,
           style: TextStyle(
-            color: Color.fromRGBO(28, 27, 31, 1),
+            color: textColor,
             fontSize: 20,
           ),
         ),
@@ -102,7 +127,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
                   library[i++].name,
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    color: Color.fromRGBO(48, 21, 81, 1),
+                    color: textColor,
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                   ),
@@ -124,7 +149,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
           return Scaffold(
             drawer: Info(),
             appBar: appBar(),
-            backgroundColor: Colors.white,
+            backgroundColor: bgColor,
             body: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -133,7 +158,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
                   Text(
                     widget.username +'\'s Library',
                     style: TextStyle(
-                      color: Color.fromRGBO(48, 21, 81, 1),
+                      color: textColor,
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
                     ),
