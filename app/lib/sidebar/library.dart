@@ -39,10 +39,10 @@ class _LibraryScreenState extends State<LibraryScreen> {
           }
           Song _song = Song(
               trackName: fields[0],
-              artistName: fields[3],
-              genre: fields[4],
-              previewUrl: fields[2],
-              imageUrl: fields[1]);
+              artistName: fields[4],
+              genre: fields[3],
+              previewUrl: fields[1],
+              imageUrl: fields[2]);
           listSongs.add(_song);
         }
         Playlist _playlist = Playlist(name: playlist_name, songs: listSongs);

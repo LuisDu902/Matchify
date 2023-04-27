@@ -21,13 +21,16 @@ void clearFilters() {
   _filters.clear();
 }
 
+ int playListSize = 0;
 class _FiltersState extends State<Filters> {
+ 
   bool _isGenreListVisible = false;
   bool _isMoodListVisible = false;
   bool _isDecadeListVisible = false;
-  List<String> getGenres(){
+  List<String> getGenres() {
     return _genres;
   }
+
   List<String> _genres = [
     'Pop',
     'Funk',
@@ -230,9 +233,12 @@ class _FiltersState extends State<Filters> {
           }
           return null;
         },
-        onSaved: (value) {
-          int intValue = int.parse(value!);
-          // Do something with the integer value
+        onChanged: (value) {
+            if (value.isNotEmpty) {
+              setState(() {
+                playListSize = int.parse(value);
+              });
+            }           
         },
         style: TextStyle(
           fontFamily: 'Roboto',
@@ -331,7 +337,7 @@ class _FiltersState extends State<Filters> {
           ),
         ),
       ),
-      floatingActionButton: _filters.isNotEmpty
+      floatingActionButton: (_filters.isNotEmpty && playListSize >= 5)
           ? ElevatedButton(
               onPressed: () {
                 clearDislikedSongs();
