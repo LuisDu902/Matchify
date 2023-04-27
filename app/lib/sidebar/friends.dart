@@ -4,6 +4,7 @@ import 'package:matchify/appBar/appBar.dart';
 import 'package:matchify/appBar/infoScreen.dart';
 import 'package:matchify/authentication/auth.dart';
 import '../constants.dart';
+import 'package:matchify/sidebar/library.dart';
 
 class FriendsScreen extends StatefulWidget {
   @override
@@ -216,12 +217,24 @@ class _FriendsScreenState extends State<FriendsScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      friends[index],
-                      style: TextStyle(
+
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  LibraryScreen(username: friends[index])),
+                        );
+                      },
+                      child: Text(
+                        friends[index],
+                        style: TextStyle(
                           fontSize: 20.0,
                           fontWeight: FontWeight.bold,
-                          color: textColor),
+                        ),
+                      ),
+
                     ),
                     IconButton(
                       icon: Icon(

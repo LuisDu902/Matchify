@@ -52,6 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
               left: 36,
               child: GestureDetector(
                 onTap: () {
+                   clearFilters();
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => const Filters()),
@@ -74,6 +75,7 @@ class _HomeScreenState extends State<HomeScreen> {
               left: 225,
               child: GestureDetector(
                 onTap: () {
+                   clearFilters();
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => Filters()),
@@ -97,6 +99,7 @@ class _HomeScreenState extends State<HomeScreen> {
               left: 75,
               child: GestureDetector(
                 onTap: () {
+                   clearFilters();
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => Filters()),
@@ -119,6 +122,7 @@ class _HomeScreenState extends State<HomeScreen> {
               left: 250,
               child: GestureDetector(
                 onTap: () {
+                   clearFilters();
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => Filters()),
