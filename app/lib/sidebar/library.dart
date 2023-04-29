@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:matchify/appBar/appBar.dart';
 import 'package:matchify/appBar/infoScreen.dart';
 import 'package:matchify/authentication/auth.dart';
+import 'package:matchify/homeScreen.dart';
 import 'package:matchify/song/playlist.dart';
+import 'package:matchify/song/playlistScreen.dart';
 import '../constants.dart';
 
 import '../song/song.dart';
@@ -30,10 +32,10 @@ class _LibraryScreenState extends State<LibraryScreen> {
 
   void updateColors() {
     setState(() {
-      bgColor =  DarkMode.isDarkModeEnabled
+      bgColor = DarkMode.isDarkModeEnabled
           ? Color.fromRGBO(59, 59, 59, 1)
           : Color.fromRGBO(255, 255, 255, 1);
-      textColor =  DarkMode.isDarkModeEnabled
+      textColor = DarkMode.isDarkModeEnabled
           ? Color.fromRGBO(255, 255, 255, 1)
           : Color.fromRGBO(48, 21, 81, 1);
     });
@@ -56,21 +58,21 @@ class _LibraryScreenState extends State<LibraryScreen> {
         Map songs = entry.value;
         List<Song> listSongs = [];
         for (final song in songs.entries) {
-          List<String> fields = [];
-          fields.add(song.key);
           Map songFields = song.value;
-          for (final field in songFields.values) {
-            fields.add(field);
-          }
           Song _song = Song(
-              trackName: fields[0],
-              artistName: fields[4],
-              genre: fields[3],
-              previewUrl: fields[1],
-              imageUrl: fields[2]);
+            trackName: song.key,
+            artistName: songFields['artistName'],
+            genre: songFields['genre'],
+            previewUrl: songFields['preview'],
+            imageUrl: songFields['image'],
+          );
+
           listSongs.add(_song);
         }
-        Playlist _playlist = Playlist(name: playlist_name, songs: listSongs);
+        Playlist _playlist = Playlist(
+            name: playlist_name,
+            imgUrl: listSongs[0].imageUrl,
+            songs: listSongs);
         library.add(_playlist);
       }
     }
@@ -102,37 +104,43 @@ class _LibraryScreenState extends State<LibraryScreen> {
   }
 
   Widget showPlaylists() {
-    List<String> images = [];
-    int i = 0;
-    for (final playlist in library) {
-      images.add(playlist.songs[i].imageUrl);
-    }
     return Expanded(
       child: GridView.count(
         crossAxisCount: 2,
         mainAxisSpacing: 30,
-        children: images.map((image) {
-          return Container(
-            padding: EdgeInsets.all(10),
-            child: Column(
-              children: [
-                Image.network(
-                  image,
-                  fit: BoxFit.contain,
-                  width: 146,
-                  height: 146,
-                ),
-                SizedBox(height: 20),
-                Text(
-                  library[i++].name,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: textColor,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
+        children: library.map((playlist) {
+          return GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => PlaylistScreen(
+                          playlist: playlist,
+                        )),
+              );
+            },
+            child: Container(
+              padding: EdgeInsets.all(10),
+              child: Column(
+                children: [
+                  Image.network(
+                    playlist.imgUrl,
+                    fit: BoxFit.contain,
+                    width: 146,
+                    height: 146,
                   ),
-                ),
-              ],
+                  SizedBox(height: 20),
+                  Text(
+                    playlist.name,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: textColor,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
             ),
           );
         }).toList(),
@@ -156,7 +164,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
                 children: [
                   SizedBox(height: 50),
                   Text(
-                    widget.username +'\'s Library',
+                    widget.username + '\'s Library',
                     style: TextStyle(
                       color: textColor,
                       fontSize: 24,
