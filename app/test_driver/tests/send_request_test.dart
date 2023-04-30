@@ -4,18 +4,18 @@ import 'package:flutter_gherkin/flutter_gherkin.dart';
 import 'package:gherkin/gherkin.dart';
 import '../steps/filters_steps.dart';
 import '../steps/common_steps.dart';
-import '../steps/library_steps.dart';
 import '../steps/send_request_steps.dart';
 
 Future<void> main() async {
   final config = FlutterTestConfiguration()
-    ..features = ['test_driver/features/library.feature']
+    ..features = ['test_driver/features/send_request.feature']
     ..reporters = [ProgressReporter()]
     ..stepDefinitions = [
       LaunchApp(),
       CheckPage(),
       UserAccount(),
-      CheckPlaylist()
+      SucessfulRequest(),
+      UnsucessfulRequest()
     ]
     ..targetAppPath = "test_driver/app.dart"
     ..defaultTimeout = Duration(seconds: 30);
