@@ -203,7 +203,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
     } else
       return Expanded(
         child: Container(
-          margin: EdgeInsets.only(top: 16.0),
+          margin: const EdgeInsets.only(top: 16.0),
           child: ListView.builder(
             padding: EdgeInsets.only(top: 8.0),
             shrinkWrap: true,
@@ -217,7 +217,6 @@ class _FriendsScreenState extends State<FriendsScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-
                     GestureDetector(
                       onTap: () {
                         Navigator.push(
@@ -234,7 +233,6 @@ class _FriendsScreenState extends State<FriendsScreen> {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-
                     ),
                     IconButton(
                       icon: Icon(
@@ -420,13 +418,11 @@ class _FriendsScreenState extends State<FriendsScreen> {
               onTap: () {
                 setState(() {
                   isResquest = true;
-                  
-                    requestColor = Color.fromRGBO(246, 217, 18, 1);
-                    requestText = Color.fromRGBO(48, 21, 81, 1);
-                    friendColor = Colors.white;
-                    friendText = Color.fromRGBO(48, 21, 81, 1);
-                  
-                  
+
+                  requestColor = Color.fromRGBO(246, 217, 18, 1);
+                  requestText = Color.fromRGBO(48, 21, 81, 1);
+                  friendColor = Colors.white;
+                  friendText = Color.fromRGBO(48, 21, 81, 1);
                 });
               },
               child: Text(
