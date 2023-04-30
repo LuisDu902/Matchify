@@ -18,8 +18,10 @@ class LaunchApp extends GivenWithWorld<FlutterWorld> {
 }
 
 class CheckPage extends And1WithWorld<String, FlutterWorld> {
+  
   @override
   Future<void> executeStep(String key) async {
+    await Future.delayed(Duration(seconds: 3)); 
     final page = find.byValueKey(key);
     bool pageExists = await FlutterDriverUtils.isPresent(world.driver, page);
     expect(pageExists, true);
@@ -51,7 +53,7 @@ class CheckHomePage extends GivenWithWorld<FlutterWorld> {
     }
     
      while (!isHomePage) {
-      await Future.delayed(Duration(seconds: 1)); 
+      await Future.delayed(Duration(seconds: 3)); 
       isHomePage = await FlutterDriverUtils.isPresent(world.driver, home);
     }
     expect(isHomePage, true);

@@ -200,6 +200,7 @@ class LibraryCard extends StatelessWidget {
           leading: CircleAvatar(
             backgroundColor: Colors.white24,
             child: Icon(
+              key: Key('library'),
               CupertinoIcons.music_albums_fill,
               color: Colors.white,
             ),
