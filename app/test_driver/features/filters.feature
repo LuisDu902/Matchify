@@ -10,7 +10,8 @@ Feature: Filters
 
   Scenario: apply filters
     Given I am on the "filters page"
-    When I tap the "Genre" button
+    When I fill the "playlist size" field with "8"
+    And I tap the "Genre" button
     And I choose "Funk" and "Pop"
     And I tap the "Mood" button
     And I choose "Happy" and "Energetic"

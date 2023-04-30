@@ -5,6 +5,9 @@ import 'package:gherkin/gherkin.dart';
 class SelectFilters extends AndWithWorld<FlutterWorld> {
   @override
   Future<void> executeStep() async {
+    final size = find.byValueKey("playlist size");
+    await FlutterDriverUtils.enterText(world.driver, size, "8");
+
     final genre = find.byValueKey("Genre");
     await FlutterDriverUtils.tap(world.driver, genre);
 
