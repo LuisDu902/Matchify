@@ -71,8 +71,8 @@ Future<List<Song>> fillPlaylist() async {
 }
 
 Future<String> _getAccessToken() async {
-  var clientId = '8427839fc6f24145ba2a8f64fb7f2b70';
-  var clientSecret = '2ca2a40a1ca24b878f213108e730cfc7';
+  var clientId = '6df51150706949b3aa9a0b31297151cf';
+  var clientSecret = '5a7317dbd6014b99938e040303b05907';
 
   var credentials = '$clientId:$clientSecret';
   var bytes = utf8.encode(credentials);
