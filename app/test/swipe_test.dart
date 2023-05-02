@@ -1,13 +1,17 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:matchify/filters.dart';
 import 'package:matchify/main.dart';
+import 'package:matchify/song/finalPlaylistScreen.dart';
 import 'package:matchify/song/song.dart';
 import 'package:matchify/song/swipe.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+
+
 
 
 void main() {
-  group('_SwipeState', () {
     test('fetchSong returns list of songs for 2 genres', () async {
       runApp(MyApp());
       final swipePage = SwipePage();
@@ -23,7 +27,6 @@ void main() {
     test('fetchSong returns only music from specific genre',() async{
       runApp(MyApp());
       final swipePage = SwipePage();
-      final swipeState = swipePage.createState();
       final genre1 = 'Classical';
       final genre2 = 'Jazz';
       List<String> filters=[];
@@ -35,32 +38,5 @@ void main() {
         expect(filters.contains(songs[i].genre),true );
       }
     });
-
-   /*testWidgets('Test Dismissible Widget', (WidgetTester tester) async {
-      await tester.pumpWidget(MaterialApp(home: SwipePage()));
-      final SwipeState swipeState= tester.state<SwipeState>(find.byType(SwipePage));
-   
-      var dismissibleFinder =  find.byWidget(Dismissible(key: UniqueKey(), child: Align()));
-      expect(dismissibleFinder, findsOneWidget);
-
-      var songIndex = 0;
-      var currentSong = swipeState.songs[songIndex];
-
-      await tester.drag(dismissibleFinder, Offset(1000.0, 0.0));
-      await tester.pumpAndSettle();
-
-    // Check if the song is added to the disliked list
-      expect(getDislikedSongs().contains(currentSong),true);
-
-      songIndex++;
-      currentSong = swipeState.songs[songIndex];
-
-      await tester.drag(dismissibleFinder, Offset(-1000.0, 0.0));
-      await tester.pumpAndSettle();
-
-      // Check if the song is added to the liked list
-      expect(getLikedSongs().contains(currentSong), true);
-  });*/
-  });
 }
 
