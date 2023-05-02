@@ -90,7 +90,8 @@ Release: https://github.com/FEUP-LEIC-ES-2022-23/2LEIC16T4/releases/tag/v2.1
 * Some quirks of Spotify SDK.
 
 ## Iteration 3
-Release: 
+
+Release: https://github.com/FEUP-LEIC-ES-2022-23/2LEIC16T4/releases/tag/v3.0
 
 ### Board
 
