@@ -527,7 +527,6 @@ class _LoginState extends State<Login> {
     if (isLogin) {
       return Scaffold(
         key: Key("login page"),
-        appBar: appBar(),
         backgroundColor: Colors.white,
         body: Align(
           alignment: Alignment.center,

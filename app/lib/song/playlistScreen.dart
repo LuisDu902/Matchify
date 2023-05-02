@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:matchify/appBar/appBar.dart';
 import 'package:matchify/appBar/infoScreen.dart';
 import 'package:matchify/song/playlist.dart';
+import '../constants.dart';
 
 class PlaylistScreen extends StatefulWidget {
   final Playlist playlist;
@@ -13,6 +14,29 @@ class PlaylistScreen extends StatefulWidget {
 }
 
 class _PlaylistScreenState extends State<PlaylistScreen> {
+  late Color bgColor;
+  late Color textColor;
+
+  @override
+  void initState() {
+    super.initState();
+    updateColors();
+    
+  }
+
+  void updateColors() {
+    setState(() {
+      bgColor = DarkMode.isDarkModeEnabled
+          ? Color.fromRGBO(59, 59, 59, 1)
+          : Colors.white;
+
+      textColor = DarkMode.isDarkModeEnabled
+          ? //Color.fromRGBO(68, 47, 100, 1)
+          Colors.white
+          : Color.fromRGBO(48, 21, 81, 1);
+    });
+  }
+
   Widget showSongs() {
     return ListView(
       shrinkWrap: true,
@@ -43,6 +67,7 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
                           Text(
                             widget.playlist.songs[index].trackName,
                             style: TextStyle(
+                              color: textColor,
                               fontSize: 16.0,
                               fontWeight: FontWeight.bold,
                             ),
@@ -58,6 +83,7 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
                       ),
                     ),
                     IconButton(
+                      color: textColor,
                       onPressed: () {
                         setState(() {
                           if (widget.playlist.songs[index].isPlaying) {
@@ -86,24 +112,28 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
     return Scaffold(
       drawer: Info(),
       appBar: appBar(),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            SizedBox(height: 50),
-            Text(
-              widget.playlist.name,
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            SizedBox(height: 64),
-            showSongs(),
-          ],
+      body:Container(
+  color: bgColor,
+  child: Center(
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        SizedBox(height: 50),
+        Text(
+          widget.playlist.name,
+          style: TextStyle(
+            color: textColor,
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+          ),
         ),
-      ),
+        SizedBox(height: 64),
+        showSongs(),
+      ],
+    ),
+  ),
+)
+
     );
   }
 }
