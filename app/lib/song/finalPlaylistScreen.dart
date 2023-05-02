@@ -1,9 +1,12 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:matchify/song/song.dart';
 import '../appBar/appBar.dart';
 import '../appBar/infoScreen.dart';
+import '../authentication/auth.dart';
 import 'swipe.dart';
+import '../constants.dart';
 
 class FinalPlaylistScreen extends StatefulWidget {
   const FinalPlaylistScreen({Key? key});
@@ -13,8 +16,64 @@ class FinalPlaylistScreen extends StatefulWidget {
 }
 
 class _FinalPlaylistScreenState extends State<FinalPlaylistScreen> {
-  List<Song> songs = getLikedSongs();
+//darkmode
+  late Color bgColor;
+  late Color textColor;
+
+  @override
+  void initState() {
+    super.initState();
+    updateColors();
+    _loadPlaylist();
+  }
+
+  void updateColors() {
+    setState(() {
+      bgColor = DarkMode.isDarkModeEnabled
+          ? Color.fromRGBO(59, 59, 59, 1)
+          : Colors.white;
+
+      textColor = DarkMode.isDarkModeEnabled
+          ? //Color.fromRGBO(68, 47, 100, 1)
+          Colors.white
+          :Color.fromRGBO(48, 21, 81, 1) ;
+    });
+  }
+
+  List<Song> songs = [];
   String playlistName = "New Playlist";
+
+  void _loadPlaylist() async {
+    List<Song> newSongs = await fillPlaylist();
+
+    setState(() {
+      songs = newSongs;
+    });
+  }
+
+  void savePlaylist() async {
+    final database = FirebaseDatabase.instance;
+
+    final playlistsRef = database
+        .ref()
+        .child('users')
+        .child(Auth().getUsername())
+        .child('playlists')
+        .child(playlistName);
+
+    for (Song song in songs) {
+      String trackName = song.trackName.replaceAll(RegExp(r'[.#$\[\]]'), '');
+
+      playlistsRef.update({
+        trackName: {
+          'artistName': song.artistName,
+          'genre': song.genre,
+          'image': song.imageUrl,
+          'preview': song.previewUrl
+        }
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +81,7 @@ class _FinalPlaylistScreenState extends State<FinalPlaylistScreen> {
       key: Key("final playlist"),
       drawer: Info(),
       appBar: appBar(),
-      backgroundColor: Colors.white,
+      backgroundColor: bgColor,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -58,18 +117,44 @@ class _FinalPlaylistScreenState extends State<FinalPlaylistScreen> {
                       decoration: InputDecoration(
                         hintText: "New Playlist",
                         hintStyle: TextStyle(
-                          color: Color.fromRGBO(73, 43, 124, 1),
+                          color: textColor,
                           fontFamily: 'Roboto',
                           fontSize: 30.0,
                           fontWeight: FontWeight.bold,
                         ),
-                        suffixIcon: Icon(
-                          Icons.edit,
-                          color: Color.fromRGBO(48, 21, 81, 1),
+                        suffixIcon: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(
+                              Icons.edit,
+                              color: textColor,
+                            ),
+                            SizedBox(width: 16.0),
+                            GestureDetector(
+  onTap: savePlaylist,
+  child: Material(
+    color: Colors.transparent,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(4.0),
+      side: BorderSide(color: textColor),
+    ),
+    child: Padding(
+      padding: EdgeInsets.all(8.0),
+      child: Icon(
+        Icons.save,
+        color: textColor,
+      ),
+    ),
+  ),
+),
+
+                            SizedBox(width: 16.0),
+                           
+                          ],
                         ),
                       ),
                       style: TextStyle(
-                        color: Color.fromRGBO(73, 43, 124, 1),
+                        color: textColor,
                         fontFamily: 'Roboto',
                         fontSize: 30.0,
                         fontWeight: FontWeight.bold,
@@ -80,23 +165,53 @@ class _FinalPlaylistScreenState extends State<FinalPlaylistScreen> {
               ],
             ),
           ),
-          Expanded(
-            child: ListView.builder(
-              itemCount: songs.length,
-              itemBuilder: (BuildContext context, int index) {
-                return Padding(
-                  padding: EdgeInsets.fromLTRB(60.0, 8.0, 16.0, 8.0),
-                  child: Text(
-                    '${index + 1}. ${songs[index].trackName} by ${songs[index].artistName}',
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      color: Color.fromRGBO(48, 21, 81, 1),
-                    ),
-                  ),
-                );
-              },
-            ),
+          
+        Container(
+  height: 400,
+  child: ListView.builder(
+    itemCount: songs.length,
+    itemBuilder: (BuildContext context, int index) {
+      return Padding(
+        padding: EdgeInsets.fromLTRB(60.0, 8.0, 16.0, 8.0),
+        child: Text(
+          '${index + 1}. ${songs[index].trackName} by ${songs[index].artistName}',
+          style: TextStyle(
+            fontSize: 16.0,
+            color: textColor,
           ),
+        ),
+      );
+    },
+  ),
+),ListView(
+  shrinkWrap: true,
+  children: [
+    SizedBox(
+      height: 100,
+      child: ListView.builder(
+        itemCount: songs.length,
+        itemBuilder: (BuildContext context, int index) {
+          return Padding(
+            padding: EdgeInsets.fromLTRB(60.0, 8.0, 16.0, 8.0),
+            child: Text(
+              '${index + 1}. ${songs[index].trackName} by ${songs[index].artistName}',
+              style: TextStyle(
+                fontSize: 16.0,
+                color: textColor,
+              ),
+            ),
+          );
+        },
+      ),
+    ),
+  ],
+),
+
+
+
+
+
+
         ],
       ),
     );

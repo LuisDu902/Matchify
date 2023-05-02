@@ -1,8 +1,12 @@
+import 'dart:math';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:matchify/appBar/infoScreen.dart';
 import 'package:matchify/homeScreen.dart';
 import 'package:matchify/filters.dart';
+import 'package:matchify/sidebar/about.dart';
 import 'mock.dart';
 
 void main() {
@@ -41,5 +45,41 @@ void main() {
 
     // Check if the Filters screen was navigated to
     expect(find.byType(Filters), findsOneWidget);
+  });
+
+  testWidgets('Open drawer test', (WidgetTester tester) async {
+    // Build the widget tree.
+    await tester.pumpWidget(MaterialApp(home: HomeScreen()));
+
+    // Verify that the drawer is closed initially.
+    expect(find.byType(Drawer), findsNothing);
+
+    // Tap the drawer icon to open the drawer.
+    await tester.tap(find.byIcon(Icons.menu));
+    await tester.pumpAndSettle();
+
+    // Verify that the drawer is open.
+    expect(find.byType(Drawer), findsOneWidget);
+    //Verify that it went to InfoScreen
+    expect(find.byType(Info), findsOneWidget);
+  });
+  testWidgets('Open About Screen', (WidgetTester tester) async {
+    // Build the widget tree.
+    await tester.pumpWidget(MaterialApp(home: HomeScreen()));
+
+    // Verify that the drawer is closed initially.
+    expect(find.byType(Drawer), findsNothing);
+
+    // Tap the drawer icon to open the drawer.
+    await tester.tap(find.byIcon(Icons.menu));
+    await tester.pumpAndSettle();
+
+    // Verify that the drawer is open.
+    expect(find.byType(Drawer), findsOneWidget);
+    //Verify that it went to InfoScreen
+    expect(find.byType(Info), findsOneWidget);
+    await tester.tap(find.text("About"));
+    await tester.pumpAndSettle();
+    expect(find.byType(AboutScreen), findsOneWidget);
   });
 }

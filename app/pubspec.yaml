@@ -75,10 +75,8 @@ flutter:
     - images/user.png
     - images/settings.png
     - images/add.png
-    - images/dislike.png
     - images/replay.png
     - images/musicSymbol.png
-    - images/like.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

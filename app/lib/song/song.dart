@@ -11,6 +11,8 @@ class Song {
   final String previewUrl;
   final String imageUrl;
 
+  bool isPlaying = false;
+
   Song({
     required this.trackName,
     required this.artistName,
@@ -20,10 +22,12 @@ class Song {
   });
 
   void play() {
+    isPlaying = true;
     audioPlayer.play(UrlSource(previewUrl));
   }
 
   void pause() {
+    isPlaying = false;
     audioPlayer.pause();
   }
 }

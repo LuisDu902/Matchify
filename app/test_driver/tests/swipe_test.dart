@@ -14,10 +14,8 @@ Future<void> main() async {
       LaunchApp(),
       CheckHomePage(),
       SelectFilters(),
-      TapWidgetOfTypeStep(),
       CheckPage(),
       ListenToShortClip(),
-      SwipeOnKeyStep(),
       SkipSong()
     ]
     ..targetAppPath = "test_driver/app.dart"

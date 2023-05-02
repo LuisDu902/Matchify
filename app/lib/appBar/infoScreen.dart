@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:matchify/authentication/auth.dart';
 
 import 'package:matchify/sidebar/about.dart';
 import 'package:matchify/sidebar/addFriends.dart';
 import 'package:matchify/sidebar/friends.dart';
 import 'package:matchify/sidebar/library.dart';
+import '../constants.dart';
 
 class Info extends StatefulWidget {
   const Info({super.key});
@@ -14,13 +16,36 @@ class Info extends StatefulWidget {
 }
 
 class _InfoState extends State<Info> {
+
+  //darkmode
+  late Color bgColor;
+  
+
+  @override
+  void initState() {
+    super.initState();
+    updateColors();
+  }
+
+  void updateColors() {
+    setState(() {
+      bgColor =
+           DarkMode.isDarkModeEnabled ? Color.fromRGBO(28, 28, 28, 1): Color.fromRGBO(73, 43, 124, 1);
+
+     
+          
+    });
+  }
+
+  
+//rest of code
   @override
   Widget build(BuildContext context) {
     return Drawer(
       child: Container(
         width: 288,
         height: double.infinity,
-        color: Color.fromRGBO(73, 43, 124, 1),
+        color: bgColor,
         child: SafeArea(
           child: Column(
             children: [
@@ -28,6 +53,7 @@ class _InfoState extends State<Info> {
               FriendsCard(),
               AddFriendCard(),
               AboutCard(),
+              
             ],
           ),
         ),
@@ -64,6 +90,7 @@ class FriendsCard extends StatelessWidget {
           leading: CircleAvatar(
             backgroundColor: Colors.white24,
             child: Icon(
+              key: Key("friends"),
               CupertinoIcons.person_3_fill,
               color: Colors.white,
             ),
@@ -103,6 +130,7 @@ class AddFriendCard extends StatelessWidget {
           leading: CircleAvatar(
             backgroundColor: Colors.white24,
             child: Icon(
+              key: Key('add friend'),
               CupertinoIcons.person_add_solid,
               color: Colors.white,
             ),
@@ -166,13 +194,14 @@ class LibraryCard extends StatelessWidget {
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => LibraryScreen()),
+            MaterialPageRoute(builder: (context) => LibraryScreen(username: Auth().getUsername())),
           );
         },
         child: ListTile(
           leading: CircleAvatar(
             backgroundColor: Colors.white24,
             child: Icon(
+              key: Key('library'),
               CupertinoIcons.music_albums_fill,
               color: Colors.white,
             ),

@@ -12,7 +12,6 @@ Future<void> main() async {
     ..stepDefinitions = [
       LaunchApp(),
       CheckHomePage(),
-      TapWidgetOfTypeStep(),
       ChooseFilters(),
       CheckPage()
     ]
