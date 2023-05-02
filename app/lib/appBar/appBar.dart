@@ -80,6 +80,7 @@ class appBarState extends State<appBar> {
               Scaffold.of(context).openDrawer();
             },
             icon: Icon(
+              key : Key("side bar"),
               Icons.menu,
               color: textColor,
               size: 30,

@@ -39,6 +39,7 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
 
   Widget showSongs() {
     return ListView(
+      key: Key("playlist songs"),
       shrinkWrap: true,
       children: [
         SizedBox(
@@ -110,6 +111,8 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: Key("playlist page"),
+
       drawer: Info(),
       appBar: appBar(),
       body:Container(

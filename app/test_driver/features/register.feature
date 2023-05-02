@@ -8,12 +8,12 @@ Feature: Register
 
   Scenario: successful user registration
     Given I am on the register page
-    When I fill the "register username" field with "register8@gmail.com"
+    When I fill the "register username" field with "register@gmail.com"
     And I fill the "register password" field with "123456"
     And I fill the "confirm password" field with "123456"
     And I tap the "accept terms and conditions" button
     And I tap the "register" button
-    Then I am on the "home page"
+    Then I am on the home page
     And I have successfully registered
 
   Scenario: unsuccessful user registration

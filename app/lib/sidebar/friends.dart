@@ -170,6 +170,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
           ),
         ),
         child: Center(
+          key: Key("remove friend"),
           child: Text(
             'Remove',
             style: TextStyle(
@@ -238,6 +239,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
                     ),
                     IconButton(
                       icon: Icon(
+                        key: Key("X"),
                         Icons.clear,
                         color: Colors.grey[600],
                       ),
@@ -313,6 +315,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
       );
     } else
       return Expanded(
+        key: Key("requests page"),
         child: Container(
           margin: EdgeInsets.only(top: 16.0),
           child: ListView.builder(
@@ -339,6 +342,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
                     Spacer(),
                     IconButton(
                       icon: Icon(
+                        key: Key("accept request"),
                         Icons.check,
                         color: Colors.grey[600],
                       ),
@@ -348,6 +352,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
                     ),
                     IconButton(
                       icon: Icon(
+                        key: Key("decline request"),
                         Icons.clear,
                         color: Colors.grey[600],
                       ),
@@ -398,6 +403,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
                 });
               },
               child: Text(
+                key: Key("friends button"),
                 "Friends",
                 style: TextStyle(
                   fontFamily: 'Roboto',
@@ -430,6 +436,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
                 });
               },
               child: Text(
+                key: Key("requests"),
                 "Requests",
                 style: TextStyle(
                   fontFamily: 'Roboto',
@@ -452,6 +459,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
           (BuildContext context, AsyncSnapshot<List<List<String>>> snapshot) {
         if (snapshot.hasData) {
           return Scaffold(
+            key: Key("friends page"),
             drawer: Info(),
             appBar: appBar(),
             backgroundColor: bgColor,

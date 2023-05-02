@@ -124,6 +124,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
               child: Column(
                 children: [
                   Image.network(
+                    key: Key( playlist.name),
                     playlist.imgUrl,
                     fit: BoxFit.contain,
                     width: 146,
@@ -155,6 +156,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
       builder: (BuildContext context, AsyncSnapshot<List<Playlist>> snapshot) {
         if (snapshot.hasData) {
           return Scaffold(
+            key: Key("library page"),
             drawer: Info(),
             appBar: appBar(),
             backgroundColor: bgColor,

@@ -252,6 +252,7 @@ class _FiltersState extends State<Filters> {
         borderRadius: BorderRadius.circular(10),
       ),
       child: TextFormField(
+        key: Key("playlist size"),
         keyboardType: TextInputType.number,
         textAlign: TextAlign.center,
         decoration: InputDecoration(

@@ -11,7 +11,7 @@ Feature: Login
     When I fill the "login username" field with "user1@gmail.com"
     And I fill the "login password" field with "123456"
     And I tap the "login" button
-    Then I am on the home page
+    Then I am on the "home page"
 
   Scenario: unsuccessful user log in
     Given I am on the login page
