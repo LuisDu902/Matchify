@@ -9,6 +9,8 @@ You can find below information and references related with the project managemen
 ## Table of contents
 1. [Iteration 0](#iteration-0)
 2. [Iteration 1](#iteration-1)
+3. [Iteration 2](#iteration-2)
+4. [Iteration 3](#iteration-3)
 
 ## Iteration 0
 Release: https://github.com/FEUP-LEIC-ES-2022-23/2LEIC16T4/releases/tag/v0.5
@@ -51,35 +53,70 @@ Release: https://github.com/FEUP-LEIC-ES-2022-23/2LEIC16T4/releases/tag/v1.0
 
 ## Iteration 2
 
-Release: https://github.com/FEUP-LEIC-ES-2022-23/2LEIC16T4/releases/tag/v2.0
+Release: https://github.com/FEUP-LEIC-ES-2022-23/2LEIC16T4/releases/tag/v2.1
 
 ### Board
 
 `Before`
 
+
 ![beforeI2](https://user-images.githubusercontent.com/87833818/232909706-14eae634-f41a-4732-ae06-03a5a2c690f9.png)
 
 `After`
 
+
 ![afterI2](https://user-images.githubusercontent.com/87833818/232909790-f573908f-d701-4afe-a31d-42e336e7da7e.png)
 
+### Retrospective
 
-### What went well?
+#### What went well?
 
 * We managed to implement most of what we had on the iteration backlog;
 * We managed to test most of our implemented features;
 * We improved on what we had designed previously for the UI mockups;
 * Good relationship between team members.
 
-### What should we do differently?
+#### What should we do differently?
 
 * Better communication;
 * Better time management;
 * Try to finish our goals fully.
 
-### What still puzzles us?
+#### What still puzzles us?
 
 * Some of the Flutter syntax;
 * Connection to Firebase Realtime Database;
 * Specifics of the Gherkin automated testing;
 * Some quirks of Spotify SDK.
+
+## Iteration 3
+Release: 
+
+### Board
+
+`Before`
+
+![image](https://user-images.githubusercontent.com/87833818/235788336-40db2675-1ad3-4849-9327-91ad49bc07b9.png)
+
+`After`
+
+![image](https://user-images.githubusercontent.com/87833818/235788487-6b205cbf-b1df-4a28-ba12-71cd5a7ddf1c.png)
+
+### Retrospective
+
+#### What went well?
+
+* We managed to implement all the features we had on the iteration backlog
+* We managed to test most of our implemented features.
+* Good relationship between team members
+* We managed to store the playlists created by the user on the database
+
+#### What should we do differently?
+
+* Better time management
+
+#### What still puzzles us?
+
+* Some of the Flutter syntax
+* Some quirks of Spotify SDK, namely how to export a playlist
+* Mocks for unit tests in flutter
