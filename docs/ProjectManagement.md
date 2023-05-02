@@ -50,7 +50,8 @@ Release: https://github.com/FEUP-LEIC-ES-2022-23/2LEIC16T4/releases/tag/v1.0
 * Some quirks of Spotify SDK and Spotify Web API;
 
 ## Iteration 2
-Release:
+
+Release: https://github.com/FEUP-LEIC-ES-2022-23/2LEIC16T4/releases/tag/v2.0
 
 ### Board
 

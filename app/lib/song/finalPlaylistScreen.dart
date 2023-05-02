@@ -1,8 +1,10 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:matchify/song/song.dart';
 import '../appBar/appBar.dart';
 import '../appBar/infoScreen.dart';
+import '../authentication/auth.dart';
 import 'swipe.dart';
 
 class FinalPlaylistScreen extends StatefulWidget {
@@ -13,8 +15,53 @@ class FinalPlaylistScreen extends StatefulWidget {
 }
 
 class _FinalPlaylistScreenState extends State<FinalPlaylistScreen> {
-  List<Song> songs = getLikedSongs();
+  List<Song> songs = [];
   String playlistName = "New Playlist";
+ 
+ @override
+  void initState() {
+    super.initState();
+    _loadPlaylist();
+   
+  }
+
+ 
+  void _loadPlaylist() async {
+    List<Song> newSongs = await fillPlaylist();
+    
+     setState(() {
+      songs = newSongs;
+    });
+  }
+
+  
+
+  void savePlaylist() async {
+    
+    final database = FirebaseDatabase.instance;
+    
+    final playlistsRef = database
+        .ref()
+        .child('users')
+        .child(Auth().getUsername())
+        .child('playlists')
+        .child(playlistName);
+    
+    for (Song song in songs){
+      String trackName = song.trackName.replaceAll(RegExp(r'[.#$\[\]]'), '');
+
+     playlistsRef.update({trackName: {
+      'artistName' : song.artistName,
+      'genre' : song.genre,
+      'image' : song.imageUrl,
+      'preview' : song.previewUrl
+     }});
+    }
+   
+
+  }
+
+  
 
   @override
   Widget build(BuildContext context) {
@@ -80,6 +127,30 @@ class _FinalPlaylistScreenState extends State<FinalPlaylistScreen> {
               ],
             ),
           ),
+          ElevatedButton(
+              style: ButtonStyle(
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                ),
+                backgroundColor: MaterialStateProperty.all<Color>(
+                    Color.fromRGBO(224, 217, 228, 1)),
+                foregroundColor: MaterialStateProperty.all<Color>(
+                  Color.fromRGBO(48, 21, 81, 1),
+                ),
+                fixedSize: MaterialStateProperty.resolveWith<Size?>(
+                    (states) => Size(240, 50)),
+                textStyle: MaterialStateProperty.resolveWith<TextStyle?>(
+                    (states) => TextStyle(
+                          fontSize: 22,
+                          fontFamily: 'Roboto',
+                          letterSpacing: 0.10000000149011612,
+                        )),
+              ),
+              onPressed: savePlaylist,
+              child: Text('Save'),
+            ),
           Expanded(
             child: ListView.builder(
               itemCount: songs.length,

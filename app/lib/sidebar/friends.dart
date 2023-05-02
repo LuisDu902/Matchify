@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:matchify/appBar/appBar.dart';
 import 'package:matchify/appBar/infoScreen.dart';
 import 'package:matchify/authentication/auth.dart';
+import '../constants.dart';
+import 'package:matchify/sidebar/library.dart';
 
 class FriendsScreen extends StatefulWidget {
   @override
@@ -10,14 +12,35 @@ class FriendsScreen extends StatefulWidget {
 }
 
 class _FriendsScreenState extends State<FriendsScreen> {
+  //darkmode
+  late Color bgColor;
+  late Color textColor;
+
+  @override
+  void initState() {
+    super.initState();
+    updateColors();
+  }
+
+  void updateColors() {
+    setState(() {
+      bgColor = DarkMode.isDarkModeEnabled
+          ? Color.fromRGBO(59, 59, 59, 1)
+          : Color.fromRGBO(255, 255, 255, 1);
+      textColor = DarkMode.isDarkModeEnabled
+          ? Color.fromRGBO(255, 255, 255, 1)
+          : Color.fromRGBO(48, 21, 81, 1);
+    });
+  }
+
   final user = Auth().currentUser;
   final username = Auth().getUsername();
   bool isResquest = false;
 
-  Color requestColor = Colors.white;
-  Color friendColor = Color.fromRGBO(48, 21, 81, 1);
-  Color requestText = Color.fromRGBO(48, 21, 81, 1);
-  Color friendText = Colors.white;
+  late Color requestColor = bgColor;
+  late Color friendColor = textColor;
+  late Color requestText = textColor;
+  late Color friendText = bgColor;
 
   List<String> friends = [];
   List<String> requests = [];
@@ -67,7 +90,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
 
     userRef.child('friends').child(friend).remove();
     friendRef.child('friends').child(username).remove();
-    
+
     setState(() {
       friends.removeAt(index);
     });
@@ -171,10 +194,10 @@ class _FriendsScreenState extends State<FriendsScreen> {
           "Looks like you haven't added any friends yet. Why not add some?",
           textAlign: TextAlign.center,
           style: TextStyle(
-            fontFamily: 'Roboto',
-            fontSize: 20.0,
-            fontWeight: FontWeight.bold,
-          ),
+              fontFamily: 'Roboto',
+              fontSize: 20.0,
+              fontWeight: FontWeight.bold,
+              color: textColor),
         ),
       );
     } else
@@ -194,12 +217,24 @@ class _FriendsScreenState extends State<FriendsScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      friends[index],
-                      style: TextStyle(
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.bold,
+
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  LibraryScreen(username: friends[index])),
+                        );
+                      },
+                      child: Text(
+                        friends[index],
+                        style: TextStyle(
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
+
                     ),
                     IconButton(
                       icon: Icon(
@@ -256,7 +291,6 @@ class _FriendsScreenState extends State<FriendsScreen> {
 
     friendRef.update({username: username});
     userRef.update({acceptedRequest: acceptedRequest});
-    
   }
 
   Widget showRequests() {
@@ -273,6 +307,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
             fontFamily: 'Roboto',
             fontSize: 20.0,
             fontWeight: FontWeight.bold,
+            color: textColor,
           ),
         ),
       );
@@ -296,10 +331,10 @@ class _FriendsScreenState extends State<FriendsScreen> {
                     Text(
                       requests[index],
                       style: TextStyle(
-                        fontFamily: 'Roboto',
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.bold,
-                      ),
+                          fontFamily: 'Roboto',
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.bold,
+                          color: textColor),
                     ),
                     Spacer(),
                     IconButton(
@@ -349,10 +384,17 @@ class _FriendsScreenState extends State<FriendsScreen> {
               onTap: () {
                 setState(() {
                   isResquest = false;
-                  requestColor = Colors.white;
-                  requestText = Color.fromRGBO(48, 21, 81, 1);
-                  friendColor = Color.fromRGBO(48, 21, 81, 1);
-                  friendText = Colors.white;
+                  if (!DarkMode.isDarkModeEnabled) {
+                    requestColor = Colors.white;
+                    requestText = Color.fromRGBO(48, 21, 81, 1);
+                    friendColor = Color.fromRGBO(48, 21, 81, 1);
+                    friendText = Colors.white;
+                  } else {
+                    requestColor = Color.fromARGB(255, 255, 255, 255);
+                    requestText = Color.fromRGBO(103, 61, 155, 1);
+                    friendColor = Color.fromRGBO(103, 61, 155, 1);
+                    friendText = Color.fromARGB(255, 255, 255, 255);
+                  }
                 });
               },
               child: Text(
@@ -378,10 +420,13 @@ class _FriendsScreenState extends State<FriendsScreen> {
               onTap: () {
                 setState(() {
                   isResquest = true;
-                  requestColor = Color.fromRGBO(246, 217, 18, 1);
-                  requestText = Color.fromRGBO(48, 21, 81, 1);
-                  friendColor = Colors.white;
-                  friendText = Color.fromRGBO(48, 21, 81, 1);
+                  
+                    requestColor = Color.fromRGBO(246, 217, 18, 1);
+                    requestText = Color.fromRGBO(48, 21, 81, 1);
+                    friendColor = Colors.white;
+                    friendText = Color.fromRGBO(48, 21, 81, 1);
+                  
+                  
                 });
               },
               child: Text(
@@ -409,7 +454,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
           return Scaffold(
             drawer: Info(),
             appBar: appBar(),
-            backgroundColor: Colors.white,
+            backgroundColor: bgColor,
             body: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
