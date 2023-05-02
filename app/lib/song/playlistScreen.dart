@@ -86,6 +86,7 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: Key("playlist page"),
+
       drawer: Info(),
       appBar: appBar(),
       body: Center(
