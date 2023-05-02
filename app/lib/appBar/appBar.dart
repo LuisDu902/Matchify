@@ -9,13 +9,13 @@ class appBar extends StatefulWidget implements PreferredSizeWidget {
   const appBar({Key? key}) : super(key: key);
 
   @override
-  _appBarState createState() => _appBarState();
+  appBarState createState() => appBarState();
 
   @override
   Size get preferredSize => const Size.fromHeight(80);
 }
 
-class _appBarState extends State<appBar> {
+class appBarState extends State<appBar> {
   late Color bgColor;
   late Color textColor;
   late Color mixPlaylistColor;
@@ -39,6 +39,7 @@ class _appBarState extends State<appBar> {
 
   @override
   Widget build(BuildContext context) {
+    updateColors();
     return AppBar(
       toolbarHeight: 100,
       centerTitle: true,

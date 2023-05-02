@@ -12,6 +12,7 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  final appBarState appBarC = new appBarState();
   late Color bgColor;
   late Color textColor;
   late Color boxTextColor;
@@ -25,19 +26,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   void updateColors() {
     setState(() {
-      bgColor =
-           DarkMode.isDarkModeEnabled ? Color.fromRGBO(59, 59, 59, 1) : Colors.white;
-      textColor =  DarkMode.isDarkModeEnabled ? Colors.white : Colors.black;
-      boxTextColor =
-           DarkMode.isDarkModeEnabled ? Color.fromRGBO(20, 6, 74, 1): Color.fromRGBO(224, 217, 228, 1);
-      boxColor =
-           DarkMode.isDarkModeEnabled ? Colors.white :Color.fromRGBO(48, 21, 81, 1);
+      bgColor = DarkMode.isDarkModeEnabled
+          ? Color.fromRGBO(59, 59, 59, 1)
+          : Colors.white;
+      textColor = DarkMode.isDarkModeEnabled ? Colors.white : Colors.black;
+      boxTextColor = DarkMode.isDarkModeEnabled
+          ? Color.fromRGBO(20, 6, 74, 1)
+          : Color.fromRGBO(224, 217, 228, 1);
+      boxColor = DarkMode.isDarkModeEnabled
+          ? Colors.white
+          : Color.fromRGBO(48, 21, 81, 1);
     });
   }
 
   void toggleDarkMode() {
     setState(() {
-       DarkMode.isDarkModeEnabled = ! DarkMode.isDarkModeEnabled;
+      DarkMode.isDarkModeEnabled = !DarkMode.isDarkModeEnabled;
       updateColors();
     });
   }
@@ -165,111 +169,106 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
             ),
             SizedBox(height: 20),
-            
-              Icon(
-                   Icons.person,
-                       size: 250,
-                     color: textColor,
-                    ),
-
-              
-            
+            Icon(
+              Icons.person,
+              size: 250,
+              color: textColor,
+            ),
             Text(
               Auth().getUsername(),
               style: TextStyle(fontSize: 20, color: textColor),
             ),
             SizedBox(height: 100),
-            
-ElevatedButton(
-  key: Key('log out'),
-  style: ButtonStyle(
-    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-      RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10.0),
-      ),
-    ),
-    backgroundColor:
-        MaterialStateProperty.all<Color>(boxTextColor),
-    foregroundColor: MaterialStateProperty.all<Color>(boxColor),
-    fixedSize:
-        MaterialStateProperty.resolveWith<Size?>((states) => Size(240, 50)),
-    textStyle: MaterialStateProperty.resolveWith<TextStyle?>((states) =>
-        TextStyle(
-          fontSize: 22,
-          fontFamily: 'Roboto',
-          letterSpacing: 0.10000000149011612,
-        )),
-  ),
-  onPressed: signOut,
-  child: Text('Log out'),
-),
-SizedBox(height: 20),
-ElevatedButton(
-  key: Key('delete account'),
-  style: ButtonStyle(
-    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-      RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10.0),
-      ),
-    ),
-    backgroundColor:
-        MaterialStateProperty.all<Color>(boxTextColor),
-    foregroundColor: MaterialStateProperty.all<Color>(boxColor),
-    fixedSize:
-        MaterialStateProperty.resolveWith<Size?>((states) => Size(240, 50)),
-    textStyle: MaterialStateProperty.resolveWith<TextStyle?>((states) =>
-        TextStyle(
-          fontSize: 22,
-          fontFamily: 'Roboto',
-          letterSpacing: 0.10000000149011612,
-        )),
-  ),
-  onPressed: () {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return popUp();
-      },
-    );
-  },
-  child: Text('Delete account'),
-),
-SizedBox(height:20),
-ElevatedButton(
-  style: ButtonStyle(
-    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-      RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10.0),
-      ),
-    ),
-    backgroundColor:
-        MaterialStateProperty.all<Color>(boxTextColor),
-    foregroundColor: MaterialStateProperty.all<Color>(boxColor),
-    fixedSize:
-        MaterialStateProperty.resolveWith<Size?>((states) => Size(240, 50)),
-  ),
-  onPressed: toggleDarkMode,
-  child: ListTile(
-    leading: Icon(
-      DarkMode.isDarkModeEnabled
-          ? Icons.light_mode_outlined
-          : Icons.dark_mode_outlined,
-      color: textColor,
-    ),
-    title: Center(
-      child: Text(
-        DarkMode.isDarkModeEnabled ? 'Light mode' : 'Dark mode',
-        style: TextStyle(
-          fontSize: 22,
-          fontFamily: 'Roboto',
-          letterSpacing: 0.10000000149011612,
-          color: textColor
-        )),
-      ),
-    ),
-  ),
+            ElevatedButton(
+              key: Key('log out'),
+              style: ButtonStyle(
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                ),
+                backgroundColor: MaterialStateProperty.all<Color>(boxTextColor),
+                foregroundColor: MaterialStateProperty.all<Color>(boxColor),
+                fixedSize: MaterialStateProperty.resolveWith<Size?>(
+                    (states) => Size(240, 50)),
+                textStyle: MaterialStateProperty.resolveWith<TextStyle?>(
+                    (states) => TextStyle(
+                          fontSize: 22,
+                          fontFamily: 'Roboto',
+                          letterSpacing: 0.10000000149011612,
+                        )),
+              ),
+              onPressed: signOut,
+              child: Text('Log out'),
+            ),
+            SizedBox(height: 20),
+            ElevatedButton(
+              key: Key('delete account'),
+              style: ButtonStyle(
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                ),
+                backgroundColor: MaterialStateProperty.all<Color>(boxTextColor),
+                foregroundColor: MaterialStateProperty.all<Color>(boxColor),
+                fixedSize: MaterialStateProperty.resolveWith<Size?>(
+                    (states) => Size(240, 50)),
+                textStyle: MaterialStateProperty.resolveWith<TextStyle?>(
+                    (states) => TextStyle(
+                          fontSize: 22,
+                          fontFamily: 'Roboto',
+                          letterSpacing: 0.10000000149011612,
+                        )),
+              ),
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return popUp();
+                  },
+                );
+              },
+              child: Text('Delete account'),
+            ),
+            SizedBox(height: 20),
+            ElevatedButton(
+              style: ButtonStyle(
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                ),
+                backgroundColor: MaterialStateProperty.all<Color>(boxTextColor),
+                foregroundColor: MaterialStateProperty.all<Color>(boxColor),
+                fixedSize: MaterialStateProperty.resolveWith<Size?>(
+                    (states) => Size(240, 50)),
+              ),onPressed: () {
+  toggleDarkMode(); // call the toggleDarkMode function
+  if (appBarC.mounted) {
+    appBarC.updateColors(); // call the updateColors function
+  } // call the updateColors function
+},
 
 
+              child: ListTile(
+                leading: Icon(
+                  DarkMode.isDarkModeEnabled
+                      ? Icons.light_mode_outlined
+                      : Icons.dark_mode_outlined,
+                  color: textColor,
+                ),
+                title: Center(
+                  child: Text(
+                      DarkMode.isDarkModeEnabled ? 'Light mode' : 'Dark mode',
+                      style: TextStyle(
+                          fontSize: 22,
+                          fontFamily: 'Roboto',
+                          letterSpacing: 0.10000000149011612,
+                          color: boxColor)),
+                ),
+              ),
+            ),
           ],
         ),
       ),
