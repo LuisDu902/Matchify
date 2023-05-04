@@ -25,18 +25,20 @@ Map<String, String> queries = {
   'Funk': 'genre:funk',
   'Rock': 'genre:rock',
   'Heavy metal': 'genre:metal',
-  'Classical': 'genre:classical',
-  'Happy': 'genre:happy',
-  'Sad': 'genre:sad',
+  'Country': 'genre:country',
+  'Reggaeton': 'genre:reggaeton',
   'Jazz': 'genre:jazz',
   'Rap': 'genre:rap',
+    'Soul': 'genre:soul',
+    'Punk': 'genre:punk',
+    'Folk': 'genre:folk',
+    'Dream pop' : 'genre:dream pop',
   'EDM': 'genre:electronic',
-  '70\'s': 'year:1970-1979',
-  '80\'s': 'year:1980-1989',
-  '90\'s': 'year:1990-1999',
-  'Lonely': 'lonely',
-  'Calm': 'calm',
-  'Energetic': 'energy:1.0'
+  '1970\'s': 'year:1970-1979',
+  '1980\'s': 'year:1980-1989',
+  '1990\'s': 'year:1990-1999',
+  '2000\'s': 'year:2000-2009',
+  '2010\'s': 'year:2010-2019',
 };
 
 List<Song> liked = [];
@@ -145,10 +147,14 @@ Future<Song> _searchSong(String filter) async {
 Future<List<Song>> fetchSongs(List<String> filters) async {
   if (filters.length == 1) {
     Song song = await _searchSong(filters[0]);
+
     songs.add(song);
   }
   for (String filter in filters) {
     Song song = await _searchSong(filter);
+    while (songs.contains(song)) {
+      song = await _searchSong(filter);
+    }
     songs.add(song);
   }
   return songs;

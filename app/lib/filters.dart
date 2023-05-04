@@ -63,7 +63,7 @@ class _FiltersState extends State<Filters> {
 //rest of code
 
   bool _isGenreListVisible = false;
-  bool _isMoodListVisible = false;
+  
   bool _isDecadeListVisible = false;
   List<String> getGenres() {
     return _genres;
@@ -71,52 +71,44 @@ class _FiltersState extends State<Filters> {
 
   List<String> _genres = [
     'Pop',
+    'Reggaeton',
     'Funk',
     'Rock',
     'Heavy metal',
-    'Classical',
+    'Country',
     'Jazz',
     'Rap',
-    'EDM'
+    'EDM',
+    'Soul',
+    'Punk',
+    'Folk',
+    'Dream pop'
   ];
-  List<String> _decades = ['70\'s', '80\'s', '90\'s'];
-  List<String> _moods = [
-    'Happy',
-    'Lonely',
-    'Calm',
-    'Sad',
-    'Energetic',
-  ];
+  List<String> _decades = ['1970\'s', '1980\'s', '1990\'s', '2000\'s','2010\'s'];
+  
   List<String> _iniGenres = [
     'Pop',
+    'Reggaeton',
     'Funk',
     'Rock',
     'Heavy metal',
-    'Classical',
+    'Country',
     'Jazz',
     'Rap',
-    'EDM'
+    'EDM',
+    'Soul',
+    'Punk',
+    'Folk',
+    'Dream pop'
   ];
-  List<String> _iniDecades = ['70\'s', '80\'s', '90\'s'];
-  List<String> _iniMoods = [
-    'Happy',
-    'Lonely',
-    'Calm',
-    'Sad',
-    'Energetic',
-  ];
+  List<String> _iniDecades = ['1970\'s', '1980\'s', '1990\'s', '2000\'s','2010\'s'];
+ 
   Widget drawIcon(String filter) {
     switch (filter) {
       case 'Genre':
         return Icon(
           key: Key(filter),
           _isGenreListVisible ? Icons.arrow_drop_up : Icons.arrow_drop_down,
-          size: 24.0,
-        );
-      case 'Mood':
-        return Icon(
-          key: Key(filter),
-          _isMoodListVisible ? Icons.arrow_drop_up : Icons.arrow_drop_down,
           size: 24.0,
         );
       case 'Decade':
@@ -158,16 +150,12 @@ class _FiltersState extends State<Filters> {
             switch (filter) {
               case 'Genre':
                 _isGenreListVisible = !_isGenreListVisible;
-                _isMoodListVisible = false;
+                
                 _isDecadeListVisible = false;
                 break;
-              case 'Mood':
-                _isMoodListVisible = !_isMoodListVisible;
-                _isGenreListVisible = false;
-                _isDecadeListVisible = false;
-                break;
+              
               case 'Decade':
-                _isMoodListVisible = false;
+                
                 _isGenreListVisible = false;
                 _isDecadeListVisible = !_isDecadeListVisible;
                 break;
@@ -194,9 +182,7 @@ class _FiltersState extends State<Filters> {
       case 'Genre':
         filters = _genres;
         break;
-      case 'Mood':
-        filters = _moods;
-        break;
+      
       case 'Decade':
         filters = _decades;
         break;
@@ -323,9 +309,7 @@ class _FiltersState extends State<Filters> {
                             if (_iniGenres.contains(genre)) {
                               if (_genres.isEmpty) _isGenreListVisible = false;
                               _genres.add(genre);
-                            } else if (_iniMoods.contains(genre)) {
-                              if (_moods.isEmpty) _isMoodListVisible = false;
-                              _moods.add(genre);
+                            
                             } else if (_iniDecades.contains(genre)) {
                               if (_decades.isEmpty)
                                 _isDecadeListVisible = false;
@@ -367,8 +351,7 @@ class _FiltersState extends State<Filters> {
               ),
               drawButton('Genre'),
               if (_isGenreListVisible) drawItems('Genre'),
-              drawButton('Mood'),
-              if (_isMoodListVisible) drawItems('Mood'),
+              
               drawButton('Decade'),
               if (_isDecadeListVisible) drawItems('Decade'),
               drawFilters(),
