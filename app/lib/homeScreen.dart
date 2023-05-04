@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:matchify/filters.dart';
+import 'song/mixPlaylist.dart';
 
 import 'appBar/appBar.dart';
 import 'appBar/infoScreen.dart';
@@ -125,7 +126,7 @@ class _HomeScreenState extends State<HomeScreen> {
                    clearFilters();
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => Filters()),
+                    MaterialPageRoute(builder: (context) => MixPlaylistScreen()),
                   );
                 },
                 child: Container(
