@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:matchify/backend/playlist.dart';
 import 'package:matchify/backend/song.dart';
 
 class DarkMode {
@@ -60,3 +61,7 @@ List<String> iniDecades = [
   '2000\'s',
   '2010\'s'
 ];
+
+Playlist firstPlaylist = Playlist(name: '', imgUrl: '', songs: []);
+Playlist secondPlaylist = Playlist(name: '', imgUrl: '', songs: []);
+bool isFirstPlaylist = true;

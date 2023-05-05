@@ -6,22 +6,20 @@ import 'package:matchify/backend/auth.dart';
 import 'package:matchify/backend/library.dart';
 import 'package:matchify/pages/homeScreen.dart';
 import 'package:matchify/backend/playlist.dart';
+import 'package:matchify/pages/mixPlaylist/firstMixPlaylist.dart';
 import 'package:matchify/pages/song/playlistScreen.dart';
 import '../../backend/variables.dart';
 
 import '../../backend/song.dart';
 
-class LibraryScreen extends StatefulWidget {
-  final String username;
-
-  LibraryScreen({required this.username});
-
+class MixFromUserLibraryScreen extends StatefulWidget {
   @override
-  _LibraryScreenState createState() => _LibraryScreenState();
+  MixFromUserLibraryState createState() => MixFromUserLibraryState();
 }
 
-class _LibraryScreenState extends State<LibraryScreen> {
+class MixFromUserLibraryState extends State<MixFromUserLibraryScreen> {
   //darkmode
+
   late Color bgColor;
   late Color textColor;
 
@@ -43,21 +41,12 @@ class _LibraryScreenState extends State<LibraryScreen> {
   }
 
   List<Playlist> library = [];
-  
+
   Widget emptyLibrary() {
     return Column(
       children: [
         Text(
-          "Looks like you haven't created any playlists yet.",
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            color: textColor,
-            fontSize: 20,
-          ),
-        ),
-        SizedBox(height: 16),
-        Text(
-          "But don't miss out on the fun! Start creating your own personalized playlists and discover new music that you'll love.",
+          "Looks like you don't have any playlists",
           textAlign: TextAlign.center,
           style: TextStyle(
             color: textColor,
@@ -69,27 +58,40 @@ class _LibraryScreenState extends State<LibraryScreen> {
   }
 
   Widget showPlaylists() {
+    List<Playlist> chosenPlaylist =library;
+    if (!isFirstPlaylist) chosenPlaylist.remove(firstPlaylist);
+    
     return Expanded(
       child: GridView.count(
         crossAxisCount: 2,
         mainAxisSpacing: 30,
-        children: library.map((playlist) {
+        children: chosenPlaylist.map((playlist) {
           return GestureDetector(
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => PlaylistScreen(
-                          playlist: playlist,
-                        )),
-              );
+              if (isFirstPlaylist) {
+                firstPlaylist = playlist;
+                isFirstPlaylist = false;
+
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => MixFromUserLibraryScreen()),
+                );
+              } else {
+                secondPlaylist = playlist;
+                
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => HomeScreen()),
+                );
+              }
             },
             child: Container(
               padding: EdgeInsets.all(10),
               child: Column(
                 children: [
                   Image.network(
-                    key: Key( playlist.name),
+                    key: Key(playlist.name),
                     playlist.imgUrl,
                     fit: BoxFit.contain,
                     width: 146,
@@ -117,12 +119,11 @@ class _LibraryScreenState extends State<LibraryScreen> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      
-      future: fetchLibrary(library,widget.username),
+      future: fetchLibrary(library,Auth().getUsername()),
       builder: (BuildContext context, AsyncSnapshot<List<Playlist>> snapshot) {
         if (snapshot.hasData) {
           return Scaffold(
-            key: Key("library page"),
+            key: Key(""),
             drawer: Info(),
             appBar: appBar(),
             backgroundColor: bgColor,
@@ -132,7 +133,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
                 children: [
                   SizedBox(height: 50),
                   Text(
-                    widget.username + '\'s Library',
+                    'Select the playlist you want to mix',
                     style: TextStyle(
                       color: textColor,
                       fontSize: 24,

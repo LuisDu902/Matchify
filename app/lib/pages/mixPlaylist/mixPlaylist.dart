@@ -76,8 +76,6 @@ class _MixPlaylistScreenState extends State<MixPlaylistScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.person, color: Colors.grey), // add the person icon
-                  SizedBox(width: 8.0), // add padding between the icon and the name
                   GestureDetector(
                     onTap: () {
                       Navigator.push(
@@ -92,7 +90,7 @@ class _MixPlaylistScreenState extends State<MixPlaylistScreen> {
                     child: Text(
                       friends[index],
                       style: TextStyle(
-                        fontSize: 20.0,
+                        fontSize: 28.0,
                         fontWeight: FontWeight.bold,
                         color: textColor,
                       ),
@@ -109,32 +107,8 @@ class _MixPlaylistScreenState extends State<MixPlaylistScreen> {
 }
 
 
-  Widget buttons() {
-    return Container(
-        height: MediaQuery.of(context).size.height * 0.3,
-        width: double.infinity,
-        child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-          Container(
-            padding: EdgeInsets.symmetric(
-              vertical: 8.0,
-              horizontal: 16.0,
-            ),
-            decoration: BoxDecoration(
-              color: buttonColor,
-              borderRadius: BorderRadius.circular(16.0),
-            ),
-            child: Text(
-              key: Key(""),
-              "Which friend do you want to mix your playlist with?",
-              style: TextStyle(
-                fontFamily: 'Roboto',
-                fontSize: 16.0,
-                color: buttonTextColor,
-              ),
-            ),
-          ),
-        ]));
-  }
+  
+
 
   @override
   Widget build(BuildContext context) {
@@ -147,12 +121,24 @@ class _MixPlaylistScreenState extends State<MixPlaylistScreen> {
             drawer: Info(),
             appBar: appBar(),
             backgroundColor: bgColor,
-            body: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                buttons(),
-                showFriends(),
-              ],
+            body: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  SizedBox(height: 50),
+                  Text(
+                    'Select the friend you want to mix playlists with',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: textColor,
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(height: 100),
+                  showFriends(),
+                ],
+              ),
             ),
           );
         } else if (snapshot.hasError) {

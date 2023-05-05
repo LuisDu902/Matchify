@@ -6,6 +6,7 @@ import 'package:matchify/backend/auth.dart';
 import 'package:matchify/backend/library.dart';
 import 'package:matchify/pages/homeScreen.dart';
 import 'package:matchify/backend/playlist.dart';
+import 'package:matchify/pages/mixPlaylist/mixFromUserLibrary.dart';
 import 'package:matchify/pages/song/playlistScreen.dart';
 import '../../backend/variables.dart';
 
@@ -17,10 +18,12 @@ class MixPlaylistLibraryFriendScreen extends StatefulWidget {
   MixPlaylistLibraryFriendScreen({required this.username});
 
   @override
-  _MixPlaylistLibraryFriendScreenState createState() => _MixPlaylistLibraryFriendScreenState();
+  _MixPlaylistLibraryFriendScreenState createState() =>
+      _MixPlaylistLibraryFriendScreenState();
 }
 
-class _MixPlaylistLibraryFriendScreenState extends State<MixPlaylistLibraryFriendScreen> {
+class _MixPlaylistLibraryFriendScreenState
+    extends State<MixPlaylistLibraryFriendScreen> {
   //darkmode
   late Color bgColor;
   late Color textColor;
@@ -43,7 +46,7 @@ class _MixPlaylistLibraryFriendScreenState extends State<MixPlaylistLibraryFrien
   }
 
   List<Playlist> library = [];
-  
+
   Widget emptyLibrary() {
     return Column(
       children: [
@@ -55,7 +58,6 @@ class _MixPlaylistLibraryFriendScreenState extends State<MixPlaylistLibraryFrien
             fontSize: 20,
           ),
         ),
-        
       ],
     );
   }
@@ -68,11 +70,13 @@ class _MixPlaylistLibraryFriendScreenState extends State<MixPlaylistLibraryFrien
         children: library.map((playlist) {
           return GestureDetector(
             onTap: () {
+              firstPlaylist = playlist;
+              isFirstPlaylist = false;
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => PlaylistScreen(
-                          playlist: playlist,
+                    builder: (context) => MixFromUserLibraryScreen(
+                          
                         )),
               );
             },
@@ -81,7 +85,7 @@ class _MixPlaylistLibraryFriendScreenState extends State<MixPlaylistLibraryFrien
               child: Column(
                 children: [
                   Image.network(
-                    key: Key( playlist.name),
+                    key: Key(playlist.name),
                     playlist.imgUrl,
                     fit: BoxFit.contain,
                     width: 146,
@@ -109,7 +113,7 @@ class _MixPlaylistLibraryFriendScreenState extends State<MixPlaylistLibraryFrien
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: fetchLibrary(library),
+      future: fetchLibrary(library,widget.username),
       builder: (BuildContext context, AsyncSnapshot<List<Playlist>> snapshot) {
         if (snapshot.hasData) {
           return Scaffold(
@@ -123,7 +127,7 @@ class _MixPlaylistLibraryFriendScreenState extends State<MixPlaylistLibraryFrien
                 children: [
                   SizedBox(height: 50),
                   Text(
-                   'Mix with ' + widget.username + '\'s Library',
+                    'Mix with ' + widget.username + '\'s Library',
                     style: TextStyle(
                       color: textColor,
                       fontSize: 24,

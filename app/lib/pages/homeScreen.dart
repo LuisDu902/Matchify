@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:matchify/pages/filters.dart';
-import 'package:matchify/pages/song/mixPlaylist.dart';
+import 'package:matchify/pages/mixPlaylist/firstMixPlaylist.dart';
+import 'package:matchify/pages/mixPlaylist/mixPlaylist.dart';
 
 import 'appBar/appBar.dart';
 import 'appBar/infoScreen.dart';
@@ -77,7 +78,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => MixPlaylistScreen()),
+                    MaterialPageRoute(builder: (context) => FirstMixPlaylistScreen()),
                   );
                 },
                 child: Container(
@@ -122,7 +123,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => MixPlaylistScreen()),
+                    MaterialPageRoute(builder: (context) => FirstMixPlaylistScreen()),
                   );
                 },
                 child: Container(

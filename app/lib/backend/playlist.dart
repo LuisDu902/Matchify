@@ -12,6 +12,17 @@ class Playlist {
   final String name;
   final String imgUrl;
   final List<Song> songs;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is Playlist &&
+          name == other.name &&
+          imgUrl == other.imgUrl;
+          
+
+  @override
+  int get hashCode => name.hashCode ^ imgUrl.hashCode;
   
 
   Playlist({required this.name, required this.imgUrl, required this.songs});

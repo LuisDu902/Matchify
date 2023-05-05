@@ -3,10 +3,10 @@ import 'package:matchify/backend/playlist.dart';
 import 'package:matchify/backend/song.dart';
 import 'auth.dart';
 
-Future<List<Playlist>> fetchLibrary(List<Playlist> library) async {
+Future<List<Playlist>> fetchLibrary(List<Playlist> library, String username) async {
     final database = FirebaseDatabase.instance;
     final playlistRef =
-        database.ref().child('users').child(Auth().getUsername()).child('playlists');
+        database.ref().child('users').child(username).child('playlists');
 
     final snapshot = await playlistRef.get();
     if (snapshot.value != null) {
