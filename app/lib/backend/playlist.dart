@@ -12,6 +12,7 @@ class Playlist {
   final String name;
   final String imgUrl;
   final List<Song> songs;
+  
 
   Playlist({required this.name, required this.imgUrl, required this.songs});
 

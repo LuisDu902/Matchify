@@ -7,6 +7,7 @@ import 'package:matchify/pages/appBar/appBar.dart';
 import 'package:matchify/pages/appBar/infoScreen.dart';
 import 'package:matchify/pages/sidebar/library.dart';
 
+import 'mixPlaylistLibraryFriend.dart';
 
 class MixPlaylistScreen extends StatefulWidget {
   @override
@@ -17,6 +18,8 @@ class _MixPlaylistScreenState extends State<MixPlaylistScreen> {
   //darkmode
   late Color bgColor;
   late Color textColor;
+  Color buttonColor = Color.fromRGBO(103, 61, 155, 1);
+  Color buttonTextColor = Color.fromRGBO(255, 255, 255, 1);
 
   @override
   void initState() {
@@ -38,77 +41,73 @@ class _MixPlaylistScreenState extends State<MixPlaylistScreen> {
   final user = Auth().currentUser;
   final username = Auth().getUsername();
 
-  late Color friendColor = textColor;
-
-  late Color friendText = bgColor;
-
-  Widget showFriends() {
-    if (friends.isEmpty) {
-      return Padding(
-        padding: const EdgeInsets.symmetric(
-          vertical: 8.0,
-          horizontal: 16.0,
+ Widget showFriends() {
+  if (friends.isEmpty) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        vertical: 8.0,
+        horizontal: 16.0,
+      ),
+      child: Text(
+        "Looks like you haven't added any friends yet. Why not add some?",
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          fontFamily: 'Roboto',
+          fontSize: 20.0,
+          fontWeight: FontWeight.bold,
+          color: textColor,
         ),
-        child: Text(
-          "Looks like you haven't added any friends yet. Why not add some?",
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            fontFamily: 'Roboto',
-            fontSize: 20.0,
-            fontWeight: FontWeight.bold,
-            color: textColor,
-          ),
-        ),
-      );
-    } else {
-      return Expanded(
-        child: Container(
-          margin: EdgeInsets.only(top: 16.0),
-          child: ListView.builder(
-            padding: EdgeInsets.only(top: 8.0),
-            shrinkWrap: true,
-            itemCount: friends.length,
-            itemBuilder: (BuildContext context, int index) {
-              return Padding(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 8.0,
-                  horizontal: 16.0,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    
-                    
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => LibraryScreen(
-                              username: friends[index],
-                            ),
+      ),
+    );
+  } else {
+    return Expanded(
+      child: Container(
+        margin: EdgeInsets.only(top: 16.0),
+        child: ListView.builder(
+          padding: EdgeInsets.only(top: 8.0),
+          shrinkWrap: true,
+          itemCount: friends.length,
+          itemBuilder: (BuildContext context, int index) {
+            return Padding(
+              padding: const EdgeInsets.symmetric(
+                vertical: 8.0,
+                horizontal: 16.0,
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(Icons.person, color: Colors.grey), // add the person icon
+                  SizedBox(width: 8.0), // add padding between the icon and the name
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => MixPlaylistLibraryFriendScreen(
+                            username: friends[index],
                           ),
-                        );
-                      },
-                      child: Text(
-                        friends[index],
-                        style: TextStyle(
-                          fontSize: 20.0,
-                          fontWeight: FontWeight.bold,
                         ),
+                      );
+                    },
+                    child: Text(
+                      friends[index],
+                      style: TextStyle(
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.bold,
+                        color: textColor,
                       ),
                     ),
-                    SizedBox(
-                        height: 8.0), // add padding between each friend's name
-                  ],
-                ),
-              );
-            },
-          ),
+                  ),
+                ],
+              ),
+            );
+          },
         ),
-      );
-    }
+      ),
+    );
   }
+}
+
 
   Widget buttons() {
     return Container(
@@ -121,23 +120,21 @@ class _MixPlaylistScreenState extends State<MixPlaylistScreen> {
               horizontal: 16.0,
             ),
             decoration: BoxDecoration(
-              color: friendColor,
+              color: buttonColor,
               borderRadius: BorderRadius.circular(16.0),
             ),
             child: Text(
-              key: Key("friends button"),
-              "Friends",
+              key: Key(""),
+              "Which friend do you want to mix your playlist with?",
               style: TextStyle(
                 fontFamily: 'Roboto',
-                fontSize: 32.0,
-                color: friendText,
+                fontSize: 16.0,
+                color: buttonTextColor,
               ),
             ),
           ),
         ]));
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -146,7 +143,7 @@ class _MixPlaylistScreenState extends State<MixPlaylistScreen> {
       builder: (BuildContext context, AsyncSnapshot<List<String>> snapshot) {
         if (snapshot.hasData) {
           return Scaffold(
-            key: Key("mix playlist page"),
+            key: Key(""),
             drawer: Info(),
             appBar: appBar(),
             backgroundColor: bgColor,
