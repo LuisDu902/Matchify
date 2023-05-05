@@ -3,10 +3,10 @@ import 'dart:math';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:matchify/appBar/infoScreen.dart';
-import 'package:matchify/homeScreen.dart';
-import 'package:matchify/filters.dart';
-import 'package:matchify/sidebar/about.dart';
+import 'package:matchify/pages/appBar/infoScreen.dart';
+import 'package:matchify/pages/homeScreen.dart';
+import 'package:matchify/pages/filters.dart';
+import 'package:matchify/pages/sidebar/about.dart';
 import 'mock.dart';
 
 void main() {

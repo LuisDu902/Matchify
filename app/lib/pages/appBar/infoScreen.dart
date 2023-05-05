@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:matchify/authentication/auth.dart';
+import 'package:matchify/backend/auth.dart';
 
-import 'package:matchify/sidebar/about.dart';
-import 'package:matchify/sidebar/addFriends.dart';
-import 'package:matchify/sidebar/friends.dart';
-import 'package:matchify/sidebar/library.dart';
-import '../constants.dart';
+import 'package:matchify/pages/sidebar/about.dart';
+import 'package:matchify/pages/sidebar/addFriends.dart';
+import 'package:matchify/pages/sidebar/friends.dart';
+import 'package:matchify/pages/sidebar/library.dart';
+import '../../backend/variables.dart';
 
 class Info extends StatefulWidget {
   const Info({super.key});

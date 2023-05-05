@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import 'package:matchify/appBar/appBar.dart';
-import 'package:matchify/appBar/infoScreen.dart';
-import 'package:matchify/authentication/auth.dart';
-import '../constants.dart';
+import 'package:matchify/pages/appBar/appBar.dart';
+import 'package:matchify/pages/appBar/infoScreen.dart';
+import 'package:matchify/backend/auth.dart';
+import '../../backend/variables.dart';
 
 class ProfileScreen extends StatefulWidget {
   @override
@@ -47,19 +47,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   final User? user = Auth().currentUser;
-
-  Future<void> signOut() async {
-    await Auth().signOut();
-
-    Navigator.pushNamedAndRemoveUntil(
-        context, '/widget_tree', (route) => false);
-  }
-
-  Future<void> deleteAccount() async {
-    await Auth().deleteAccount();
-    Navigator.pushNamedAndRemoveUntil(
-        context, '/widget_tree', (route) => false);
-  }
 
   Widget popUp() {
     return AlertDialog(
@@ -120,7 +107,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return TextButton(
       key: Key('confirm delete'),
       onPressed: () {
-        deleteAccount();
+        Auth().deleteAccount(context);
         Navigator.of(context).pop();
       },
       child: Container(
@@ -198,7 +185,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           letterSpacing: 0.10000000149011612,
                         )),
               ),
-              onPressed: signOut,
+              onPressed: () => {Auth().signOut(context)},
               child: Text('Log out'),
             ),
             SizedBox(height: 20),
@@ -243,14 +230,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 foregroundColor: MaterialStateProperty.all<Color>(boxColor),
                 fixedSize: MaterialStateProperty.resolveWith<Size?>(
                     (states) => Size(240, 50)),
-              ),onPressed: () {
-  toggleDarkMode(); // call the toggleDarkMode function
-  if (appBarC.mounted) {
-    appBarC.updateColors(); // call the updateColors function
-  } // call the updateColors function
-},
-
-
+              ),
+              onPressed: () {
+                toggleDarkMode(); // call the toggleDarkMode function
+                if (appBarC.mounted) {
+                  appBarC.updateColors(); // call the updateColors function
+                } // call the updateColors function
+              },
               child: ListTile(
                 leading: Icon(
                   DarkMode.isDarkModeEnabled

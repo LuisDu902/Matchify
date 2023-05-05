@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:matchify/filters.dart';
-import 'song/mixPlaylist.dart';
+import 'package:matchify/pages/filters.dart';
+import 'package:matchify/pages/song/mixPlaylist.dart';
 
 import 'appBar/appBar.dart';
 import 'appBar/infoScreen.dart';
-import 'constants.dart';
-
+import '../backend/variables.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -15,8 +14,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  
-
   late Color bgColor;
   late Color textColor;
   late Color mixPlaylistColor;
@@ -29,10 +26,11 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void updateColors() {
     setState(() {
-      bgColor =
-           DarkMode.isDarkModeEnabled ? Color.fromRGBO(59, 59, 59, 1) : Colors.white;
-      textColor =  DarkMode.isDarkModeEnabled ? Colors.white : Colors.black;
-      mixPlaylistColor =  DarkMode.isDarkModeEnabled
+      bgColor = DarkMode.isDarkModeEnabled
+          ? Color.fromRGBO(59, 59, 59, 1)
+          : Colors.white;
+      textColor = DarkMode.isDarkModeEnabled ? Colors.white : Colors.black;
+      mixPlaylistColor = DarkMode.isDarkModeEnabled
           ? Color.fromARGB(255, 255, 255, 255)
           : Color.fromRGBO(73, 43, 124, 1);
     });
@@ -53,7 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
               left: 36,
               child: GestureDetector(
                 onTap: () {
-                   clearFilters();
+                  chosenFilters.clear();
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => const Filters()),
@@ -76,10 +74,10 @@ class _HomeScreenState extends State<HomeScreen> {
               left: 225,
               child: GestureDetector(
                 onTap: () {
-                   clearFilters();
+                  
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => Filters()),
+                    MaterialPageRoute(builder: (context) => MixPlaylistScreen()),
                   );
                 },
                 child: Container(
@@ -100,7 +98,6 @@ class _HomeScreenState extends State<HomeScreen> {
               left: 75,
               child: GestureDetector(
                 onTap: () {
-                   clearFilters();
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => Filters()),
@@ -123,7 +120,6 @@ class _HomeScreenState extends State<HomeScreen> {
               left: 250,
               child: GestureDetector(
                 onTap: () {
-                   clearFilters();
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => MixPlaylistScreen()),

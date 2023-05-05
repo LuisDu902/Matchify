@@ -1,14 +1,15 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:matchify/appBar/appBar.dart';
-import 'package:matchify/appBar/infoScreen.dart';
-import 'package:matchify/authentication/auth.dart';
-import 'package:matchify/homeScreen.dart';
-import 'package:matchify/song/playlist.dart';
-import 'package:matchify/song/playlistScreen.dart';
-import '../constants.dart';
+import 'package:matchify/pages/appBar/appBar.dart';
+import 'package:matchify/pages/appBar/infoScreen.dart';
+import 'package:matchify/backend/auth.dart';
+import 'package:matchify/backend/library.dart';
+import 'package:matchify/pages/homeScreen.dart';
+import 'package:matchify/backend/playlist.dart';
+import 'package:matchify/pages/song/playlistScreen.dart';
+import '../../backend/variables.dart';
 
-import '../song/song.dart';
+import '../../backend/song.dart';
 
 class LibraryScreen extends StatefulWidget {
   final String username;
@@ -41,44 +42,8 @@ class _LibraryScreenState extends State<LibraryScreen> {
     });
   }
 
-  final user = Auth().currentUser;
-  final username = Auth().getUsername();
-
   List<Playlist> library = [];
-  Future<List<Playlist>> fetchLibrary() async {
-    final database = FirebaseDatabase.instance;
-    final playlistRef =
-        database.ref().child('users').child(widget.username).child('playlists');
-
-    final snapshot = await playlistRef.get();
-    if (snapshot.value != null) {
-      final map = snapshot.value as Map;
-      for (final entry in map.entries) {
-        String playlist_name = entry.key;
-        Map songs = entry.value;
-        List<Song> listSongs = [];
-        for (final song in songs.entries) {
-          Map songFields = song.value;
-          Song _song = Song(
-            trackName: song.key,
-            artistName: songFields['artistName'],
-            genre: songFields['genre'],
-            previewUrl: songFields['preview'],
-            imageUrl: songFields['image'],
-          );
-
-          listSongs.add(_song);
-        }
-        Playlist _playlist = Playlist(
-            name: playlist_name,
-            imgUrl: listSongs[0].imageUrl,
-            songs: listSongs);
-        library.add(_playlist);
-      }
-    }
-    return library;
-  }
-
+  
   Widget emptyLibrary() {
     return Column(
       children: [
@@ -152,7 +117,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: fetchLibrary(),
+      future: fetchLibrary(library),
       builder: (BuildContext context, AsyncSnapshot<List<Playlist>> snapshot) {
         if (snapshot.hasData) {
           return Scaffold(

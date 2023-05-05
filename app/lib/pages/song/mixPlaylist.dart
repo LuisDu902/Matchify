@@ -1,10 +1,12 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:matchify/appBar/appBar.dart';
-import 'package:matchify/appBar/infoScreen.dart';
-import 'package:matchify/authentication/auth.dart';
-import '../constants.dart';
-import 'package:matchify/sidebar/library.dart';
+import 'package:matchify/backend/auth.dart';
+import 'package:matchify/backend/friends.dart';
+import 'package:matchify/backend/variables.dart';
+import 'package:matchify/pages/appBar/appBar.dart';
+import 'package:matchify/pages/appBar/infoScreen.dart';
+import 'package:matchify/pages/sidebar/library.dart';
+
 
 class MixPlaylistScreen extends StatefulWidget {
   @override
@@ -39,28 +41,6 @@ class _MixPlaylistScreenState extends State<MixPlaylistScreen> {
   late Color friendColor = textColor;
 
   late Color friendText = bgColor;
-
-  List<String> friends = [];
-
-  Future<List<String>> fetchFriends() async {
-    final database = FirebaseDatabase.instance;
-    Query ref = database.ref().child('users').child(username).child('friends');
-    final snapshot = await ref.get();
-    friends.clear();
-    if (snapshot.exists) {
-      List<String> friendsList = snapshot.children.map((child) {
-        return child.value as String;
-      }).toList();
-      friends = List.from(friends)..addAll(friendsList);
-    }
-    return friends;
-  }
-
-  Future<List<String>> getFriends() async {
-    friends = await fetchFriends();
-
-    return friends;
-  }
 
   Widget showFriends() {
     if (friends.isEmpty) {
@@ -157,14 +137,16 @@ class _MixPlaylistScreenState extends State<MixPlaylistScreen> {
         ]));
   }
 
+
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: getFriends(),
+      future: fetchFriends(),
       builder: (BuildContext context, AsyncSnapshot<List<String>> snapshot) {
         if (snapshot.hasData) {
           return Scaffold(
-            key: Key("friends page"),
+            key: Key("mix playlist page"),
             drawer: Info(),
             appBar: appBar(),
             backgroundColor: bgColor,

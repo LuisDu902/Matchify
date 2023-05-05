@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../homeScreen.dart';
 
-import 'auth.dart';
+import '../../backend/auth.dart';
 import 'login.dart';
 
 

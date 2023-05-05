@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:matchify/appBar/infoScreen.dart';
+import 'package:matchify/pages/appBar/infoScreen.dart';
 import 'appBar/appBar.dart';
 import 'song/swipe.dart';
-import 'constants.dart';
+import '../backend/variables.dart';
 
 class Filters extends StatefulWidget {
   const Filters({Key? key});
@@ -12,18 +12,6 @@ class Filters extends StatefulWidget {
   _FiltersState createState() => _FiltersState();
 }
 
-List<String> _filters = [];
-
-List<String> getFilters() {
-  return _filters;
-}
-
-void clearFilters() {
-  _filters.clear();
-}
-
-int playlistSize = 0;
-
 class _FiltersState extends State<Filters> {
   //darkmode
   late Color bgColor;
@@ -31,10 +19,15 @@ class _FiltersState extends State<Filters> {
   late Color singularFilter;
   late Color sizeColor;
 
+  List<String> genres = [...iniGenres];
+  List<String> decades = [...iniDecades];
+
   @override
   void initState() {
     super.initState();
     updateColors();
+    chosenFilters.clear();
+    playlistSize = 0;
   }
 
   void updateColors() {
@@ -44,65 +37,22 @@ class _FiltersState extends State<Filters> {
           : Colors.white;
 
       boxFilter = DarkMode.isDarkModeEnabled
-          ? //Color.fromRGBO(68, 47, 100, 1)
-          Colors.white
+          ? Colors.white
           : Color.fromRGBO(151, 138, 168, 1);
 
       singularFilter = DarkMode.isDarkModeEnabled
-          ? //Color.fromRGBO(179, 178, 174, 1)
-          Color.fromRGBO(224, 217, 228, 1)
+          ? Color.fromRGBO(224, 217, 228, 1)
           : Color.fromRGBO(251, 237, 160, 1);
 
       sizeColor = DarkMode.isDarkModeEnabled
-          ? // Color.fromRGBO(179, 178, 174, 1)
-          Colors.white
+          ? Colors.white
           : Color.fromRGBO(248, 206, 156, 1);
     });
   }
 
-//rest of code
-
   bool _isGenreListVisible = false;
-  
   bool _isDecadeListVisible = false;
-  List<String> getGenres() {
-    return _genres;
-  }
 
-  List<String> _genres = [
-    'Pop',
-    'Reggaeton',
-    'Funk',
-    'Rock',
-    'Heavy metal',
-    'Country',
-    'Jazz',
-    'Rap',
-    'EDM',
-    'Soul',
-    'Punk',
-    'Folk',
-    'Dream pop'
-  ];
-  List<String> _decades = ['1970\'s', '1980\'s', '1990\'s', '2000\'s','2010\'s'];
-  
-  List<String> _iniGenres = [
-    'Pop',
-    'Reggaeton',
-    'Funk',
-    'Rock',
-    'Heavy metal',
-    'Country',
-    'Jazz',
-    'Rap',
-    'EDM',
-    'Soul',
-    'Punk',
-    'Folk',
-    'Dream pop'
-  ];
-  List<String> _iniDecades = ['1970\'s', '1980\'s', '1990\'s', '2000\'s','2010\'s'];
- 
   Widget drawIcon(String filter) {
     switch (filter) {
       case 'Genre':
@@ -150,12 +100,9 @@ class _FiltersState extends State<Filters> {
             switch (filter) {
               case 'Genre':
                 _isGenreListVisible = !_isGenreListVisible;
-                
                 _isDecadeListVisible = false;
                 break;
-              
               case 'Decade':
-                
                 _isGenreListVisible = false;
                 _isDecadeListVisible = !_isDecadeListVisible;
                 break;
@@ -180,11 +127,10 @@ class _FiltersState extends State<Filters> {
     List<String> filters = [];
     switch (filter) {
       case 'Genre':
-        filters = _genres;
+        filters = genres;
         break;
-      
       case 'Decade':
-        filters = _decades;
+        filters = decades;
         break;
     }
     if (filters.isEmpty) return Container();
@@ -205,7 +151,7 @@ class _FiltersState extends State<Filters> {
                   onTap: () {
                     setState(() {
                       filters.remove(genre);
-                      _filters.add(genre);
+                      chosenFilters.add(genre);
                     });
                   },
                   child: Container(
@@ -275,13 +221,13 @@ class _FiltersState extends State<Filters> {
   }
 
   Widget drawFilters() {
-    if (_filters.isEmpty) return Container();
+    if (chosenFilters.isEmpty) return Container();
     return Container(
       width: MediaQuery.of(context).size.width,
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: Row(
-          children: _filters
+          children: chosenFilters
               .map(
                 (genre) => Container(
                   key: Key(genre),
@@ -305,15 +251,14 @@ class _FiltersState extends State<Filters> {
                       GestureDetector(
                         onTap: () {
                           setState(() {
-                            _filters.remove(genre);
-                            if (_iniGenres.contains(genre)) {
-                              if (_genres.isEmpty) _isGenreListVisible = false;
-                              _genres.add(genre);
-                            
-                            } else if (_iniDecades.contains(genre)) {
-                              if (_decades.isEmpty)
-                                _isDecadeListVisible = false;
-                              _decades.add(genre);
+                            chosenFilters.remove(genre);
+                            final x = iniGenres;
+                            if (iniGenres.contains(genre)) {
+                              if (genres.isEmpty) _isGenreListVisible = false;
+                              genres.add(genre);
+                            } else if (iniDecades.contains(genre)) {
+                              if (decades.isEmpty) _isDecadeListVisible = false;
+                              decades.add(genre);
                             }
                           });
                         },
@@ -351,7 +296,6 @@ class _FiltersState extends State<Filters> {
               ),
               drawButton('Genre'),
               if (_isGenreListVisible) drawItems('Genre'),
-              
               drawButton('Decade'),
               if (_isDecadeListVisible) drawItems('Decade'),
               drawFilters(),
@@ -359,11 +303,11 @@ class _FiltersState extends State<Filters> {
           ),
         ),
       ),
-      floatingActionButton:( _filters.isNotEmpty && playlistSize >=5)
+      floatingActionButton: (chosenFilters.isNotEmpty && playlistSize >= 5)
           ? ElevatedButton(
               onPressed: () {
-                clearDislikedSongs();
-                clearLikedSongs();
+                disliked.clear;
+                liked.clear();
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const SwipePage()),
