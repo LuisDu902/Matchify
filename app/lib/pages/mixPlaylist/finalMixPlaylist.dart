@@ -6,17 +6,16 @@ import 'package:matchify/backend/song.dart';
 import '../appBar/appBar.dart';
 import '../appBar/infoScreen.dart';
 import '../../backend/auth.dart';
-import 'swipe.dart';
 import '../../backend/variables.dart';
 
-class FinalPlaylistScreen extends StatefulWidget {
-  const FinalPlaylistScreen({Key? key});
+class FinalMixPlaylistScreen extends StatefulWidget {
+  const FinalMixPlaylistScreen({Key? key});
 
   @override
-  _FinalPlaylistScreenState createState() => _FinalPlaylistScreenState();
+  _FinalMixPlaylistScreenState createState() => _FinalMixPlaylistScreenState();
 }
 
-class _FinalPlaylistScreenState extends State<FinalPlaylistScreen> {
+class _FinalMixPlaylistScreenState extends State<FinalMixPlaylistScreen> {
 //darkmode
   late Color bgColor;
   late Color textColor;
@@ -25,7 +24,7 @@ class _FinalPlaylistScreenState extends State<FinalPlaylistScreen> {
   void initState() {
     super.initState();
     updateColors();
-    _loadPlaylist();
+    createMixPlaylist();
   }
 
   void updateColors() {
@@ -41,26 +40,16 @@ class _FinalPlaylistScreenState extends State<FinalPlaylistScreen> {
   }
 
   List<Song> songs = [];
-  String playlistName = "New Playlist";
+  String playlistName = "Mixed Playlist";
 
-  Future<List<Song>> _loadPlaylist() async {
-    List<Song> newSongs = await fillPlaylist();
-
-    setState(() {
-      songs = newSongs;
-    });
-    return songs;
+  void createMixPlaylist() async {
+    mixedPlaylist = mixPlaylist(firstPlaylist, secondPlaylist);
   }
 
-  
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-    future: _loadPlaylist(),
-    builder: (BuildContext context, AsyncSnapshot<List<Song>> snapshot) {
-      if (snapshot.hasData) {
-        return Scaffold(
-      key: Key("final playlist"),
+    return Scaffold(
+      key: Key("final mixed playlist"),
       drawer: Info(),
       appBar: appBar(),
       backgroundColor: bgColor,
@@ -97,7 +86,7 @@ class _FinalPlaylistScreenState extends State<FinalPlaylistScreen> {
                         });
                       },
                       decoration: InputDecoration(
-                        hintText: "New Playlist",
+                        hintText: "Mixed Playlist",
                         hintStyle: TextStyle(
                           color: textColor,
                           fontFamily: 'Roboto',
@@ -113,7 +102,7 @@ class _FinalPlaylistScreenState extends State<FinalPlaylistScreen> {
                             ),
                             SizedBox(width: 16.0),
                             GestureDetector(
-                              onTap: () => savePlaylist(playlistName, songs),
+                              onTap: () => savePlaylist(playlistName, mixedPlaylist.songs),
                               child: Material(
                                 color: Colors.transparent,
                                 shape: RoundedRectangleBorder(
@@ -149,14 +138,14 @@ class _FinalPlaylistScreenState extends State<FinalPlaylistScreen> {
             shrinkWrap: true,
             children: [
               SizedBox(
-                height: 330,
+                height: 500,
                 child: ListView.builder(
-                  itemCount: songs.length,
+                  itemCount: mixedPlaylist.songs.length,
                   itemBuilder: (BuildContext context, int index) {
                     return Padding(
                       padding: EdgeInsets.fromLTRB(60.0, 8.0, 16.0, 8.0),
                       child: Text(
-                        '${index + 1}. ${songs[index].trackName} by ${songs[index].artistName}',
+                        '${index + 1}. ${mixedPlaylist.songs[index].trackName} by ${mixedPlaylist.songs[index].artistName}',
                         style: TextStyle(
                           fontSize: 16.0,
                           color: textColor,
@@ -171,14 +160,5 @@ class _FinalPlaylistScreenState extends State<FinalPlaylistScreen> {
         ],
       ),
     );
-      } else {
-        // Show a loading indicator while waiting for the _loadPlaylist() method to complete.
-        return Center(child: CircularProgressIndicator());
-      }
-    },
-  );
+  }
 }
-    
-}
-
-

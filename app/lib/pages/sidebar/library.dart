@@ -43,29 +43,16 @@ class _LibraryScreenState extends State<LibraryScreen> {
   }
 
   List<Playlist> library = [];
-  
+
   Widget emptyLibrary() {
-    return Column(
-      children: [
-        Text(
-          "Looks like you haven't created any playlists yet.",
+    return Text(
+          "This library is empty",
           textAlign: TextAlign.center,
           style: TextStyle(
             color: textColor,
             fontSize: 20,
           ),
-        ),
-        SizedBox(height: 16),
-        Text(
-          "But don't miss out on the fun! Start creating your own personalized playlists and discover new music that you'll love.",
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            color: textColor,
-            fontSize: 20,
-          ),
-        ),
-      ],
-    );
+      );
   }
 
   Widget showPlaylists() {
@@ -89,7 +76,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
               child: Column(
                 children: [
                   Image.network(
-                    key: Key( playlist.name),
+                    key: Key(playlist.name),
                     playlist.imgUrl,
                     fit: BoxFit.contain,
                     width: 146,
@@ -117,34 +104,33 @@ class _LibraryScreenState extends State<LibraryScreen> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      
-      future: fetchLibrary(library,widget.username),
+      future: fetchLibrary(library, widget.username),
       builder: (BuildContext context, AsyncSnapshot<List<Playlist>> snapshot) {
         if (snapshot.hasData) {
-          return Scaffold(
-            key: Key("library page"),
-            drawer: Info(),
-            appBar: appBar(),
-            backgroundColor: bgColor,
-            body: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  SizedBox(height: 50),
-                  Text(
-                    widget.username + '\'s Library',
-                    style: TextStyle(
-                      color: textColor,
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
+            return Scaffold(
+              key: Key("library page"),
+              drawer: Info(),
+              appBar: appBar(),
+              backgroundColor: bgColor,
+              body: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    SizedBox(height: 50),
+                    Text(
+                      widget.username + '\'s Library',
+                      style: TextStyle(
+                        color: textColor,
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
-                  SizedBox(height: 64),
-                  showPlaylists(),
-                ],
+                    SizedBox(height: 64),
+                    (library.isEmpty) ? emptyLibrary(): showPlaylists(),
+                  ],
+                ),
               ),
-            ),
-          );
+            );
         } else if (snapshot.hasError) {
           return Center(
             child: Text('Error fetching library'),

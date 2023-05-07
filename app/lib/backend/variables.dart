@@ -62,6 +62,9 @@ List<String> iniDecades = [
   '2010\'s'
 ];
 
-Playlist firstPlaylist = Playlist(name: '', imgUrl: '', songs: []);
-Playlist secondPlaylist = Playlist(name: '', imgUrl: '', songs: []);
+late Playlist firstPlaylist;
+late Playlist secondPlaylist;
 bool isFirstPlaylist = true;
+late Playlist mixedPlaylist;
+
+int mixedPlaylistSize = 0;

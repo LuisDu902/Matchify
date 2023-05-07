@@ -6,6 +6,7 @@ import 'package:matchify/backend/auth.dart';
 import 'package:matchify/backend/library.dart';
 import 'package:matchify/pages/homeScreen.dart';
 import 'package:matchify/backend/playlist.dart';
+import 'package:matchify/pages/mixPlaylist/finalMixPlaylist.dart';
 import 'package:matchify/pages/mixPlaylist/firstMixPlaylist.dart';
 import 'package:matchify/pages/song/playlistScreen.dart';
 import '../../backend/variables.dart';
@@ -82,7 +83,7 @@ class MixFromUserLibraryState extends State<MixFromUserLibraryScreen> {
                 
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => HomeScreen()),
+                  MaterialPageRoute(builder: (context) => FinalMixPlaylistScreen()),
                 );
               }
             },

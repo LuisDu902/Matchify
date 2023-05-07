@@ -48,17 +48,13 @@ class _MixPlaylistLibraryFriendScreenState
   List<Playlist> library = [];
 
   Widget emptyLibrary() {
-    return Column(
-      children: [
-        Text(
-          "Looks like your friend does not have any playlists",
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            color: textColor,
-            fontSize: 20,
-          ),
-        ),
-      ],
+    return Text(
+      "Looks like your friend does not have any playlists",
+      textAlign: TextAlign.center,
+      style: TextStyle(
+        color: textColor,
+        fontSize: 20,
+      ),
     );
   }
 
@@ -135,7 +131,7 @@ class _MixPlaylistLibraryFriendScreenState
                     ),
                   ),
                   SizedBox(height: 64),
-                  showPlaylists(),
+                  (library.isEmpty) ? emptyLibrary() : showPlaylists(),
                 ],
               ),
             ),
