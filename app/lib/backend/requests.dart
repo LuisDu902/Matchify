@@ -39,7 +39,7 @@ Future<List<String>> fetchRequests() async {
       .child(Auth().getUsername())
       .child('requests');
   final snapshot = await ref.get();
-
+  requests.clear();
   if (snapshot.exists) {
     List<String> requestsList = snapshot.children.map((child) {
       return child.value as String;

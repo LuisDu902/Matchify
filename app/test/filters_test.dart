@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:matchify/backend/variables.dart';
 import 'package:matchify/pages/filters.dart';
-import 'package:matchify/pages/song/swipe.dart';
+
 import 'mock.dart';
 void main() {
   setupFirebaseAuthMocks();
@@ -21,11 +21,10 @@ void main() {
           body: Filters(),
         ),
       ));
-      expect(find.byType(ElevatedButton), findsNWidgets(4));
+      expect(find.byType(ElevatedButton), findsNWidgets(3));
       expect(find.text('Continue'), findsNothing);
       expect(find.text('Genre'), findsOneWidget);
       expect(find.text('Decade'), findsOneWidget);
-      expect(find.text('Mood'), findsOneWidget);
     });
     testWidgets('selecting a genre adds it to the filters list', (WidgetTester tester) async {
       await tester.pumpWidget(MaterialApp(
@@ -47,22 +46,11 @@ void main() {
       await tester.pumpAndSettle();
 
       // Find and tap a Decade item
-      await tester.tap(find.text('70\'s'));
+      await tester.tap(find.text('1970\'s'));
       await tester.pumpAndSettle();
 
       // Verify that the filter list was updated with the selected item
-      expect(chosenFilters, equals(['70\'s']));
-    });
-    testWidgets('selecting a mood adds it to the filters list', (WidgetTester tester) async {
-      await tester.pumpWidget(MaterialApp(
-        home: Filters(),
-      ));
-      expect(chosenFilters, isEmpty);
-      await tester.tap(find.text('Mood'));
-      await tester.pumpAndSettle();
-      await tester.tap(find.text('Sad'));
-      await tester.pumpAndSettle();
-      expect(chosenFilters, equals(['Sad']));
+      expect(chosenFilters, equals(['1970\'s']));
     });
     
     testWidgets('Test visibility of continue button', (WidgetTester tester) async {

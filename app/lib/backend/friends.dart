@@ -14,7 +14,7 @@ Future<List<String>> fetchFriends() async {
       .child(Auth().getUsername())
       .child('friends');
   final snapshot = await ref.get();
-
+  friends.clear();
   if (snapshot.exists) {
     List<String> friendsList = snapshot.children.map((child) {
       return child.value as String;

@@ -52,12 +52,12 @@ class _SwipeState extends State<SwipePage> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
+      key: Key('swipe page'), 
       future: fetchSongs(),
       builder: (BuildContext context, AsyncSnapshot<List<Song>> snapshot) {
         if (snapshot.hasData) {
           bool isDismissed = false;
           return Scaffold(
-            key: Key('swipe page'),
             drawer: Info(),
             appBar: appBar(),
             backgroundColor: bgColor,
@@ -151,6 +151,7 @@ class _SwipeState extends State<SwipePage> {
                       top: 400,
                       left: 170,
                       child: IconButton(
+                        key: Key('play'), 
                         icon: play
                             ? Icon(Icons.play_arrow_rounded, color: textColor)
                             : Icon(Icons.pause_rounded, color: textColor),

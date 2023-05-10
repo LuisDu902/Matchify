@@ -28,8 +28,7 @@ class CheckPage extends And1WithWorld<String, FlutterWorld> {
   }
 
   @override
-  RegExp get pattern => RegExp(r"I am on the {string}")
-;
+  RegExp get pattern => RegExp(r"I am on the {string}");
 }
 
 
@@ -61,4 +60,19 @@ class CheckHomePage extends GivenWithWorld<FlutterWorld> {
 
   @override
   RegExp get pattern => RegExp(r"I am on the home page");
+}
+
+
+class CheckSwipePage extends AndWithWorld<FlutterWorld> {
+  
+  @override
+  Future<void> executeStep() async {
+   final page = find.byValueKey('swipe page');
+    bool isSwipePage = await FlutterDriverUtils.isPresent(world.driver, page);
+    expect(isSwipePage, true);
+  }
+
+  @override
+  RegExp get pattern => RegExp(r"I am on the swipe page")
+;
 }

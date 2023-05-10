@@ -26,8 +26,8 @@ void main() {
   test('fetchSong returns only music from specific genre', () async {
     runApp(MyApp());
     final swipePage = SwipePage();
-    final genre1 = 'Classical';
-    final genre2 = 'Jazz';
+    final genre1 = 'Jazz';
+    final genre2 = 'Rap';
     chosenFilters.clear();
     chosenFilters.add(genre1);
     chosenFilters.add(genre2);

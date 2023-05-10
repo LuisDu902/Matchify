@@ -14,7 +14,7 @@ Future<void> main() async {
       LaunchApp(),
       CheckHomePage(),
       SelectFilters(),
-      CheckPage(),
+      CheckSwipePage(),
       ListenToShortClip(),
       SkipSong()
     ]
