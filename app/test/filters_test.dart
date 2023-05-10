@@ -14,7 +14,7 @@ void main() {
     chosenFilters.clear();
     playlistSize=0;
   });
-     testWidgets('Filters widget has four buttons,but one is invisible', (WidgetTester tester) async {
+     testWidgets('Filters widget has three buttons, but one is invisible', (WidgetTester tester) async {
       
       await tester.pumpWidget(MaterialApp(
         home: Scaffold(
