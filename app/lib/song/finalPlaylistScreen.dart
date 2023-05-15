@@ -1,3 +1,5 @@
+import 'dart:convert';
+import 'package:csv/csv.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -7,6 +9,10 @@ import '../appBar/infoScreen.dart';
 import '../authentication/auth.dart';
 import 'swipe.dart';
 import '../constants.dart';
+import 'package:external_path/external_path.dart';
+import 'dart:io';
+import 'package:permission_handler/permission_handler.dart';
+
 
 class FinalPlaylistScreen extends StatefulWidget {
   const FinalPlaylistScreen({Key? key});
@@ -19,7 +25,26 @@ class _FinalPlaylistScreenState extends State<FinalPlaylistScreen> {
 //darkmode
   late Color bgColor;
   late Color textColor;
+  Future<void> export() async {
+    List<List<dynamic>> rows = [];
 
+  // add header row
+  rows.add(['Track Name', 'Artist Name', 'Genre', 'Preview URL', 'Image URL']);
+
+  // add data rows
+  for (var song in songs) {
+    rows.add([song.trackName, song.artistName, song.genre, song.previewUrl, song.imageUrl]);
+  }
+  String csv = const ListToCsvConverter().convert(rows);
+
+  String dir = await ExternalPath.getExternalStoragePublicDirectory(ExternalPath.DIRECTORY_DOWNLOADS);
+  print("dir $dir");
+  String file = "$dir";
+
+  File f = File("$file/$playlistName.csv");
+
+  f.writeAsString(csv);
+}
   @override
   void initState() {
     super.initState();
@@ -50,7 +75,6 @@ class _FinalPlaylistScreenState extends State<FinalPlaylistScreen> {
       songs = newSongs;
     });
   }
-
   void savePlaylist() async {
     final database = FirebaseDatabase.instance;
 
@@ -149,7 +173,12 @@ class _FinalPlaylistScreenState extends State<FinalPlaylistScreen> {
 ),
 
                             SizedBox(width: 16.0),
-                           
+  IconButton(
+    onPressed: () async {
+      export();
+    },
+    icon: Icon(Icons.file_download),
+  ),
                           ],
                         ),
                       ),
@@ -217,3 +246,4 @@ class _FinalPlaylistScreenState extends State<FinalPlaylistScreen> {
     );
   }
 }
+

@@ -1,3 +1,6 @@
+import 'dart:io';
+import 'package:csv/csv.dart';
+import 'package:external_path/external_path.dart';
 import 'package:flutter/material.dart';
 import 'package:matchify/appBar/appBar.dart';
 import 'package:matchify/appBar/infoScreen.dart';
@@ -16,7 +19,26 @@ class PlaylistScreen extends StatefulWidget {
 class _PlaylistScreenState extends State<PlaylistScreen> {
   late Color bgColor;
   late Color textColor;
+  Future<void> export() async {
+    List<List<dynamic>> rows = [];
 
+    // add header row
+    rows.add(['Track Name', 'Artist Name', 'Genre', 'Preview URL', 'Image URL']);
+
+    // add data rows
+    for (var song in widget.playlist.songs) {
+      rows.add([song.trackName, song.artistName, song.genre, song.previewUrl, song.imageUrl]);
+    }
+    String csv = const ListToCsvConverter().convert(rows);
+
+    String dir = await ExternalPath.getExternalStoragePublicDirectory(ExternalPath.DIRECTORY_DOWNLOADS);
+    print("dir $dir");
+    String file = "$dir";
+    String playlistName= widget.playlist.name;
+    File f = File("$file/$playlistName.csv");
+
+    f.writeAsString(csv);
+  }
   @override
   void initState() {
     super.initState();
@@ -131,6 +153,12 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
           ),
         ),
         SizedBox(height: 64),
+        IconButton(
+          onPressed: () async {
+            export();
+          },
+          icon: Icon(Icons.file_download),
+        ),
         showSongs(),
       ],
     ),
