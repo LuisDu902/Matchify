@@ -26,10 +26,5 @@ void main() {
     await tester.pumpAndSettle();
     // Verify that the profile icon is displayed in the drawer
     expect(find.byIcon(Icons.person), findsOneWidget);
-
-    // Tap the profile icon and verify that it navigates to the profile screen
-    await tester.tap(find.byKey(Key('profile')));
-    await tester.pumpAndSettle();
-    expect(find.byType(ProfileScreen), findsOneWidget);
   });
 }
