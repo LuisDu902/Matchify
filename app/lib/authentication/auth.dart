@@ -3,13 +3,13 @@ import 'package:firebase_database/firebase_database.dart';
 
 
 class Auth {
-  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 
-  final FirebaseDatabase _firebaseDatabase = FirebaseDatabase.instance;
+   FirebaseDatabase firebaseDatabase = FirebaseDatabase.instance;
   
-  User? get currentUser => _firebaseAuth.currentUser;
+  User? get currentUser => firebaseAuth.currentUser;
 
-  Stream<User?> get authStateChanges => _firebaseAuth.authStateChanges();
+  Stream<User?> get authStateChanges => firebaseAuth.authStateChanges();
 
   String getUsername() {
      final RegExp regex = RegExp(r'^([^@]+)@');
@@ -23,7 +23,7 @@ class Auth {
     required String email,
     required String password,
   }) async {
-    await _firebaseAuth.signInWithEmailAndPassword(
+    await firebaseAuth.signInWithEmailAndPassword(
       email: email,
       password: password,
     );
@@ -33,7 +33,7 @@ class Auth {
     required String email,
     required String password,
   }) async {
-    await _firebaseAuth.createUserWithEmailAndPassword(
+    await firebaseAuth.createUserWithEmailAndPassword(
       email: email,
       password: password,
     );
@@ -43,7 +43,7 @@ class Auth {
     final username = usernameMatch != null ? usernameMatch.group(1) : email;
   
 
-    await _firebaseDatabase
+    await firebaseDatabase
         .reference()
         .child('users')
         .child(username as String)
@@ -57,10 +57,12 @@ class Auth {
  
 
   Future<void> signOut() async {
-    await _firebaseAuth.signOut();
+    await firebaseAuth.signOut();
   }
 
   Future<void> deleteAccount() async {
-    await currentUser?.delete();
+   if (currentUser != null) {
+    await currentUser!.delete();
+  }
   }
 }
