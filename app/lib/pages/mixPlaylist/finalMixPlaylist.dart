@@ -1,21 +1,21 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:matchify/song/song.dart';
+import 'package:matchify/backend/playlist.dart';
+import 'package:matchify/backend/song.dart';
 import '../appBar/appBar.dart';
 import '../appBar/infoScreen.dart';
-import '../authentication/auth.dart';
-import 'swipe.dart';
-import '../constants.dart';
+import '../../backend/auth.dart';
+import '../../backend/variables.dart';
 
-class FinalPlaylistScreen extends StatefulWidget {
-  const FinalPlaylistScreen({Key? key});
+class FinalMixPlaylistScreen extends StatefulWidget {
+  const FinalMixPlaylistScreen({Key? key});
 
   @override
-  _FinalPlaylistScreenState createState() => _FinalPlaylistScreenState();
+  _FinalMixPlaylistScreenState createState() => _FinalMixPlaylistScreenState();
 }
 
-class _FinalPlaylistScreenState extends State<FinalPlaylistScreen> {
+class _FinalMixPlaylistScreenState extends State<FinalMixPlaylistScreen> {
 //darkmode
   late Color bgColor;
   late Color textColor;
@@ -24,7 +24,7 @@ class _FinalPlaylistScreenState extends State<FinalPlaylistScreen> {
   void initState() {
     super.initState();
     updateColors();
-    _loadPlaylist();
+    createMixPlaylist();
   }
 
   void updateColors() {
@@ -34,51 +34,22 @@ class _FinalPlaylistScreenState extends State<FinalPlaylistScreen> {
           : Colors.white;
 
       textColor = DarkMode.isDarkModeEnabled
-          ? //Color.fromRGBO(68, 47, 100, 1)
-          Colors.white
-          :Color.fromRGBO(48, 21, 81, 1) ;
+          ? Colors.white
+          : Color.fromRGBO(48, 21, 81, 1);
     });
   }
 
   List<Song> songs = [];
-  String playlistName = "New Playlist";
+  String playlistName = "Mixed Playlist";
 
-  void _loadPlaylist() async {
-    List<Song> newSongs = await fillPlaylist();
-
-    setState(() {
-      songs = newSongs;
-    });
-  }
-
-  void savePlaylist() async {
-    final database = FirebaseDatabase.instance;
-
-    final playlistsRef = database
-        .ref()
-        .child('users')
-        .child(Auth().getUsername())
-        .child('playlists')
-        .child(playlistName);
-
-    for (Song song in songs) {
-      String trackName = song.trackName.replaceAll(RegExp(r'[.#$\[\]]'), '');
-
-      playlistsRef.update({
-        trackName: {
-          'artistName': song.artistName,
-          'genre': song.genre,
-          'image': song.imageUrl,
-          'preview': song.previewUrl
-        }
-      });
-    }
+  void createMixPlaylist() async {
+    mixedPlaylist = mixPlaylist(firstPlaylist, secondPlaylist);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: Key("final playlist"),
+      key: Key("final mixed playlist"),
       drawer: Info(),
       appBar: appBar(),
       backgroundColor: bgColor,
@@ -115,7 +86,7 @@ class _FinalPlaylistScreenState extends State<FinalPlaylistScreen> {
                         });
                       },
                       decoration: InputDecoration(
-                        hintText: "New Playlist",
+                        hintText: "Mixed Playlist",
                         hintStyle: TextStyle(
                           color: textColor,
                           fontFamily: 'Roboto',
@@ -131,25 +102,23 @@ class _FinalPlaylistScreenState extends State<FinalPlaylistScreen> {
                             ),
                             SizedBox(width: 16.0),
                             GestureDetector(
-  onTap: savePlaylist,
-  child: Material(
-    color: Colors.transparent,
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(4.0),
-      side: BorderSide(color: textColor),
-    ),
-    child: Padding(
-      padding: EdgeInsets.all(8.0),
-      child: Icon(
-        Icons.save,
-        color: textColor,
-      ),
-    ),
-  ),
-),
-
+                              onTap: () => savePlaylist(playlistName, mixedPlaylist.songs),
+                              child: Material(
+                                color: Colors.transparent,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(4.0),
+                                  side: BorderSide(color: textColor),
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsets.all(8.0),
+                                  child: Icon(
+                                    Icons.save,
+                                    color: textColor,
+                                  ),
+                                ),
+                              ),
+                            ),
                             SizedBox(width: 16.0),
-                           
                           ],
                         ),
                       ),
@@ -165,53 +134,29 @@ class _FinalPlaylistScreenState extends State<FinalPlaylistScreen> {
               ],
             ),
           ),
-          
-        Container(
-  height: 400,
-  child: ListView.builder(
-    itemCount: songs.length,
-    itemBuilder: (BuildContext context, int index) {
-      return Padding(
-        padding: EdgeInsets.fromLTRB(60.0, 8.0, 16.0, 8.0),
-        child: Text(
-          '${index + 1}. ${songs[index].trackName} by ${songs[index].artistName}',
-          style: TextStyle(
-            fontSize: 16.0,
-            color: textColor,
-          ),
-        ),
-      );
-    },
-  ),
-),ListView(
-  shrinkWrap: true,
-  children: [
-    SizedBox(
-      height: 100,
-      child: ListView.builder(
-        itemCount: songs.length,
-        itemBuilder: (BuildContext context, int index) {
-          return Padding(
-            padding: EdgeInsets.fromLTRB(60.0, 8.0, 16.0, 8.0),
-            child: Text(
-              '${index + 1}. ${songs[index].trackName} by ${songs[index].artistName}',
-              style: TextStyle(
-                fontSize: 16.0,
-                color: textColor,
+          ListView(
+            shrinkWrap: true,
+            children: [
+              SizedBox(
+                height: 500,
+                child: ListView.builder(
+                  itemCount: mixedPlaylist.songs.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Padding(
+                      padding: EdgeInsets.fromLTRB(60.0, 8.0, 16.0, 8.0),
+                      child: Text(
+                        '${index + 1}. ${mixedPlaylist.songs[index].trackName} by ${mixedPlaylist.songs[index].artistName}',
+                        style: TextStyle(
+                          fontSize: 16.0,
+                          color: textColor,
+                        ),
+                      ),
+                    );
+                  },
+                ),
               ),
-            ),
-          );
-        },
-      ),
-    ),
-  ],
-),
-
-
-
-
-
-
+            ],
+          ),
         ],
       ),
     );

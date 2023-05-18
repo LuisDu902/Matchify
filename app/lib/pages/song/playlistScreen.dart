@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:matchify/appBar/appBar.dart';
-import 'package:matchify/appBar/infoScreen.dart';
-import 'package:matchify/song/playlist.dart';
-import '../constants.dart';
+import 'package:matchify/pages/appBar/appBar.dart';
+import 'package:matchify/pages/appBar/infoScreen.dart';
+import 'package:matchify/backend/playlist.dart';
+import '../../backend/variables.dart';
 
 class PlaylistScreen extends StatefulWidget {
   final Playlist playlist;
@@ -21,7 +21,6 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
   void initState() {
     super.initState();
     updateColors();
-    
   }
 
   void updateColors() {
@@ -31,8 +30,7 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
           : Colors.white;
 
       textColor = DarkMode.isDarkModeEnabled
-          ? //Color.fromRGBO(68, 47, 100, 1)
-          Colors.white
+          ? Colors.white
           : Color.fromRGBO(48, 21, 81, 1);
     });
   }
@@ -111,32 +109,29 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: Key("playlist page"),
-
-      drawer: Info(),
-      appBar: appBar(),
-      body:Container(
-  color: bgColor,
-  child: Center(
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        SizedBox(height: 50),
-        Text(
-          widget.playlist.name,
-          style: TextStyle(
-            color: textColor,
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
+        key: Key("playlist page"),
+        drawer: Info(),
+        appBar: appBar(),
+        body: Container(
+          color: bgColor,
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                SizedBox(height: 50),
+                Text(
+                  widget.playlist.name,
+                  style: TextStyle(
+                    color: textColor,
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(height: 64),
+                showSongs(),
+              ],
+            ),
           ),
-        ),
-        SizedBox(height: 64),
-        showSongs(),
-      ],
-    ),
-  ),
-)
-
-    );
+        ));
   }
 }

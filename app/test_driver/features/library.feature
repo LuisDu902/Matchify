@@ -12,6 +12,6 @@ Feature: Library
 
   Scenario: access to created playlists
     Given I am on the "library page"
-    When I tap the "playlist1" icon
+    When I tap the "banana" icon
     Then I am on the "playlist page"
     And I can see my playlist

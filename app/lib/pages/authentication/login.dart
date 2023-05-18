@@ -3,7 +3,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import '../appBar/appBar.dart';
 import '../appBar/infoScreen.dart';
-import 'auth.dart';
+import '../../backend/auth.dart';
 
 class MyTermsAndConditionsDialog extends StatelessWidget {
   @override

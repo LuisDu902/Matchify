@@ -1,11 +1,14 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:matchify/appBar/appBar.dart';
-import 'package:matchify/appBar/infoScreen.dart';
-import 'package:matchify/authentication/auth.dart';
-import '../constants.dart';
+import 'package:matchify/pages/appBar/appBar.dart';
+import 'package:matchify/pages/appBar/infoScreen.dart';
+import 'package:matchify/backend/auth.dart';
+import 'package:matchify/backend/requests.dart';
+import '../../backend/variables.dart';
 
 class AddFriendsScreen extends StatefulWidget {
+  const AddFriendsScreen({super.key});
+
   @override
   _AddFriendsPageScreen createState() => _AddFriendsPageScreen();
 }
@@ -32,39 +35,8 @@ class _AddFriendsPageScreen extends State<AddFriendsScreen> {
     });
   }
 
-  final user = Auth().currentUser;
-  final username = Auth().getUsername();
   final TextEditingController friendRequest = TextEditingController();
 
-  Future<bool> userExists() async {
-    final database = FirebaseDatabase.instance;
-    Query ref = database.ref().child('users').child(friendRequest.text);
-    final snapshot = await ref.get();
-
-    return snapshot.exists;
-  }
-
-  Future<bool> isAlreadyFriend() async {
-    final database = FirebaseDatabase.instance;
-    Query ref = database
-        .ref()
-        .child('users')
-        .child(username)
-        .child('friends')
-        .child(friendRequest.text);
-    final snapshot = await ref.get();
-    return snapshot.exists;
-  }
-
-  Future<void> sendRequest() async {
-    final database = FirebaseDatabase.instance;
-    final friendRef = database
-        .ref()
-        .child('users')
-        .child(friendRequest.text)
-        .child('requests');
-    friendRef.update({username: username});
-  }
 
   ScaffoldFeatureController<SnackBar, SnackBarClosedReason> message(
       String message, Color color) {
@@ -136,23 +108,14 @@ class _AddFriendsPageScreen extends State<AddFriendsScreen> {
                               message("Please enter your friend's username",
                                   Colors.red);
                             } else {
-                              if (!await userExists()) {
+                              if (!await userExists(friendRequest.text)) {
                                 message("The user does not exist", Colors.red);
-                              } else if (username == friendRequest.text) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text(
-                                        "You can't send a request to yourself"),
-                                    backgroundColor: Colors.red,
-                                  ),
-                                );
-                              } else if (await isAlreadyFriend()) {
-                                message(
-                                    friendRequest.text +
-                                        " is already your friend",
-                                    Colors.red);
+                              } else if (Auth().getUsername() == friendRequest.text) {
+                               message("You can't send a request to yourself", Colors.red);
+                              } else if (await isAlreadyFriend(friendRequest.text)) {
+                                message(friendRequest.text + " is already your friend", Colors.red);
                               } else {
-                                sendRequest();
+                                sendRequest(friendRequest.text);
                                 message("Friend request sent", Colors.green);
                               }
                             }
