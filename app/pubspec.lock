@@ -285,10 +285,10 @@ packages:
     dependency: "direct main"
     description:
       name: firebase_auth_mocks
-      sha256: f3b7ff266416facb7dec96be76d06ad3aedd4f9fe0d2ffaba11cb3f5e48ecc12
+      sha256: e68d43cfe244ecf3c5467f9b2dee8ece53eaeb023bf3b5d8d5a007593ec7dddb
       url: "https://pub.dev"
     source: hosted
-    version: "0.11.0"
+    version: "0.9.3"
   firebase_auth_platform_interface:
     dependency: transitive
     description:
@@ -506,14 +506,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.8.0"
-  mock_exceptions:
-    dependency: transitive
-    description:
-      name: mock_exceptions
-      sha256: "6e3e623712d2c6106ffe9e14732912522b565ddaa82a8dcee6cd4441b5984056"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.8.2"
   mockito:
     dependency: "direct main"
     description:
