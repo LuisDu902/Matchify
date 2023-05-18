@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
-
+import 'package:flutter/material.dart';
 
 class Auth {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
@@ -12,7 +12,7 @@ class Auth {
   Stream<User?> get authStateChanges => _firebaseAuth.authStateChanges();
 
   String getUsername() {
-     final RegExp regex = RegExp(r'^([^@]+)@');
+    final RegExp regex = RegExp(r'^([^@]+)@');
     final usernameMatch = regex.firstMatch(currentUser?.email as String);
     final username = usernameMatch != null ? usernameMatch.group(1) : currentUser?.email as String;
 
@@ -54,13 +54,13 @@ class Auth {
   }
 
 
- 
-
-  Future<void> signOut() async {
+  Future<void> signOut(BuildContext context) async {
     await _firebaseAuth.signOut();
+    Navigator.pushNamedAndRemoveUntil(context, '/widget_tree', (route) => false);
   }
 
-  Future<void> deleteAccount() async {
+  Future<void> deleteAccount(BuildContext context) async {
     await currentUser?.delete();
+     Navigator.pushNamedAndRemoveUntil(context, '/widget_tree', (route) => false);
   }
 }

@@ -5,153 +5,19 @@ import 'dart:convert' as convert;
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
-import 'package:matchify/song/finalPlaylistScreen.dart';
-import 'package:matchify/song/song.dart';
+import 'package:matchify/pages/song/finalPlaylistScreen.dart';
+import 'package:matchify/backend/song.dart';
 import 'package:scroll_loop_auto_scroll/scroll_loop_auto_scroll.dart';
 import '../appBar/appBar.dart';
 import '../appBar/infoScreen.dart';
 import '../filters.dart';
-import '../constants.dart';
+import '../../backend/variables.dart';
 
 class SwipePage extends StatefulWidget {
   const SwipePage({super.key});
 
   @override
   _SwipeState createState() => _SwipeState();
-}
-
-Map<String, String> queries = {
-  'Pop': 'genre:pop',
-  'Funk': 'genre:funk',
-  'Rock': 'genre:rock',
-  'Heavy metal': 'genre:metal',
-  'Classical': 'genre:classical',
-  'Happy': 'genre:happy',
-  'Sad': 'genre:sad',
-  'Jazz': 'genre:jazz',
-  'Rap': 'genre:rap',
-  'EDM': 'genre:electronic',
-  '70\'s': 'year:1970-1979',
-  '80\'s': 'year:1980-1989',
-  '90\'s': 'year:1990-1999',
-  'Lonely': 'lonely',
-  'Calm': 'calm',
-  'Energetic': 'energy:1.0'
-};
-
-List<Song> liked = [];
-
-List<Song> getLikedSongs() {
-  return liked;
-}
-
-List<Song> disliked = [];
-
-List<Song> getDislikedSongs() {
-  return disliked;
-}
-
-void clearLikedSongs() {
-  liked.clear();
-}
-
-void clearDislikedSongs() {
-  disliked.clear();
-}
-
-Future<List<Song>> fillPlaylist() async {
-  while (liked.length != playlistSize) {
-    Song song = await _searchSong(
-        getFilters().elementAt(Random().nextInt(getFilters().length)));
-    if (!disliked.contains(song)) {
-      liked.add(song);
-    }
-  }
-  return liked;
-}
-
-Future<String> _getAccessToken() async {
-  var clientId = '6df51150706949b3aa9a0b31297151cf';
-  var clientSecret = '5a7317dbd6014b99938e040303b05907';
-
-  var credentials = '$clientId:$clientSecret';
-  var bytes = utf8.encode(credentials);
-  var base64 = base64Encode(bytes);
-
-  var headers = {'Authorization': 'Basic $base64'};
-  var body = {'grant_type': 'client_credentials'};
-
-  var response = await http.post(
-    Uri.parse('https://accounts.spotify.com/api/token'),
-    headers: headers,
-    body: body,
-  );
-
-  if (response.statusCode == 200) {
-    var jsonResponse = json.decode(response.body);
-    var accessToken = jsonResponse['access_token'];
-
-    return accessToken;
-  } else {
-    throw Exception('Failed to generate access token.');
-  }
-}
-
-Random random = Random();
-
-List<Song> songs = [];
-
-Future<Song> _searchSong(String filter) async {
-  var queryParameters = {
-    'q': queries[filter],
-    'type': 'track',
-    'limit': '50',
-    'offset': '${random.nextInt(100)}'
-  };
-  var uri = Uri.https('api.spotify.com', '/v1/search', queryParameters);
-  var accessToken = await _getAccessToken();
-  var headers = {'Authorization': 'Bearer $accessToken'};
-  var response = await http.get(uri, headers: headers);
-  if (response.statusCode == 200) {
-    var jsonResponse = convert.jsonDecode(response.body);
-    if (jsonResponse['tracks']['items'].isNotEmpty) {
-      var trackIndex = Random().nextInt(jsonResponse['tracks']['items'].length);
-      var trackName = jsonResponse['tracks']['items'][trackIndex]['name'];
-      var artistName =
-          jsonResponse['tracks']['items'][trackIndex]['artists'][0]['name'];
-      var previewUrl =
-          jsonResponse['tracks']['items'][trackIndex]['preview_url'];
-      var imageUrl = jsonResponse['tracks']['items'][trackIndex]['album']
-          ['images'][0]['url'];
-
-      Song song = Song(
-        trackName: trackName,
-        artistName: artistName,
-        genre: filter,
-        previewUrl: previewUrl,
-        imageUrl: imageUrl,
-      );
-      return song;
-    } else {
-      print('No songs found for the given genre.');
-    }
-  } else {
-    print('Request failed with status: ${response.statusCode}.');
-  }
-  return Song(
-      trackName: '', artistName: '', genre: '', previewUrl: '', imageUrl: '');
-}
-
-Future<List<Song>> fetchSongs(List<String> filters) async {
-  if (filters.length == 1) {
-    Song song = await _searchSong(filters[0]);
-    songs.add(song);
-  }
-  for (String filter in filters) {
-    Song song = await _searchSong(filter);
-    songs.add(song);
-  }
-  return songs;
 }
 
 class _SwipeState extends State<SwipePage> {
@@ -166,6 +32,7 @@ class _SwipeState extends State<SwipePage> {
   void initState() {
     super.initState();
     updateColors();
+    displaySongs.clear();
   }
 
   void updateColors() {
@@ -185,12 +52,12 @@ class _SwipeState extends State<SwipePage> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: fetchSongs(getFilters()),
+      key: Key('swipe page'), 
+      future: fetchSongs(),
       builder: (BuildContext context, AsyncSnapshot<List<Song>> snapshot) {
         if (snapshot.hasData) {
           bool isDismissed = false;
           return Scaffold(
-            key: Key('swipe page'),
             drawer: Info(),
             appBar: appBar(),
             backgroundColor: bgColor,
@@ -221,12 +88,12 @@ class _SwipeState extends State<SwipePage> {
                               ),
                               children: <TextSpan>[
                                 TextSpan(
-                                  text: '${songs[index].trackName}',
+                                  text: '${displaySongs[index].trackName}',
                                   style: TextStyle(fontWeight: FontWeight.bold),
                                 ),
                                 TextSpan(text: ' - '),
                                 TextSpan(
-                                  text: '${songs[index].artistName}',
+                                  text: '${displaySongs[index].artistName}',
                                   style: TextStyle(fontStyle: FontStyle.italic),
                                 ),
                               ],
@@ -242,8 +109,8 @@ class _SwipeState extends State<SwipePage> {
                         if (direction == DismissDirection.startToEnd &&
                             !isDismissed) {
                           setState(() {
-                            songs[index].pause();
-                            currentSong = songs[index++];
+                            displaySongs[index].pause();
+                            currentSong = displaySongs[index++];
                             disliked.add(currentSong);
                             isDismissed = true;
                             play = true;
@@ -251,8 +118,8 @@ class _SwipeState extends State<SwipePage> {
                         } else if (direction == DismissDirection.endToStart &&
                             !isDismissed) {
                           setState(() {
-                            songs[index].pause();
-                            currentSong = songs[index++];
+                            displaySongs[index].pause();
+                            currentSong = displaySongs[index++];
                             liked.add(currentSong);
                             play = true;
                             if (liked.length == 5) {
@@ -272,7 +139,7 @@ class _SwipeState extends State<SwipePage> {
                         child: Padding(
                           padding: EdgeInsets.only(bottom: 300),
                           child: Image.network(
-                            songs[index].imageUrl,
+                            displaySongs[index].imageUrl,
                             width: 250,
                             height: 250,
                             fit: BoxFit.cover,
@@ -284,16 +151,17 @@ class _SwipeState extends State<SwipePage> {
                       top: 400,
                       left: 170,
                       child: IconButton(
+                        key: Key('play'), 
                         icon: play
                             ? Icon(Icons.play_arrow_rounded, color: textColor)
                             : Icon(Icons.pause_rounded, color: textColor),
                         iconSize: 45,
                         onPressed: () {
                           if (play) {
-                            songs[index].play();
+                            displaySongs[index].play();
                             play = false;
                           } else {
-                            songs[index].pause();
+                            displaySongs[index].pause();
                             play = true;
                           }
                           // Handle replay button press

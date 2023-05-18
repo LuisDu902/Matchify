@@ -1,11 +1,13 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:matchify/appBar/appBar.dart';
-import 'package:matchify/appBar/infoScreen.dart';
-import 'package:matchify/authentication/auth.dart';
-import '../constants.dart';
+import 'package:matchify/pages/appBar/appBar.dart';
+import 'package:matchify/pages/appBar/infoScreen.dart';
+import 'package:matchify/backend/auth.dart';
+import '../../backend/variables.dart';
 
 class AboutScreen extends StatefulWidget {
+  const AboutScreen({super.key});
+
   @override
   _AboutScreenState createState() => _AboutScreenState();
 }

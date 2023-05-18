@@ -1,25 +1,29 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:matchify/appBar/appBar.dart';
-import 'package:matchify/appBar/infoScreen.dart';
-import 'package:matchify/authentication/auth.dart';
-import 'package:matchify/homeScreen.dart';
-import 'package:matchify/song/playlist.dart';
-import 'package:matchify/song/playlistScreen.dart';
-import '../constants.dart';
+import 'package:matchify/pages/appBar/appBar.dart';
+import 'package:matchify/pages/appBar/infoScreen.dart';
+import 'package:matchify/backend/auth.dart';
+import 'package:matchify/backend/library.dart';
+import 'package:matchify/pages/homeScreen.dart';
+import 'package:matchify/backend/playlist.dart';
+import 'package:matchify/pages/mixPlaylist/mixFromUserLibrary.dart';
+import 'package:matchify/pages/song/playlistScreen.dart';
+import '../../backend/variables.dart';
 
-import '../song/song.dart';
+import '../../backend/song.dart';
 
-class LibraryScreen extends StatefulWidget {
+class MixPlaylistLibraryFriendScreen extends StatefulWidget {
   final String username;
 
-  LibraryScreen({required this.username});
+  MixPlaylistLibraryFriendScreen({required this.username});
 
   @override
-  _LibraryScreenState createState() => _LibraryScreenState();
+  _MixPlaylistLibraryFriendScreenState createState() =>
+      _MixPlaylistLibraryFriendScreenState();
 }
 
-class _LibraryScreenState extends State<LibraryScreen> {
+class _MixPlaylistLibraryFriendScreenState
+    extends State<MixPlaylistLibraryFriendScreen> {
   //darkmode
   late Color bgColor;
   late Color textColor;
@@ -41,65 +45,16 @@ class _LibraryScreenState extends State<LibraryScreen> {
     });
   }
 
-  final user = Auth().currentUser;
-  final username = Auth().getUsername();
-
   List<Playlist> library = [];
-  Future<List<Playlist>> fetchLibrary() async {
-    final database = FirebaseDatabase.instance;
-    final playlistRef =
-        database.ref().child('users').child(widget.username).child('playlists');
-
-    final snapshot = await playlistRef.get();
-    if (snapshot.value != null) {
-      final map = snapshot.value as Map;
-      for (final entry in map.entries) {
-        String playlist_name = entry.key;
-        Map songs = entry.value;
-        List<Song> listSongs = [];
-        for (final song in songs.entries) {
-          Map songFields = song.value;
-          Song _song = Song(
-            trackName: song.key,
-            artistName: songFields['artistName'],
-            genre: songFields['genre'],
-            previewUrl: songFields['preview'],
-            imageUrl: songFields['image'],
-          );
-
-          listSongs.add(_song);
-        }
-        Playlist _playlist = Playlist(
-            name: playlist_name,
-            imgUrl: listSongs[0].imageUrl,
-            songs: listSongs);
-        library.add(_playlist);
-      }
-    }
-    return library;
-  }
 
   Widget emptyLibrary() {
-    return Column(
-      children: [
-        Text(
-          "Looks like you haven't created any playlists yet.",
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            color: textColor,
-            fontSize: 20,
-          ),
-        ),
-        SizedBox(height: 16),
-        Text(
-          "But don't miss out on the fun! Start creating your own personalized playlists and discover new music that you'll love.",
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            color: textColor,
-            fontSize: 20,
-          ),
-        ),
-      ],
+    return Text(
+      "Looks like your friend does not have any playlists",
+      textAlign: TextAlign.center,
+      style: TextStyle(
+        color: textColor,
+        fontSize: 20,
+      ),
     );
   }
 
@@ -111,11 +66,13 @@ class _LibraryScreenState extends State<LibraryScreen> {
         children: library.map((playlist) {
           return GestureDetector(
             onTap: () {
+              firstPlaylist = playlist;
+              isFirstPlaylist = false;
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => PlaylistScreen(
-                          playlist: playlist,
+                    builder: (context) => MixFromUserLibraryScreen(
+                          
                         )),
               );
             },
@@ -124,7 +81,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
               child: Column(
                 children: [
                   Image.network(
-                    key: Key( playlist.name),
+                    key: Key(playlist.name),
                     playlist.imgUrl,
                     fit: BoxFit.contain,
                     width: 146,
@@ -152,11 +109,11 @@ class _LibraryScreenState extends State<LibraryScreen> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: fetchLibrary(),
+      future: fetchLibrary(library,widget.username),
       builder: (BuildContext context, AsyncSnapshot<List<Playlist>> snapshot) {
         if (snapshot.hasData) {
           return Scaffold(
-            key: Key("library page"),
+            key: Key(""),
             drawer: Info(),
             appBar: appBar(),
             backgroundColor: bgColor,
@@ -166,7 +123,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
                 children: [
                   SizedBox(height: 50),
                   Text(
-                    widget.username + '\'s Library',
+                    'Mix with ' + widget.username + '\'s Library',
                     style: TextStyle(
                       color: textColor,
                       fontSize: 24,
@@ -174,7 +131,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
                     ),
                   ),
                   SizedBox(height: 64),
-                  showPlaylists(),
+                  (library.isEmpty) ? emptyLibrary() : showPlaylists(),
                 ],
               ),
             ),

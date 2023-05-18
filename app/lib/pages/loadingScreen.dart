@@ -1,20 +1,23 @@
-
 import 'package:flutter/material.dart';
-import 'package:matchify/authentication/widget_tree.dart';
+import 'package:matchify/backend/song.dart';
+import 'package:matchify/backend/variables.dart';
+
+import 'authentication/widget_tree.dart';
 
 class LoadingScreen extends StatelessWidget {
   const LoadingScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    getAccessToken();
     Future.delayed(const Duration(seconds: 3), () {
       Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const WidgetTree()),
-          );
+        context,
+        MaterialPageRoute(builder: (context) => const WidgetTree()),
+      );
     });
     return Scaffold(
-      key : Key('loading page'),
+      key: Key('loading page'),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

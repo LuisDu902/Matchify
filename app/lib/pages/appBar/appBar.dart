@@ -1,9 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:matchify/appBar/profileScreen.dart';
-import '../authentication/auth.dart';
+import 'package:matchify/pages/appBar/profileScreen.dart';
+import '../../backend/auth.dart';
 import '../homeScreen.dart';
-import '../constants.dart';
+import '../../backend/variables.dart';
 
 class appBar extends StatefulWidget implements PreferredSizeWidget {
   const appBar({Key? key}) : super(key: key);

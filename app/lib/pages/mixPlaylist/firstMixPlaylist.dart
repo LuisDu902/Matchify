@@ -1,0 +1,113 @@
+import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter/material.dart';
+import 'package:matchify/pages/appBar/appBar.dart';
+import 'package:matchify/pages/appBar/infoScreen.dart';
+import 'package:matchify/backend/auth.dart';
+import 'package:matchify/pages/mixPlaylist/mixPlaylist.dart';
+import '../../backend/variables.dart';
+import 'mixFromUserLibrary.dart';
+
+class FirstMixPlaylistScreen extends StatefulWidget {
+  const FirstMixPlaylistScreen({super.key});
+
+  @override
+  FirstMixPlaylistScreenState createState() => FirstMixPlaylistScreenState();
+}
+
+class FirstMixPlaylistScreenState extends State<FirstMixPlaylistScreen> {
+//darkmode
+  late Color bgColor;
+  late Color textColor;
+
+  @override
+  void initState() {
+    super.initState();
+    updateColors();
+  }
+
+  void updateColors() {
+    setState(() {
+      bgColor = DarkMode.isDarkModeEnabled
+          ? Color.fromRGBO(59, 59, 59, 1)
+          : Color.fromRGBO(255, 255, 255, 1);
+      textColor = DarkMode.isDarkModeEnabled
+          ? Color.fromRGBO(255, 255, 255, 1)
+          : Color.fromRGBO(48, 21, 81, 1);
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      drawer: Info(),
+      appBar: appBar(),
+      backgroundColor: bgColor,
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(
+              width: 250.0,
+              height: 130.0,
+              child: ElevatedButton(
+                onPressed: () {
+                  isFirstPlaylist = true;
+                  // Navigate to screen where user can mix their own playlist
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => MixFromUserLibraryScreen()),
+                  );
+                },
+                child: Text(
+                  'Mix my own playlist',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Color.fromRGBO(48, 21, 81, 1),
+                    fontSize: 24.0,
+                  ),
+                ),
+                style: ElevatedButton.styleFrom(
+                  primary: Color.fromRGBO(246, 217, 18, 1),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  padding: EdgeInsets.symmetric(vertical: 16.0),
+                ),
+              ),
+            ),
+            SizedBox(height: 60),
+            SizedBox(
+              width: 250.0,
+              height: 130.0,
+              child: ElevatedButton(
+                onPressed: () {
+                  // Navigate to screen where user can mix playlists with friends
+                  Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => MixPlaylistScreen()),
+                );
+                },
+                child: Text(
+                  'Mix playlists with friend',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 24.0,
+                  ),
+                ),
+                style: ElevatedButton.styleFrom(
+                  primary: Color.fromRGBO(48, 21, 81, 1),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  padding: EdgeInsets.symmetric(vertical: 16.0),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
