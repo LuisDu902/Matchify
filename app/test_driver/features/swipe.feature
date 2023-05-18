@@ -11,7 +11,7 @@ Feature: Choose songs
     And I tap the "continue" button
 
   Scenario: skip a song
-    Given I am on the "swipe page"
+    Given I am on the swipe page
     And I tap the "play" button
     And I listen to a short clip of a song
     When I swipe left by 300 pixels on the "song image"

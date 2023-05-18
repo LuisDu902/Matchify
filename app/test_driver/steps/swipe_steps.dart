@@ -17,14 +17,14 @@ class SelectFilters extends AndWithWorld<FlutterWorld> {
     await FlutterDriverUtils.tap(world.driver, pop);
     await FlutterDriverUtils.tap(world.driver, funk);
 
-    final mood = find.byValueKey("Mood");
-    await FlutterDriverUtils.tap(world.driver, mood);
+    final decade = find.byValueKey("Decade");
+    await FlutterDriverUtils.tap(world.driver, decade);
 
-    final happy = find.byValueKey("Happy");
-    final energetic = find.byValueKey("Energetic");
+    final seventies = find.byValueKey("1970's");
+    final eighties = find.byValueKey("1980's");
 
-    await FlutterDriverUtils.tap(world.driver, happy);
-    await FlutterDriverUtils.tap(world.driver, energetic);
+    await FlutterDriverUtils.tap(world.driver, seventies);
+    await FlutterDriverUtils.tap(world.driver, eighties);
   }
 
   @override
