@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:matchify/pages/appBar/appBar.dart';
 import 'package:matchify/pages/appBar/infoScreen.dart';
 import 'package:matchify/backend/playlist.dart';
+import '../../backend/export.dart';
 import '../../backend/variables.dart';
 
 class PlaylistScreen extends StatefulWidget {
@@ -127,6 +128,12 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
+                IconButton(
+                              onPressed: () async {
+                                export(widget.playlist.songs,widget.playlist.name);
+                              },
+                              icon: Icon(Icons.file_download),
+                            ),
                 SizedBox(height: 64),
                 showSongs(),
               ],
