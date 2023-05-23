@@ -49,7 +49,7 @@ class _FinalMixPlaylistScreenState extends State<FinalMixPlaylistScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: Key("final mixed playlist"),
+      key: Key("final mixed playlist page"),
       drawer: Info(),
       appBar: appBar(),
       backgroundColor: bgColor,

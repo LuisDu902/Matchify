@@ -113,7 +113,7 @@ class _MixPlaylistLibraryFriendScreenState
       builder: (BuildContext context, AsyncSnapshot<List<Playlist>> snapshot) {
         if (snapshot.hasData) {
           return Scaffold(
-            key: Key(""),
+            key: Key("friend's library page"),
             drawer: Info(),
             appBar: appBar(),
             backgroundColor: bgColor,

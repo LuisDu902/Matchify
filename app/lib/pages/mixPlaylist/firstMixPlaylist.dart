@@ -39,6 +39,7 @@ class FirstMixPlaylistScreenState extends State<FirstMixPlaylistScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: Key('mix playlist page'),
       drawer: Info(),
       appBar: appBar(),
       backgroundColor: bgColor,
@@ -50,6 +51,7 @@ class FirstMixPlaylistScreenState extends State<FirstMixPlaylistScreen> {
               width: 250.0,
               height: 130.0,
               child: ElevatedButton(
+                key: Key('mix my own playlist'),
                 onPressed: () {
                   isFirstPlaylist = true;
                   // Navigate to screen where user can mix their own playlist
@@ -81,6 +83,7 @@ class FirstMixPlaylistScreenState extends State<FirstMixPlaylistScreen> {
               width: 250.0,
               height: 130.0,
               child: ElevatedButton(
+                key: Key('mix playlists with friend'),
                 onPressed: () {
                   // Navigate to screen where user can mix playlists with friends
                   Navigator.push(
