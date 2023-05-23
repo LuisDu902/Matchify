@@ -28,7 +28,7 @@ Future<List<Song>> fillPlaylist() async {
   Set<Song> set_songs = {};
   set_songs.addAll(liked);
 
-  while (set_songs.length != playlistSize) {
+  while (set_songs.length != playlistSize && chosenFilters.isNotEmpty) {
     Song song = await searchSong(
         chosenFilters.elementAt(Random().nextInt(chosenFilters.length)));
     if (!disliked.contains(song)) {
@@ -45,8 +45,7 @@ Playlist mixPlaylist(Playlist playlist1, Playlist playlist2) {
   mixedSongs.addAll(playlist2.songs);
   List<Song> finalList = mixedSongs.toList();
   finalList.shuffle();
-  return Playlist(
-      name: "Mixed playlist", imgUrl: playlist1.imgUrl, songs: finalList);
+  return Playlist(name: "Mixed playlist", imgUrl: playlist1.imgUrl, songs: finalList);
 }
 
 void savePlaylist(String playlistName, List<Song> songs) async {
