@@ -1,11 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/material.dart';
+
 import 'package:flutter_test/flutter_test.dart';
-import 'package:matchify/pages/authentication/login.dart';
-import 'package:matchify/pages/authentication/widget_tree.dart';
-import 'package:matchify/pages/homeScreen.dart';
+
 import 'package:mockito/mockito.dart';
 import 'package:matchify/backend/auth.dart';
 import '../../mock.dart';
@@ -23,6 +21,7 @@ class MockFirebaseAuth extends Mock implements FirebaseAuth {
       super.noSuchMethod(
           Invocation.method(#signInWithEmailAndPassword, [email, password]),
           returnValue: Future.value(MockUserCredential()));
+
 }
 
 class MockDatabaseReference extends Mock implements DatabaseReference {}
