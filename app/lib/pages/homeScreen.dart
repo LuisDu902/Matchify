@@ -104,13 +104,16 @@ class _HomeScreenState extends State<HomeScreen> {
                     MaterialPageRoute(builder: (context) => Filters()),
                   );
                 },
-                child: Container(
-                  width: 80,
-                  height: 80,
-                  decoration: const BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage('images/add.png'),
-                      fit: BoxFit.fitWidth,
+                child: Opacity(
+                  opacity: 0.8, // Adjust the opacity value as needed (0.0 - 1.0)
+                  child: Container(
+                    width: 80,
+                    height: 80,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage('images/add.png'),
+                        fit: BoxFit.fitWidth,
+                      ),
                     ),
                   ),
                 ),
@@ -126,13 +129,16 @@ class _HomeScreenState extends State<HomeScreen> {
                     MaterialPageRoute(builder: (context) => FirstMixPlaylistScreen()),
                   );
                 },
-                child: Container(
-                  width: 108,
-                  height: 108,
-                  decoration: const BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage('images/mix.png'),
-                      fit: BoxFit.fitWidth,
+                child: Opacity(
+                  opacity: 0.7, // Adjust the opacity value as needed (0.0 - 1.0)
+                  child: Container(
+                    width: 108,
+                    height: 108,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage('images/mix.png'),
+                        fit: BoxFit.fitWidth,
+                      ),
                     ),
                   ),
                 ),
