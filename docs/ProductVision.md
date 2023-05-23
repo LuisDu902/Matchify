@@ -20,5 +20,5 @@ Our app allows you to discover and curate your own perfect soundtrack with just 
 
 ### Assumptions and dependencies
 * [Spotify Web API](https://developer.spotify.com/documentation/web-api)
-* [Spotify SDK](https://developer.spotify.com/documentation/android)
-* [Spotify Play Button]
+* [Firebase Realtime Database](https://firebase.google.com/docs/database)
+* [Firebase Auth](https://firebase.google.com/docs/auth)

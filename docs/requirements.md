@@ -16,7 +16,6 @@ The domain model of our application is composed by 7 classes.
 
 * Filter and respective subclasses: contains information about all the different filters the user can apply to their search.
 
-
  <p align="center" justify="center">
   <img src="/images/domain_model.png"/>
 </p>

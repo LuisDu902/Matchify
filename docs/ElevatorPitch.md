@@ -1,7 +1,9 @@
 ## Elevator Pitch
-Draft a small text to help you quickly introduce and describe your product in a short time and a few words (~800 characters), a technique usually known as elevator pitch.
 
-Take a look at the following links to learn some techniques:
-* [Crafting an Elevator Pitch](https://www.mindtools.com/pages/article/elevator-pitch.htm)
-* [The Best Elevator Pitch Examples, Templates, and Tactics - A Guide to Writing an Unforgettable Elevator Speech, by strategypeak.com](https://strategypeak.com/elevator-pitch-examples/)
-* [Top 7 Killer Elevator Pitch Examples, by toggl.com](https://blog.toggl.com/elevator-pitch-examples/)
+Manually creating personalized playlists can be a time-consuming and tiring task. That's why we've developed **Matchify**, an innovative solution that will make this process faster and more engaging, and introduce you to new songs you'll love.
+
+With Matchify, you can quickly create a personalized playlist based on your musical preferences. Just a few clicks to mix different genres and decades, and select the songs that you enjoy the most. After swiping left on at least 5 songs, we instantly create a playlist of the size specified by you.
+
+But Matchify goes beyond that! With our application, you can also mix your playlists with each other or with those of your friends, creating new playlists. And if you want, you can export those playlists to platforms like Spotify.
+
+Discover new music and have personalized playlists in seconds, quickly and easily with Matchify.
