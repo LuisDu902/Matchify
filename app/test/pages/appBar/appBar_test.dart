@@ -1,9 +1,8 @@
-import 'dart:math';
+
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:matchify/pages/appBar/appBar.dart';
-import 'package:matchify/pages/appBar/profileScreen.dart';
+
 import 'package:matchify/pages/homeScreen.dart';
 void main() {
   testWidgets('Test appBar widget', (WidgetTester tester) async {
