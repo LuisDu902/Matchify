@@ -74,9 +74,7 @@ class _SwipeState extends State<SwipePage> {
                       right: 0,
                       child: SizedBox(
                         height: 30,
-                        child: ScrollLoopAutoScroll(
-                          scrollDirection: Axis.horizontal,
-                          child: RichText(
+                        child: RichText(
                             textAlign: TextAlign.center,
                             text: TextSpan(
                               style: TextStyle(
@@ -101,7 +99,7 @@ class _SwipeState extends State<SwipePage> {
                           ),
                         ),
                       ),
-                    ),
+                    
                     Dismissible(
                       key: UniqueKey(),
                       direction: DismissDirection.horizontal,

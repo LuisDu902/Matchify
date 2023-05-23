@@ -88,6 +88,7 @@ class _MixPlaylistScreenState extends State<MixPlaylistScreen> {
                       );
                     },
                     child: Text(
+                      key: Key(friends[index]),
                       friends[index],
                       style: TextStyle(
                         fontSize: 28.0,
@@ -117,7 +118,7 @@ class _MixPlaylistScreenState extends State<MixPlaylistScreen> {
       builder: (BuildContext context, AsyncSnapshot<List<String>> snapshot) {
         if (snapshot.hasData) {
           return Scaffold(
-            key: Key(""),
+            key: Key("choose friend page"),
             drawer: Info(),
             appBar: appBar(),
             backgroundColor: bgColor,
