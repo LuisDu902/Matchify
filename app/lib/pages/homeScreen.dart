@@ -105,10 +105,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   );
                 },
                 child: Opacity(
-                  opacity: 0.8, // Adjust the opacity value as needed (0.0 - 1.0)
+                  opacity: 0.8,
                   child: Container(
                     width: 80,
-                    height: 80,
+                    height: 85,
                     decoration: BoxDecoration(
                       image: DecorationImage(
                         image: AssetImage('images/add.png'),
@@ -171,7 +171,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     fontFamily: 'Istok Web',
                     fontSize: 25,
                     letterSpacing:
-                        0 /*percentages not used in flutter. defaulting to zero*/,
+                        0,
                     fontWeight: FontWeight.normal,
                     height: 1),
               ),
