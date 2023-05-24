@@ -6,4 +6,4 @@ With Matchify, you can quickly create a personalized playlist based on your musi
 
 But Matchify goes beyond that! With our application, you can also mix your playlists with each other or with those of your friends, creating new playlists. And if you want, you can export those playlists to platforms like Spotify.
 
-Discover new music and have personalized playlists in seconds, quickly and easily with Matchify.
+Discover new music and have personalized playlists in seconds with Matchify.
