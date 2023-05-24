@@ -14,7 +14,7 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  final appBarState appBarC = appBarState();
+  final appBarState appBarC = new appBarState();
   late Color bgColor;
   late Color textColor;
   late Color boxTextColor;
@@ -141,8 +141,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: const Info(),
-      appBar: const appBar(),
+      drawer: Info(),
+      appBar: appBar(),
       backgroundColor: bgColor,
       body: Center(
         child: Column(

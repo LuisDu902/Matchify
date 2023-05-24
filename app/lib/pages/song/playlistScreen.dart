@@ -137,7 +137,7 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
                       onPressed: () async {
                         export(widget.playlist.songs, widget.playlist.name);
                       },
-                      icon: const Icon(Icons.file_download),
+                      icon: Icon(Icons.file_download, color: textColor),
                     ),
                     if (widget.user == Auth().getUsername())
                     IconButton(
@@ -148,7 +148,7 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
                           MaterialPageRoute(builder: (context) => HomeScreen()),
                         );
                       },
-                      icon: const Icon(Icons.delete),
+                      icon: Icon(Icons.delete, color: textColor),
                     ),
                   ],
                 ),
