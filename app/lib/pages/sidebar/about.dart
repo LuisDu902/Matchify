@@ -1,8 +1,6 @@
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:matchify/pages/appBar/appBar.dart';
 import 'package:matchify/pages/appBar/infoScreen.dart';
-import 'package:matchify/backend/auth.dart';
 import '../../backend/variables.dart';
 
 class AboutScreen extends StatefulWidget {
@@ -26,27 +24,27 @@ class _AboutScreenState extends State<AboutScreen> {
   void updateColors() {
     setState(() {
       bgColor =  DarkMode.isDarkModeEnabled
-          ? Color.fromRGBO(59, 59, 59, 1)
-          : Color.fromRGBO(255, 255, 255, 1);
+          ? const Color.fromRGBO(59, 59, 59, 1)
+          : const Color.fromRGBO(255, 255, 255, 1);
       textColor =  DarkMode.isDarkModeEnabled
-          ? Color.fromRGBO(255, 255, 255, 1)
-          : Color.fromRGBO(48, 21, 81, 1);
+          ? const Color.fromRGBO(255, 255, 255, 1)
+          : const Color.fromRGBO(48, 21, 81, 1);
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Info(),
-      appBar: appBar(),
+      drawer: const Info(),
+      appBar: const appBar(),
       backgroundColor: bgColor,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            SizedBox(height: 50),
+            const SizedBox(height: 50),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16),
+              padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Text(
                 'Our app allows you to discover and curate your own perfect soundtrack with just a few swipes. Count also with the ability to export your playlists to Spotify and combine them with different users all around the world.',
                 style: TextStyle(
@@ -56,9 +54,9 @@ class _AboutScreenState extends State<AboutScreen> {
                 textAlign: TextAlign.center,
               ),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16),
+              padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Text(
                 'Discover new music, create playlists that perfectly match your taste, and share your music journey with friends, all in one place',
                 style: TextStyle(
@@ -68,9 +66,9 @@ class _AboutScreenState extends State<AboutScreen> {
                 textAlign: TextAlign.center,
               ),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16),
+              padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Text(
                 'You can filter by decade, choose your favorite genres, and set the mood for your playlist.',
                 style: TextStyle(
@@ -80,9 +78,9 @@ class _AboutScreenState extends State<AboutScreen> {
                 textAlign: TextAlign.center,
               ),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16),
+              padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Text(
                 'Need help or have a question? Contact us anytime for assistance at matchifyesof@gmail.com',
                 style: TextStyle(

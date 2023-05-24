@@ -30,10 +30,8 @@ class _InfoState extends State<Info> {
   void updateColors() {
     setState(() {
       bgColor =
-           DarkMode.isDarkModeEnabled ? Color.fromRGBO(28, 28, 28, 1): Color.fromRGBO(73, 43, 124, 1);
+           DarkMode.isDarkModeEnabled ? const Color.fromRGBO(28, 28, 28, 1): const Color.fromRGBO(73, 43, 124, 1);
 
-     
-          
     });
   }
 
@@ -48,7 +46,7 @@ class _InfoState extends State<Info> {
         color: bgColor,
         child: SafeArea(
           child: Column(
-            children: [
+            children: const [
               LibraryCard(),
               FriendsCard(),
               AddFriendCard(),
@@ -71,8 +69,8 @@ class FriendsCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Padding(
-          padding: const EdgeInsets.only(left: 24, top: 20, bottom: 16),
+        const Padding(
+          padding: EdgeInsets.only(left: 24, top: 20, bottom: 16),
           child: Divider(
             color: Colors.white24,
             height: 1,
@@ -83,11 +81,11 @@ class FriendsCard extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => FriendsScreen(),
+                builder: (context) => const FriendsScreen(),
               ),
             );
           },
-          leading: CircleAvatar(
+          leading: const CircleAvatar(
             backgroundColor: Colors.white24,
             child: Icon(
               key: Key("friends"),
@@ -95,7 +93,7 @@ class FriendsCard extends StatelessWidget {
               color: Colors.white,
             ),
           ),
-          title: Text("Friends", style: TextStyle(color: Colors.white)),
+          title: const Text("Friends", style: TextStyle(color: Colors.white)),
         ),
       ],
     );
@@ -111,8 +109,8 @@ class AddFriendCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Padding(
-          padding: const EdgeInsets.only(left: 24, top: 20, bottom: 16),
+        const Padding(
+          padding: EdgeInsets.only(left: 24, top: 20, bottom: 16),
           child: Divider(
             color: Colors.white24,
             height: 1,
@@ -123,11 +121,11 @@ class AddFriendCard extends StatelessWidget {
              Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => AddFriendsScreen(),
+                builder: (context) => const AddFriendsScreen(),
               ),
             );
           },
-          leading: CircleAvatar(
+          leading: const CircleAvatar(
             backgroundColor: Colors.white24,
             child: Icon(
               key: Key('add friend'),
@@ -135,7 +133,7 @@ class AddFriendCard extends StatelessWidget {
               color: Colors.white,
             ),
           ),
-          title: Text("Add friend", style: TextStyle(color: Colors.white)),
+          title: const Text("Add friend", style: TextStyle(color: Colors.white)),
         ),
       ],
     );
@@ -151,8 +149,8 @@ class AboutCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Padding(
-          padding: const EdgeInsets.only(left: 24, top: 20, bottom: 16),
+        const Padding(
+          padding: EdgeInsets.only(left: 24, top: 20, bottom: 16),
           child: Divider(
             color: Colors.white24,
             height: 1,
@@ -163,18 +161,18 @@ class AboutCard extends StatelessWidget {
              Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => AboutScreen(),
+                builder: (context) => const AboutScreen(),
               ),
             );
           },
-          leading: CircleAvatar(
+          leading: const CircleAvatar(
             backgroundColor: Colors.white24,
             child: Icon(
               CupertinoIcons.info_circle_fill,
               color: Colors.white,
             ),
           ),
-          title: Text("About", style: TextStyle(color: Colors.white)),
+          title: const Text("About", style: TextStyle(color: Colors.white)),
         ),
       ],
     );
@@ -197,7 +195,7 @@ class LibraryCard extends StatelessWidget {
             MaterialPageRoute(builder: (context) => LibraryScreen(username: Auth().getUsername())),
           );
         },
-        child: ListTile(
+        child: const ListTile(
           leading: CircleAvatar(
             backgroundColor: Colors.white24,
             child: Icon(

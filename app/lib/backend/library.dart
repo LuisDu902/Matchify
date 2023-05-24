@@ -1,7 +1,6 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:matchify/backend/playlist.dart';
 import 'package:matchify/backend/song.dart';
-import 'auth.dart';
 
 Future<List<Playlist>> fetchLibrary(List<Playlist> library, String username) async {
     final database = FirebaseDatabase.instance;

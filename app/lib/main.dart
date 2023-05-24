@@ -18,9 +18,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Matchify',
       
-      home: LoadingScreen(),
+      home: const LoadingScreen(),
       routes: {
-        '/widget_tree' : (context) => WidgetTree(),
+        '/widget_tree' : (context) => const WidgetTree(),
       },
       
     );
