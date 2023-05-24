@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:matchify/backend/auth.dart';
 import 'package:matchify/pages/appBar/appBar.dart';
 import 'package:matchify/pages/appBar/infoScreen.dart';
 import 'package:matchify/backend/playlist.dart';
+import 'package:matchify/pages/homeScreen.dart';
 import '../../backend/export.dart';
 import '../../backend/variables.dart';
 
 class PlaylistScreen extends StatefulWidget {
   final Playlist playlist;
-
-  const PlaylistScreen({required this.playlist});
+  final String user;
+  const PlaylistScreen({required this.user, required this.playlist});
 
   @override
   _PlaylistScreenState createState() => _PlaylistScreenState();
@@ -120,20 +122,36 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 const SizedBox(height: 50),
-                Text(
-                  widget.playlist.name,
-                  style: TextStyle(
-                    color: textColor,
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      widget.playlist.name,
+                      style: TextStyle(
+                        color: textColor,
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: () async {
+                        export(widget.playlist.songs, widget.playlist.name);
+                      },
+                      icon: const Icon(Icons.file_download),
+                    ),
+                    if (widget.user == Auth().getUsername())
+                    IconButton(
+                      onPressed: () async {
+                        removePlaylist(widget.playlist.name);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => HomeScreen()),
+                        );
+                      },
+                      icon: const Icon(Icons.delete),
+                    ),
+                  ],
                 ),
-                IconButton(
-                              onPressed: () async {
-                                export(widget.playlist.songs,widget.playlist.name);
-                              },
-                              icon: const Icon(Icons.file_download),
-                            ),
                 const SizedBox(height: 64),
                 showSongs(),
               ],
@@ -142,39 +160,3 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
         ));
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

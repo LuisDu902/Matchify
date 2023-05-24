@@ -62,7 +62,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => PlaylistScreen(
+                    builder: (context) => PlaylistScreen(user: widget.username,
                           playlist: playlist,
                         )),
               );

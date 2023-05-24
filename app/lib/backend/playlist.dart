@@ -69,3 +69,21 @@ void savePlaylist(String playlistName, List<Song> songs) async {
     });
   }
 }
+
+void removePlaylist(String playlistName) async {
+  final database = FirebaseDatabase.instance;
+
+  final playlistsRef = database
+      .ref()
+      .child('users')
+      .child(Auth().getUsername())
+      .child('playlists')
+      .child(playlistName);
+
+   try {
+    await playlistsRef.remove();
+    ('Playlist removed successfully.');
+  } catch (error) {
+    ('Failed to remove playlist: $error');
+  }
+}
