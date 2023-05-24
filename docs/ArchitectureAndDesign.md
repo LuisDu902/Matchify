@@ -10,8 +10,6 @@ Matchify System has the following packages:
 
 * `Matchify GUI:` responsible for drawing the widgets and the screens of the app and allows the interaction between the app and the user.
 
-* `Matchify Authentication:` responsible for the authentication of the user.
-
 * `Matchify Business Logic:` imports songs from the Spotify API, enables users to create playlists and connects the app to the database.
 
 * `Matchify Database Schema:` manages the database so information can be retrieved and uploaded.
@@ -28,14 +26,15 @@ External Services englobes:
 
 ### Physical architecture
 
-In our app's physical architecture, a mobile device is necessary
-to interact with the application made in Dart.
+In our app's physical architecture, a mobile device is necessary to interact with the application made in Dart.
 
-The mobile device connects to the Firebase server
-which features the realtime database where all the information created by
-the app is stored and manages user authentication of our application.
+The mobile device connects to the Firebase server which features:
+ 
+* `Firebase Authentication services:` responsible for handling user authentication and account management.
 
-It also connects to the Spotify API. This API is used in order to fetch songs and functionalities.
+* `Firebase Realtime database services:` responsible for storing and syncing user data in real-time between connected clients.
+
+It also connects to the `Spotify API`, which provides a wide range of functionalities for accessing and managing music-related data, such as retrieving songs, albums, playlists, artist information, and more.
 
  <p align="center" justify="center">
   <img src="/images/physical_architecture.png"/>
