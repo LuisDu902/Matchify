@@ -33,20 +33,20 @@ class _FiltersState extends State<Filters> {
   void updateColors() {
     setState(() {
       bgColor = DarkMode.isDarkModeEnabled
-          ? Color.fromRGBO(59, 59, 59, 1)
+          ? const Color.fromRGBO(59, 59, 59, 1)
           : Colors.white;
 
       boxFilter = DarkMode.isDarkModeEnabled
           ? Colors.white
-          : Color.fromRGBO(151, 138, 168, 1);
+          : const Color.fromRGBO(151, 138, 168, 1);
 
       singularFilter = DarkMode.isDarkModeEnabled
-          ? Color.fromRGBO(224, 217, 228, 1)
-          : Color.fromRGBO(251, 237, 160, 1);
+          ? const Color.fromRGBO(224, 217, 228, 1)
+          : const Color.fromRGBO(251, 237, 160, 1);
 
       sizeColor = DarkMode.isDarkModeEnabled
           ? Colors.white
-          : Color.fromRGBO(248, 206, 156, 1);
+          : const Color.fromRGBO(248, 206, 156, 1);
     });
   }
 
@@ -68,12 +68,12 @@ class _FiltersState extends State<Filters> {
           size: 24.0,
         );
     }
-    return Text('(5-60)');
+    return const Text('(5-60)');
   }
 
   Widget drawButton(String filter) {
     return Padding(
-      padding: EdgeInsets.fromLTRB(16.0, 16.0, 0.0, 16.0),
+      padding: const EdgeInsets.fromLTRB(16.0, 16.0, 0.0, 16.0),
       child: ElevatedButton(
         style: ButtonStyle(
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
@@ -82,14 +82,14 @@ class _FiltersState extends State<Filters> {
             ),
           ),
           backgroundColor: MaterialStateProperty.all<Color>(
-              Color.fromRGBO(224, 217, 228, 1)),
+              const Color.fromRGBO(224, 217, 228, 1)),
           foregroundColor: MaterialStateProperty.all<Color>(
-            Color.fromRGBO(48, 21, 81, 1),
+            const Color.fromRGBO(48, 21, 81, 1),
           ),
           fixedSize: MaterialStateProperty.resolveWith<Size?>(
-              (states) => Size(240, 50)),
+              (states) => const Size(240, 50)),
           textStyle: MaterialStateProperty.resolveWith<TextStyle?>(
-              (states) => TextStyle(
+              (states) => const TextStyle(
                     fontSize: 22,
                     fontFamily: 'Roboto',
                     letterSpacing: 0.10000000149011612,
@@ -136,8 +136,8 @@ class _FiltersState extends State<Filters> {
     if (filters.isEmpty) return Container();
     return Container(
       width: MediaQuery.of(context).size.width,
-      margin: EdgeInsets.fromLTRB(16.0, 0, 16, 10),
-      padding: EdgeInsets.all(16.0),
+      margin: const EdgeInsets.fromLTRB(16.0, 0, 16, 10),
+      padding: const EdgeInsets.all(16.0),
       decoration: BoxDecoration(
         color: boxFilter,
         borderRadius: BorderRadius.circular(10),
@@ -156,14 +156,14 @@ class _FiltersState extends State<Filters> {
             },
             child: Container(
               key: Key(genre),
-              padding: EdgeInsets.symmetric(horizontal: 26, vertical: 8),
+              padding: const EdgeInsets.symmetric(horizontal: 26, vertical: 8),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 color: singularFilter,
               ),
               child: Text(
                 genre,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 20,
                   fontFamily: 'Roboto',
                   color: Color.fromRGBO(48, 21, 81, 1),
@@ -183,21 +183,21 @@ class _FiltersState extends State<Filters> {
     return Container(
       width: 70,
       height: 50,
-      margin: EdgeInsets.only(left: 10, top: 20, right: 30, bottom: 20),
+      margin: const EdgeInsets.only(left: 10, top: 20, right: 30, bottom: 20),
       decoration: BoxDecoration(
         color: sizeColor,
         borderRadius: BorderRadius.circular(10),
       ),
       child: TextFormField(
-        key: Key("playlist size"),
+        key: const Key("playlist size"),
         keyboardType: TextInputType.number,
         textAlign: TextAlign.center,
-        decoration: InputDecoration(
+        decoration: const InputDecoration(
           hintText: 'size',
           border: InputBorder.none,
         ),
         inputFormatters: [
-          FilteringTextInputFormatter.allow(RegExp(r'^([0-9]|[1-5][0-9]|60)$')),
+          FilteringTextInputFormatter.allow(RegExp(r'^(\d|[1-5]\d|60)$')),
         ],
         validator: (value) {
           if (value == null || value.isEmpty) {
@@ -216,7 +216,7 @@ class _FiltersState extends State<Filters> {
             });
           }
         },
-        style: TextStyle(
+        style: const TextStyle(
           fontFamily: 'Roboto',
           fontSize: 22,
           color: Color.fromRGBO(48, 21, 81, 1),
@@ -227,7 +227,7 @@ class _FiltersState extends State<Filters> {
 
   Widget drawFilters() {
     if (chosenFilters.isEmpty) return Container();
-    return Container(
+    return SizedBox(
       width: MediaQuery.of(context).size.width,
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
@@ -236,18 +236,18 @@ class _FiltersState extends State<Filters> {
               .map(
                 (genre) => Container(
                   key: Key(genre),
-                  margin: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    color: Color.fromRGBO(248, 206, 156, 1),
+                    color: const Color.fromRGBO(248, 206, 156, 1),
                   ),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Text(
                         genre,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 20,
                           fontFamily: 'Roboto',
                           color: Color.fromRGBO(48, 21, 81, 1),
@@ -257,7 +257,6 @@ class _FiltersState extends State<Filters> {
                         onTap: () {
                           setState(() {
                             chosenFilters.remove(genre);
-                            final x = iniGenres;
                             if (iniGenres.contains(genre)) {
                               if (genres.isEmpty) _isGenreListVisible = false;
                               genres.add(genre);
@@ -267,7 +266,7 @@ class _FiltersState extends State<Filters> {
                             }
                           });
                         },
-                        child: Icon(
+                        child: const Icon(
                           color: Color.fromRGBO(48, 21, 81, 1),
                           Icons.cancel_outlined,
                         ),
@@ -285,9 +284,9 @@ class _FiltersState extends State<Filters> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: Key("filters page"),
-      drawer: Info(),
-      appBar: appBar(),
+      key: const Key("filters page"),
+      drawer: const Info(),
+      appBar: const appBar(),
       backgroundColor: bgColor,
       body: SingleChildScrollView(
         child: Align(
@@ -320,11 +319,11 @@ class _FiltersState extends State<Filters> {
               },
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all<Color>(
-                    Color.fromRGBO(248, 206, 156, 1)),
+                    const Color.fromRGBO(248, 206, 156, 1)),
                 foregroundColor: MaterialStateProperty.all<Color>(
-                    Color.fromRGBO(48, 21, 81, 1)),
+                    const Color.fromRGBO(48, 21, 81, 1)),
               ),
-              child: Text(
+              child: const Text(
                 key: Key("continue"),
                 "Continue",
               ),

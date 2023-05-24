@@ -1,12 +1,10 @@
-import 'dart:convert' as convert;
 import 'dart:math';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:flutter/material.dart';
 import 'package:matchify/backend/auth.dart';
 import 'package:matchify/backend/song.dart';
 
 import 'variables.dart';
-import '../pages/filters.dart';
+
 
 class Playlist {
   final String name;

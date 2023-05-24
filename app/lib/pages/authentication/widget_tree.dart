@@ -22,7 +22,7 @@ class _WidgetTreeState extends State<WidgetTree> {
         print("StreamBuilder rebuilt with data: ${snapshot.hasData}");
         if (snapshot.hasData) {
           print(snapshot.data!.email);
-          return HomeScreen();
+          return const HomeScreen();
         } else {
           return const Login();
         }

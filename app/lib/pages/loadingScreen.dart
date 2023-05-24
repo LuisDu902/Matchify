@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:matchify/backend/song.dart';
-import 'package:matchify/backend/variables.dart';
 
 import 'authentication/widget_tree.dart';
 
@@ -17,7 +16,7 @@ class LoadingScreen extends StatelessWidget {
       );
     });
     return Scaffold(
-      key: Key('loading page'),
+      key: const Key('loading page'),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

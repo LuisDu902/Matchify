@@ -44,7 +44,7 @@ class Auth {
   
 
     await firebaseDatabase
-        .reference()
+        .ref()
         .child('users')
         .child(username as String)
         .set({"email": email,

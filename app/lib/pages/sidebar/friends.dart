@@ -1,4 +1,3 @@
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:matchify/pages/appBar/appBar.dart';
 import 'package:matchify/pages/appBar/infoScreen.dart';
@@ -28,11 +27,11 @@ class _FriendsScreenState extends State<FriendsScreen> {
   void updateColors() {
     setState(() {
       bgColor = DarkMode.isDarkModeEnabled
-          ? Color.fromRGBO(59, 59, 59, 1)
-          : Color.fromRGBO(255, 255, 255, 1);
+          ? const Color.fromRGBO(59, 59, 59, 1)
+          : const Color.fromRGBO(255, 255, 255, 1);
       textColor = DarkMode.isDarkModeEnabled
-          ? Color.fromRGBO(255, 255, 255, 1)
-          : Color.fromRGBO(48, 21, 81, 1);
+          ? const Color.fromRGBO(255, 255, 255, 1)
+          : const Color.fromRGBO(48, 21, 81, 1);
     });
   }
 
@@ -47,11 +46,11 @@ class _FriendsScreenState extends State<FriendsScreen> {
 
   Widget popUp(int index) {
     return AlertDialog(
-      backgroundColor: Color.fromRGBO(252, 241, 183, 1),
+      backgroundColor: const Color.fromRGBO(252, 241, 183, 1),
       content: Text(
         textAlign: TextAlign.center,
         "Are you sure you want to remove ${friends[index]}?",
-        style: TextStyle(
+        style: const TextStyle(
             color: Color(0xFF301551),
             fontWeight: FontWeight.bold,
             fontFamily: 'Roboto',
@@ -76,17 +75,17 @@ class _FriendsScreenState extends State<FriendsScreen> {
       },
       child: Container(
         height: 60.0,
-        padding: EdgeInsets.symmetric(
+        padding: const EdgeInsets.symmetric(
           horizontal: 25.0,
         ),
         decoration: BoxDecoration(
-          color: Color.fromRGBO(193, 182, 202, 1),
+          color: const Color.fromRGBO(193, 182, 202, 1),
           borderRadius: BorderRadius.circular(10.0),
           border: Border.all(
-            color: Color.fromRGBO(193, 182, 202, 1),
+            color: const Color.fromRGBO(193, 182, 202, 1),
           ),
         ),
-        child: Center(
+        child: const Center(
           child: Text(
             'Cancel',
             style: TextStyle(
@@ -111,17 +110,17 @@ class _FriendsScreenState extends State<FriendsScreen> {
       },
       child: Container(
         height: 60.0,
-        padding: EdgeInsets.symmetric(
+        padding: const EdgeInsets.symmetric(
           horizontal: 25.0,
         ),
         decoration: BoxDecoration(
-          color: Color.fromRGBO(193, 182, 202, 1),
+          color: const Color.fromRGBO(193, 182, 202, 1),
           borderRadius: BorderRadius.circular(10.0),
           border: Border.all(
-            color: Color.fromRGBO(193, 182, 202, 1),
+            color: const Color.fromRGBO(193, 182, 202, 1),
           ),
         ),
-        child: Center(
+        child: const Center(
           key: Key("remove friend"),
           child: Text(
             'Remove',
@@ -153,12 +152,12 @@ class _FriendsScreenState extends State<FriendsScreen> {
               color: textColor),
         ),
       );
-    } else
+    } else {
       return Expanded(
         child: Container(
-          margin: EdgeInsets.only(top: 16.0),
+          margin: const EdgeInsets.only(top: 16.0),
           child: ListView.builder(
-            padding: EdgeInsets.only(top: 8.0),
+            padding: const EdgeInsets.only(top: 8.0),
             shrinkWrap: true,
             itemCount: friends.length,
             itemBuilder: (BuildContext context, int index) {
@@ -181,7 +180,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
                       },
                       child: Text(
                         friends[index],
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 20.0,
                           fontWeight: FontWeight.bold,
                         ),
@@ -189,7 +188,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
                     ),
                     IconButton(
                       icon: Icon(
-                        key: Key("X"),
+                        key: const Key("X"),
                         Icons.clear,
                         color: Colors.grey[600],
                       ),
@@ -209,6 +208,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
           ),
         ),
       );
+    }
   }
 
   
@@ -231,13 +231,13 @@ class _FriendsScreenState extends State<FriendsScreen> {
           ),
         ),
       );
-    } else
+    } else {
       return Expanded(
-        key: Key("requests page"),
+        key: const Key("requests page"),
         child: Container(
-          margin: EdgeInsets.only(top: 16.0),
+          margin: const EdgeInsets.only(top: 16.0),
           child: ListView.builder(
-            padding: EdgeInsets.only(top: 8.0),
+            padding: const EdgeInsets.only(top: 8.0),
             shrinkWrap: true,
             itemCount: requests.length,
             itemBuilder: (BuildContext context, int index) {
@@ -257,10 +257,10 @@ class _FriendsScreenState extends State<FriendsScreen> {
                           fontWeight: FontWeight.bold,
                           color: textColor),
                     ),
-                    Spacer(),
+                    const Spacer(),
                     IconButton(
                       icon: Icon(
-                        key: Key("accept request"),
+                        key: const Key("accept request"),
                         Icons.check,
                         color: Colors.grey[600],
                       ),
@@ -273,7 +273,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
                     ),
                     IconButton(
                       icon: Icon(
-                        key: Key("decline request"),
+                        key: const Key("decline request"),
                         Icons.clear,
                         color: Colors.grey[600],
                       ),
@@ -291,17 +291,18 @@ class _FriendsScreenState extends State<FriendsScreen> {
           ),
         ),
       );
+    }
   }
 
   Widget buttons() {
-    return Container(
+    return SizedBox(
       height: MediaQuery.of(context).size.height * 0.3,
       width: double.infinity,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Container(
-            padding: EdgeInsets.symmetric(
+            padding: const EdgeInsets.symmetric(
               vertical: 8.0,
               horizontal: 16.0,
             ),
@@ -315,19 +316,19 @@ class _FriendsScreenState extends State<FriendsScreen> {
                   isResquest = false;
                   if (!DarkMode.isDarkModeEnabled) {
                     requestColor = Colors.white;
-                    requestText = Color.fromRGBO(48, 21, 81, 1);
-                    friendColor = Color.fromRGBO(48, 21, 81, 1);
+                    requestText = const Color.fromRGBO(48, 21, 81, 1);
+                    friendColor = const Color.fromRGBO(48, 21, 81, 1);
                     friendText = Colors.white;
                   } else {
-                    requestColor = Color.fromARGB(255, 255, 255, 255);
-                    requestText = Color.fromRGBO(103, 61, 155, 1);
-                    friendColor = Color.fromRGBO(103, 61, 155, 1);
-                    friendText = Color.fromARGB(255, 255, 255, 255);
+                    requestColor = const Color.fromARGB(255, 255, 255, 255);
+                    requestText = const Color.fromRGBO(103, 61, 155, 1);
+                    friendColor = const Color.fromRGBO(103, 61, 155, 1);
+                    friendText = const Color.fromARGB(255, 255, 255, 255);
                   }
                 });
               },
               child: Text(
-                key: Key("friends button"),
+                key: const Key("friends button"),
                 "Friends",
                 style: TextStyle(
                   fontFamily: 'Roboto',
@@ -338,7 +339,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
             ),
           ),
           Container(
-            padding: EdgeInsets.symmetric(
+            padding: const EdgeInsets.symmetric(
               vertical: 8.0,
               horizontal: 16.0,
             ),
@@ -351,14 +352,14 @@ class _FriendsScreenState extends State<FriendsScreen> {
                 setState(() {
                   isResquest = true;
 
-                  requestColor = Color.fromRGBO(246, 217, 18, 1);
-                  requestText = Color.fromRGBO(48, 21, 81, 1);
+                  requestColor = const Color.fromRGBO(246, 217, 18, 1);
+                  requestText = const Color.fromRGBO(48, 21, 81, 1);
                   friendColor = Colors.white;
-                  friendText = Color.fromRGBO(48, 21, 81, 1);
+                  friendText = const Color.fromRGBO(48, 21, 81, 1);
                 });
               },
               child: Text(
-                key: Key("requests"),
+                key: const Key("requests"),
                 "Requests",
                 style: TextStyle(
                   fontFamily: 'Roboto',
@@ -381,9 +382,9 @@ class _FriendsScreenState extends State<FriendsScreen> {
           (BuildContext context, AsyncSnapshot<List<List<String>>> snapshot) {
         if (snapshot.hasData) {
           return Scaffold(
-            key: Key("friends page"),
-            drawer: Info(),
-            appBar: appBar(),
+            key: const Key("friends page"),
+            drawer: const Info(),
+            appBar: const appBar(),
             backgroundColor: bgColor,
             body: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -394,11 +395,11 @@ class _FriendsScreenState extends State<FriendsScreen> {
             ),
           );
         } else if (snapshot.hasError) {
-          return Center(
+          return const Center(
             child: Text('Error fetching friends'),
           );
         } else {
-          return Center(
+          return const Center(
             child: CircularProgressIndicator(),
           );
         }

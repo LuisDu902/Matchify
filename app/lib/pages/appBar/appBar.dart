@@ -1,7 +1,5 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:matchify/pages/appBar/profileScreen.dart';
-import '../../backend/auth.dart';
 import '../homeScreen.dart';
 import '../../backend/variables.dart';
 
@@ -29,11 +27,11 @@ class appBarState extends State<appBar> {
   void updateColors() {
     setState(() {
       bgColor =
-          DarkMode.isDarkModeEnabled ? Color.fromRGBO(59, 59, 59, 1) : Colors.white;
+          DarkMode.isDarkModeEnabled ? const Color.fromRGBO(59, 59, 59, 1) : Colors.white;
       textColor =  DarkMode.isDarkModeEnabled ? Colors.white : Colors.black;
       mixPlaylistColor =  DarkMode.isDarkModeEnabled
-          ? Color.fromARGB(255, 255, 255, 255)
-          : Color.fromRGBO(73, 43, 124, 1);
+          ? const Color.fromARGB(255, 255, 255, 255)
+          : const Color.fromRGBO(73, 43, 124, 1);
     });
   }
 
@@ -47,7 +45,7 @@ class appBarState extends State<appBar> {
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => HomeScreen()),
+            MaterialPageRoute(builder: (context) => const HomeScreen()),
           );
         },
         child: Container(
@@ -80,7 +78,7 @@ class appBarState extends State<appBar> {
               Scaffold.of(context).openDrawer();
             },
             icon: Icon(
-              key : Key("side bar"),
+              key : const Key("side bar"),
               Icons.menu,
               color: textColor,
               size: 30,
@@ -88,7 +86,7 @@ class appBarState extends State<appBar> {
       ),
       actions: [
         IconButton(
-          key: Key('profile'),
+          key: const Key('profile'),
           onPressed: () {
             Navigator.push(
               context,
