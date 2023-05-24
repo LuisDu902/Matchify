@@ -135,7 +135,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
     );
   }
 
-  Widget showFriends() {
+ Widget showFriends() {
     if (friends.isEmpty) {
       return Padding(
         padding: const EdgeInsets.symmetric(
@@ -174,21 +174,21 @@ class _FriendsScreenState extends State<FriendsScreen> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) =>
-                                  LibraryScreen(username: friends[index])),
+                            builder: (context) => LibraryScreen(username: friends[index]),
+                          ),
                         );
                       },
                       child: Text(
                         friends[index],
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 20.0,
                           fontWeight: FontWeight.bold,
+                          color: textColor, // Set the color to textColor
                         ),
                       ),
                     ),
                     IconButton(
                       icon: Icon(
-                        key: const Key("X"),
                         Icons.clear,
                         color: Colors.grey[600],
                       ),
@@ -205,14 +205,13 @@ class _FriendsScreenState extends State<FriendsScreen> {
                 ),
               );
             },
+
           ),
         ),
       );
     }
   }
-
   
-
   Widget showRequests() {
     if (requests.isEmpty) {
       return Padding(
@@ -320,10 +319,10 @@ class _FriendsScreenState extends State<FriendsScreen> {
                     friendColor = const Color.fromRGBO(48, 21, 81, 1);
                     friendText = Colors.white;
                   } else {
-                    requestColor = const Color.fromARGB(255, 255, 255, 255);
-                    requestText = const Color.fromRGBO(103, 61, 155, 1);
-                    friendColor = const Color.fromRGBO(103, 61, 155, 1);
-                    friendText = const Color.fromARGB(255, 255, 255, 255);
+                    requestColor = const Color.fromRGBO(59, 59, 59, 1);
+                    requestText = Colors.white;
+                    friendColor = Colors.white;
+                    friendText = const Color.fromRGBO(48, 21, 81, 1);
                   }
                 });
               },
@@ -351,11 +350,17 @@ class _FriendsScreenState extends State<FriendsScreen> {
               onTap: () {
                 setState(() {
                   isResquest = true;
-
-                  requestColor = const Color.fromRGBO(246, 217, 18, 1);
-                  requestText = const Color.fromRGBO(48, 21, 81, 1);
-                  friendColor = Colors.white;
-                  friendText = const Color.fromRGBO(48, 21, 81, 1);
+                  if (!DarkMode.isDarkModeEnabled) {
+                    requestColor = const Color.fromRGBO(246, 217, 18, 1);
+                    requestText = const Color.fromRGBO(48, 21, 81, 1);
+                    friendColor = Colors.white;
+                    friendText = const Color.fromRGBO(48, 21, 81, 1);
+                  } else {
+                    requestColor = const Color.fromRGBO(246, 217, 18, 1);
+                    requestText = const Color.fromRGBO(48, 21, 81, 1);
+                    friendColor = const Color.fromRGBO(59, 59, 59, 1);
+                    friendText = Colors.white;
+                  }
                 });
               },
               child: Text(

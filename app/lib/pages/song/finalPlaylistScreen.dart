@@ -132,7 +132,7 @@ class _FinalPlaylistScreenState extends State<FinalPlaylistScreen> {
                               onPressed: () async {
                                 export(songs,playlistName);
                               },
-                              icon: const Icon(Icons.file_download),
+                              icon: Icon(Icons.file_download, color: textColor),
                             ),
                           ],
                         ),
