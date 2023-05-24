@@ -34,11 +34,11 @@ Future<List<List<String>>> getFriends() async {
 void removeFriend(int index) {
   String friend = friends.elementAt(index);
   final userRef = FirebaseDatabase.instance
-      .reference()
+      .ref()
       .child('users')
       .child(Auth().getUsername());
   final friendRef =
-      FirebaseDatabase.instance.reference().child('users').child(friend);
+      FirebaseDatabase.instance.ref().child('users').child(friend);
 
   userRef.child('friends').child(friend).remove();
   friendRef.child('friends').child(Auth().getUsername()).remove();

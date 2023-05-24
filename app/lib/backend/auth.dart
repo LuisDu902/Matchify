@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 class Auth {
   FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 
-   FirebaseDatabase firebaseDatabase = FirebaseDatabase.instance;
-  
+  FirebaseDatabase firebaseDatabase = FirebaseDatabase.instance;
+
   User? get currentUser => firebaseAuth.currentUser;
 
   Stream<User?> get authStateChanges => firebaseAuth.authStateChanges();
@@ -14,7 +14,9 @@ class Auth {
   String getUsername() {
     final RegExp regex = RegExp(r'^([^@]+)@');
     final usernameMatch = regex.firstMatch(currentUser?.email as String);
-    final username = usernameMatch != null ? usernameMatch.group(1) : currentUser?.email as String;
+    final username = usernameMatch != null
+        ? usernameMatch.group(1)
+        : currentUser?.email as String;
 
     return username as String;
   }
@@ -41,26 +43,24 @@ class Auth {
     final RegExp regex = RegExp(r'^([^@]+)@');
     final usernameMatch = regex.firstMatch(email);
     final username = usernameMatch != null ? usernameMatch.group(1) : email;
-  
 
     await firebaseDatabase
-        .reference()
+        .ref()
         .child('users')
         .child(username as String)
-        .set({"email": email,
-        "requests": {},
-        "friends" : {},
-        "playlists" : {}});
+        .set({"email": email, "requests": {}, "friends": {}, "playlists": {}});
   }
-
 
   Future<void> signOut(BuildContext context) async {
     await firebaseAuth.signOut();
-    Navigator.pushNamedAndRemoveUntil(context, '/widget_tree', (route) => false);
+    Navigator.pushNamedAndRemoveUntil(
+        context, '/widget_tree', (route) => false);
   }
 
   Future<void> deleteAccount(BuildContext context) async {
     await currentUser?.delete();
-     Navigator.pushNamedAndRemoveUntil(context, '/widget_tree', (route) => false);
+
+    Navigator.pushNamedAndRemoveUntil(
+        context, '/widget_tree', (route) => false);
   }
 }

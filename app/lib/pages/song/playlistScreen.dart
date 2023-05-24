@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:matchify/backend/auth.dart';
 import 'package:matchify/pages/appBar/appBar.dart';
 import 'package:matchify/pages/appBar/infoScreen.dart';
 import 'package:matchify/backend/playlist.dart';
+import 'package:matchify/pages/homeScreen.dart';
+import '../../backend/export.dart';
 import '../../backend/variables.dart';
 
 class PlaylistScreen extends StatefulWidget {
   final Playlist playlist;
-
-  const PlaylistScreen({required this.playlist});
+  final String user;
+  const PlaylistScreen({required this.user, required this.playlist});
 
   @override
   _PlaylistScreenState createState() => _PlaylistScreenState();
@@ -26,18 +29,18 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
   void updateColors() {
     setState(() {
       bgColor = DarkMode.isDarkModeEnabled
-          ? Color.fromRGBO(59, 59, 59, 1)
+          ? const Color.fromRGBO(59, 59, 59, 1)
           : Colors.white;
 
       textColor = DarkMode.isDarkModeEnabled
           ? Colors.white
-          : Color.fromRGBO(48, 21, 81, 1);
+          : const Color.fromRGBO(48, 21, 81, 1);
     });
   }
 
   Widget showSongs() {
     return ListView(
-      key: Key("playlist songs"),
+      key: const Key("playlist songs"),
       shrinkWrap: true,
       children: [
         SizedBox(
@@ -46,12 +49,12 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
             itemCount: widget.playlist.songs.length,
             itemBuilder: (BuildContext context, int index) {
               return Padding(
-                padding: EdgeInsets.symmetric(vertical: 8.0),
+                padding: const EdgeInsets.symmetric(vertical: 8.0),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                      margin: EdgeInsets.symmetric(horizontal: 16.0),
+                      margin: const EdgeInsets.symmetric(horizontal: 16.0),
                       child: Image.network(
                         widget.playlist.songs[index].imageUrl,
                         width: 80,
@@ -73,7 +76,7 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
                           ),
                           Text(
                             widget.playlist.songs[index].artistName,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 14.0,
                               color: Colors.grey,
                             ),
@@ -109,25 +112,47 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        key: Key("playlist page"),
-        drawer: Info(),
-        appBar: appBar(),
+        key: const Key("playlist page"),
+        drawer: const Info(),
+        appBar: const appBar(),
         body: Container(
           color: bgColor,
           child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                SizedBox(height: 50),
-                Text(
-                  widget.playlist.name,
-                  style: TextStyle(
-                    color: textColor,
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                  ),
+                const SizedBox(height: 50),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      widget.playlist.name,
+                      style: TextStyle(
+                        color: textColor,
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: () async {
+                        export(widget.playlist.songs, widget.playlist.name);
+                      },
+                      icon: const Icon(Icons.file_download),
+                    ),
+                    if (widget.user == Auth().getUsername())
+                    IconButton(
+                      onPressed: () async {
+                        removePlaylist(widget.playlist.name);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => HomeScreen()),
+                        );
+                      },
+                      icon: const Icon(Icons.delete),
+                    ),
+                  ],
                 ),
-                SizedBox(height: 64),
+                const SizedBox(height: 64),
                 showSongs(),
               ],
             ),

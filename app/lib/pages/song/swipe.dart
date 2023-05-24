@@ -1,16 +1,9 @@
-import 'dart:async';
-import 'dart:convert';
-import 'dart:math';
-import 'dart:convert' as convert;
 import 'package:flutter/services.dart';
-import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:matchify/pages/song/finalPlaylistScreen.dart';
 import 'package:matchify/backend/song.dart';
-import 'package:scroll_loop_auto_scroll/scroll_loop_auto_scroll.dart';
 import '../appBar/appBar.dart';
 import '../appBar/infoScreen.dart';
-import '../filters.dart';
 import '../../backend/variables.dart';
 
 class SwipePage extends StatefulWidget {
@@ -38,12 +31,12 @@ class _SwipeState extends State<SwipePage> {
   void updateColors() {
     setState(() {
       bgColor = DarkMode.isDarkModeEnabled
-          ? Color.fromRGBO(59, 59, 59, 1)
+          ? const Color.fromRGBO(59, 59, 59, 1)
           : Colors.white;
 
       textColor = DarkMode.isDarkModeEnabled
           ? Colors.white
-          : Color.fromRGBO(48, 21, 81, 1);
+          : const Color.fromRGBO(48, 21, 81, 1);
     });
   }
 
@@ -52,18 +45,18 @@ class _SwipeState extends State<SwipePage> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      key: Key('swipe page'), 
+      key: const Key('swipe page'),
       future: fetchSongs(),
       builder: (BuildContext context, AsyncSnapshot<List<Song>> snapshot) {
         if (snapshot.hasData) {
           bool isDismissed = false;
           return Scaffold(
-            drawer: Info(),
-            appBar: appBar(),
+            drawer: const Info(),
+            appBar: const appBar(),
             backgroundColor: bgColor,
             body: Align(
               alignment: Alignment.bottomLeft,
-              child: Container(
+              child: SizedBox(
                 width: 452,
                 height: 918,
                 child: Stack(
@@ -72,34 +65,39 @@ class _SwipeState extends State<SwipePage> {
                       top: 360,
                       left: 0,
                       right: 0,
-                      child: SizedBox(
-                        height: 30,
-                        child: RichText(
-                            textAlign: TextAlign.center,
-                            text: TextSpan(
+                      child: Container(
+                        alignment: Alignment.center,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              displaySongs[index].trackName,
+                              style: TextStyle(
+                                fontSize: 25.0,
+                                color: textColor,
+                                fontFamily: 'Istok Web',
+                                fontWeight: FontWeight.bold,
+                              ),
+                              textAlign: TextAlign.center,
+                              softWrap: true,
+                            ),
+                            Text(
+                              displaySongs[index].artistName,
                               style: TextStyle(
                                 fontSize: 25.0,
                                 color: textColor,
                                 fontFamily: 'Istok Web',
                                 fontWeight: FontWeight.normal,
-                                height: 1,
+                                fontStyle: FontStyle.italic,
                               ),
-                              children: <TextSpan>[
-                                TextSpan(
-                                  text: '${displaySongs[index].trackName}',
-                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                ),
-                                TextSpan(text: ' - '),
-                                TextSpan(
-                                  text: '${displaySongs[index].artistName}',
-                                  style: TextStyle(fontStyle: FontStyle.italic),
-                                ),
-                              ],
+                              textAlign: TextAlign.center,
+                              softWrap: true,
                             ),
-                          ),
+                          ],
                         ),
                       ),
-                    
+                    ),
                     Dismissible(
                       key: UniqueKey(),
                       direction: DismissDirection.horizontal,
@@ -124,7 +122,7 @@ class _SwipeState extends State<SwipePage> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => FinalPlaylistScreen(),
+                                  builder: (context) => const FinalPlaylistScreen(),
                                 ),
                               );
                             }
@@ -133,9 +131,9 @@ class _SwipeState extends State<SwipePage> {
                         }
                       },
                       child: Center(
-                        key: Key("song image"),
+                        key: const Key("song image"),
                         child: Padding(
-                          padding: EdgeInsets.only(bottom: 300),
+                          padding: const EdgeInsets.only(bottom: 300),
                           child: Image.network(
                             displaySongs[index].imageUrl,
                             width: 250,
@@ -146,50 +144,56 @@ class _SwipeState extends State<SwipePage> {
                       ),
                     ),
                     Positioned(
-                      top: 400,
-                      left: 170,
-                      child: IconButton(
-                        key: Key('play'), 
-                        icon: play
-                            ? Icon(Icons.play_arrow_rounded, color: textColor)
-                            : Icon(Icons.pause_rounded, color: textColor),
-                        iconSize: 45,
-                        onPressed: () {
-                          if (play) {
-                            displaySongs[index].play();
-                            play = false;
-                          } else {
-                            displaySongs[index].pause();
-                            play = true;
-                          }
-                          // Handle replay button press
-                          setState(() {});
-                        },
+                      top: 420,
+                      left: 60,
+                      child: Center(
+                        child: Column(
+                          children: [
+                            const SizedBox(height: 10), // Add padding to the top of the play button
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  width: 120,
+                                  height: 3,
+                                  color: Colors.black,
+                                ),
+                                IconButton(
+                                  key: const Key('play'),
+                                  icon: play
+                                      ? Icon(Icons.play_arrow_rounded, color: textColor)
+                                      : Icon(Icons.pause_rounded, color: textColor),
+                                  iconSize: 45,
+                                  onPressed: () {
+                                    if (play) {
+                                      displaySongs[index].play();
+                                      play = false;
+                                    } else {
+                                      displaySongs[index].pause();
+                                      play = true;
+                                    }
+                                    // Handle replay button press
+                                    setState(() {});
+                                  },
+                                ),
+                                Container(
+                                  width: 120,
+                                  height: 3,
+                                  color: Colors.black,
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                     Positioned(
-                      top: 600,
-                      left: 44,
-                      child: Divider(
-                        color: textColor,
-                        thickness: 1,
-                      ),
-                    ),
-                    Positioned(
-                      top: 500,
-                      left: 284,
-                      child: Divider(
-                        color: textColor,
-                        thickness: 1,
-                      ),
-                    ),
-                    Positioned(
-                      top: 460,
-                      left: 55,
+                      top: 480,
+                      left: 70,
                       child: Container(
                         width: 90,
                         height: 85,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           color: Color.fromRGBO(246, 217, 18, 1),
                           borderRadius: BorderRadius.all(
                             Radius.elliptical(90, 85),
@@ -205,22 +209,25 @@ class _SwipeState extends State<SwipePage> {
                       ),
                     ),
                     Positioned(
-                      top: 460,
+                      top: 480,
                       left: 260,
                       child: Container(
                         width: 90,
                         height: 85,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           color: Color.fromRGBO(237, 138, 10, 1),
                           borderRadius: BorderRadius.all(
                             Radius.elliptical(90, 85),
                           ),
                         ),
                         child: Center(
-                          child: Icon(
-                            Icons.close,
-                            color: textColor,
-                            size: 60,
+                          child: Text(
+                            'X',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 60,
+                              color: textColor,
+                            ),
                           ),
                         ),
                       ),
@@ -231,11 +238,11 @@ class _SwipeState extends State<SwipePage> {
             ),
           );
         } else if (snapshot.hasError) {
-          return Center(
+          return const Center(
             child: Text('Error fetching songs'),
           );
         } else {
-          return Center(
+          return const Center(
             child: CircularProgressIndicator(),
           );
         }

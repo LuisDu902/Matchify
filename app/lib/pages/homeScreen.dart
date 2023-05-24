@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:matchify/pages/filters.dart';
 import 'package:matchify/pages/mixPlaylist/firstMixPlaylist.dart';
-import 'package:matchify/pages/mixPlaylist/mixPlaylist.dart';
 
 import 'appBar/appBar.dart';
 import 'appBar/infoScreen.dart';
@@ -28,21 +27,21 @@ class _HomeScreenState extends State<HomeScreen> {
   void updateColors() {
     setState(() {
       bgColor = DarkMode.isDarkModeEnabled
-          ? Color.fromRGBO(59, 59, 59, 1)
+          ? const Color.fromRGBO(59, 59, 59, 1)
           : Colors.white;
       textColor = DarkMode.isDarkModeEnabled ? Colors.white : Colors.black;
       mixPlaylistColor = DarkMode.isDarkModeEnabled
-          ? Color.fromARGB(255, 255, 255, 255)
-          : Color.fromRGBO(73, 43, 124, 1);
+          ? const Color.fromARGB(255, 255, 255, 255)
+          : const Color.fromRGBO(73, 43, 124, 1);
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: Key("home page"),
-      drawer: Info(),
-      appBar: appBar(),
+      key: const Key("home page"),
+      drawer: const Info(),
+      appBar: const appBar(),
       backgroundColor: bgColor,
       body: SizedBox(
         child: Stack(
@@ -78,7 +77,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => FirstMixPlaylistScreen()),
+                    MaterialPageRoute(builder: (context) => const FirstMixPlaylistScreen()),
                   );
                 },
                 child: Container(
@@ -86,7 +85,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   height: 147,
                   decoration: BoxDecoration(
                     color: mixPlaylistColor,
-                    borderRadius: BorderRadius.all(
+                    borderRadius: const BorderRadius.all(
                       Radius.elliptical(154, 147),
                     ),
                   ),
@@ -94,46 +93,52 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             Positioned(
-              key: Key("create a new playlist"),
+              key: const Key("create a new playlist"),
               top: 280,
               left: 75,
               child: GestureDetector(
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => Filters()),
+                    MaterialPageRoute(builder: (context) => const Filters()),
                   );
                 },
-                child: Container(
-                  width: 80,
-                  height: 80,
-                  decoration: const BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage('images/add.png'),
-                      fit: BoxFit.fitWidth,
+                child: Opacity(
+                  opacity: 0.8,
+                  child: Container(
+                    width: 80,
+                    height: 85,
+                    decoration: const BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage('images/add.png'),
+                        fit: BoxFit.fitWidth,
+                      ),
                     ),
                   ),
                 ),
               ),
             ),
             Positioned(
-               key: Key("mix playlist"),
+               key: const Key("mix playlist"),
               top: 270,
               left: 250,
               child: GestureDetector(
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => FirstMixPlaylistScreen()),
+                    MaterialPageRoute(builder: (context) => const FirstMixPlaylistScreen()),
                   );
                 },
-                child: Container(
-                  width: 108,
-                  height: 108,
-                  decoration: const BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage('images/mix.png'),
-                      fit: BoxFit.fitWidth,
+                child: Opacity(
+                  opacity: 0.7, // Adjust the opacity value as needed (0.0 - 1.0)
+                  child: Container(
+                    width: 108,
+                    height: 108,
+                    decoration: const BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage('images/mix.png'),
+                        fit: BoxFit.fitWidth,
+                      ),
                     ),
                   ),
                 ),
@@ -166,7 +171,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     fontFamily: 'Istok Web',
                     fontSize: 25,
                     letterSpacing:
-                        0 /*percentages not used in flutter. defaulting to zero*/,
+                        0,
                     fontWeight: FontWeight.normal,
                     height: 1),
               ),

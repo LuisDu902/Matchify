@@ -1,12 +1,10 @@
-import 'dart:convert' as convert;
 import 'dart:math';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:flutter/material.dart';
 import 'package:matchify/backend/auth.dart';
 import 'package:matchify/backend/song.dart';
 
 import 'variables.dart';
-import '../pages/filters.dart';
+
 
 class Playlist {
   final String name;
@@ -69,5 +67,23 @@ void savePlaylist(String playlistName, List<Song> songs) async {
         'preview': song.previewUrl
       }
     });
+  }
+}
+
+void removePlaylist(String playlistName) async {
+  final database = FirebaseDatabase.instance;
+
+  final playlistsRef = database
+      .ref()
+      .child('users')
+      .child(Auth().getUsername())
+      .child('playlists')
+      .child(playlistName);
+
+   try {
+    await playlistsRef.remove();
+    ('Playlist removed successfully.');
+  } catch (error) {
+    ('Failed to remove playlist: $error');
   }
 }

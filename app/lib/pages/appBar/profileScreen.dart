@@ -7,12 +7,14 @@ import 'package:matchify/backend/auth.dart';
 import '../../backend/variables.dart';
 
 class ProfileScreen extends StatefulWidget {
+  const ProfileScreen({super.key});
+
   @override
   _ProfileScreenState createState() => _ProfileScreenState();
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  final appBarState appBarC = new appBarState();
+  final appBarState appBarC = appBarState();
   late Color bgColor;
   late Color textColor;
   late Color boxTextColor;
@@ -27,15 +29,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
   void updateColors() {
     setState(() {
       bgColor = DarkMode.isDarkModeEnabled
-          ? Color.fromRGBO(59, 59, 59, 1)
+          ? const Color.fromRGBO(59, 59, 59, 1)
           : Colors.white;
       textColor = DarkMode.isDarkModeEnabled ? Colors.white : Colors.black;
       boxTextColor = DarkMode.isDarkModeEnabled
-          ? Color.fromRGBO(20, 6, 74, 1)
-          : Color.fromRGBO(224, 217, 228, 1);
+          ? const Color.fromRGBO(20, 6, 74, 1)
+          : const Color.fromRGBO(224, 217, 228, 1);
       boxColor = DarkMode.isDarkModeEnabled
           ? Colors.white
-          : Color.fromRGBO(48, 21, 81, 1);
+          : const Color.fromRGBO(48, 21, 81, 1);
     });
   }
 
@@ -50,8 +52,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   Widget popUp() {
     return AlertDialog(
-      backgroundColor: Color.fromRGBO(252, 241, 183, 1),
-      content: Text(
+      backgroundColor: const Color.fromRGBO(252, 241, 183, 1),
+      content: const Text(
         textAlign: TextAlign.center,
         "Are you sure you want to delete your account?",
         style: TextStyle(
@@ -79,17 +81,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
       },
       child: Container(
         height: 60.0,
-        padding: EdgeInsets.symmetric(
+        padding: const EdgeInsets.symmetric(
           horizontal: 25.0,
         ),
         decoration: BoxDecoration(
-          color: Color.fromRGBO(193, 182, 202, 1),
+          color: const Color.fromRGBO(193, 182, 202, 1),
           borderRadius: BorderRadius.circular(10.0),
           border: Border.all(
-            color: Color.fromRGBO(193, 182, 202, 1),
+            color: const Color.fromRGBO(193, 182, 202, 1),
           ),
         ),
-        child: Center(
+        child: const Center(
           child: Text(
             'Cancel',
             style: TextStyle(
@@ -105,24 +107,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   Widget deleteButton() {
     return TextButton(
-      key: Key('confirm delete'),
+      key: const Key('confirm delete'),
       onPressed: () {
         Auth().deleteAccount(context);
         Navigator.of(context).pop();
       },
       child: Container(
         height: 60.0,
-        padding: EdgeInsets.symmetric(
+        padding: const EdgeInsets.symmetric(
           horizontal: 25.0,
         ),
         decoration: BoxDecoration(
-          color: Color.fromRGBO(193, 182, 202, 1),
+          color: const Color.fromRGBO(193, 182, 202, 1),
           borderRadius: BorderRadius.circular(10.0),
           border: Border.all(
-            color: Color.fromRGBO(193, 182, 202, 1),
+            color: const Color.fromRGBO(193, 182, 202, 1),
           ),
         ),
-        child: Center(
+        child: const Center(
           child: Text(
             'Delete',
             style: TextStyle(
@@ -139,14 +141,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Info(),
-      appBar: appBar(),
+      drawer: const Info(),
+      appBar: const appBar(),
       backgroundColor: bgColor,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            SizedBox(height: 50),
+            const SizedBox(height: 50),
             Text(
               'My profile',
               style: TextStyle(
@@ -155,7 +157,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Icon(
               Icons.person,
               size: 250,
@@ -165,9 +167,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
               Auth().getUsername(),
               style: TextStyle(fontSize: 20, color: textColor),
             ),
-            SizedBox(height: 100),
+            const SizedBox(height: 60),
             ElevatedButton(
-              key: Key('log out'),
+              key: const Key('log out'),
               style: ButtonStyle(
                 shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                   RoundedRectangleBorder(
@@ -177,20 +179,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 backgroundColor: MaterialStateProperty.all<Color>(boxTextColor),
                 foregroundColor: MaterialStateProperty.all<Color>(boxColor),
                 fixedSize: MaterialStateProperty.resolveWith<Size?>(
-                    (states) => Size(240, 50)),
+                    (states) => const Size(240, 50)),
                 textStyle: MaterialStateProperty.resolveWith<TextStyle?>(
-                    (states) => TextStyle(
+                    (states) => const TextStyle(
                           fontSize: 22,
                           fontFamily: 'Roboto',
                           letterSpacing: 0.10000000149011612,
                         )),
               ),
               onPressed: () => {Auth().signOut(context)},
-              child: Text('Log out'),
+              child: const Text('Log out'),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton(
-              key: Key('delete account'),
+              key: const Key('delete account'),
               style: ButtonStyle(
                 shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                   RoundedRectangleBorder(
@@ -200,9 +202,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 backgroundColor: MaterialStateProperty.all<Color>(boxTextColor),
                 foregroundColor: MaterialStateProperty.all<Color>(boxColor),
                 fixedSize: MaterialStateProperty.resolveWith<Size?>(
-                    (states) => Size(240, 50)),
+                    (states) => const Size(240, 50)),
                 textStyle: MaterialStateProperty.resolveWith<TextStyle?>(
-                    (states) => TextStyle(
+                    (states) => const TextStyle(
                           fontSize: 22,
                           fontFamily: 'Roboto',
                           letterSpacing: 0.10000000149011612,
@@ -216,9 +218,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   },
                 );
               },
-              child: Text('Delete account'),
+              child: const Text('Delete account'),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton(
               style: ButtonStyle(
                 shape: MaterialStateProperty.all<RoundedRectangleBorder>(
@@ -229,7 +231,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 backgroundColor: MaterialStateProperty.all<Color>(boxTextColor),
                 foregroundColor: MaterialStateProperty.all<Color>(boxColor),
                 fixedSize: MaterialStateProperty.resolveWith<Size?>(
-                    (states) => Size(240, 50)),
+                    (states) => const Size(240, 50)),
               ),
               onPressed: () {
                 toggleDarkMode(); // call the toggleDarkMode function

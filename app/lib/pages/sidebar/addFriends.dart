@@ -1,4 +1,3 @@
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:matchify/pages/appBar/appBar.dart';
 import 'package:matchify/pages/appBar/infoScreen.dart';
@@ -27,11 +26,11 @@ class _AddFriendsPageScreen extends State<AddFriendsScreen> {
   void updateColors() {
     setState(() {
       bgColor = DarkMode.isDarkModeEnabled
-          ? Color.fromRGBO(59, 59, 59, 1)
-          : Color.fromRGBO(255, 255, 255, 1);
+          ? const Color.fromRGBO(59, 59, 59, 1)
+          : const Color.fromRGBO(255, 255, 255, 1);
       textColor = DarkMode.isDarkModeEnabled
-          ? Color.fromRGBO(255, 255, 255, 1)
-          : Color.fromRGBO(48, 21, 81, 1);
+          ? const Color.fromRGBO(255, 255, 255, 1)
+          : const Color.fromRGBO(48, 21, 81, 1);
     });
   }
 
@@ -51,9 +50,9 @@ class _AddFriendsPageScreen extends State<AddFriendsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: Key("add friend page"),
-      drawer: Info(),
-      appBar: appBar(),
+      key: const Key("add friend page"),
+      drawer: const Info(),
+      appBar: const appBar(),
       backgroundColor: bgColor,
       body: Center(
         child: Column(
@@ -63,13 +62,13 @@ class _AddFriendsPageScreen extends State<AddFriendsScreen> {
               'Send a friend request!',
               style: TextStyle(fontSize: 24, color: textColor),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             Stack(
               children: [
                 Container(
                   width: 300,
                   height: 40,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     border: Border(
                       bottom: BorderSide(
                         color: Color.fromRGBO(103, 80, 164, 1),
@@ -82,10 +81,10 @@ class _AddFriendsPageScreen extends State<AddFriendsScreen> {
                     children: [
                       Expanded(
                         child: TextField(
-                          key: Key("friend's username"),
+                          key: const Key("friend's username"),
                           controller: friendRequest,
                           textAlign: TextAlign.left,
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                             contentPadding:
                                 EdgeInsets.symmetric(horizontal: 10),
                             hintText: 'Enter your friend\'s username',
@@ -102,7 +101,7 @@ class _AddFriendsPageScreen extends State<AddFriendsScreen> {
                         bottom: 0,
                         right: 0,
                         child: ElevatedButton(
-                          key: Key("send request"),
+                          key: const Key("send request"),
                           onPressed: () async {
                             if (friendRequest.text.isEmpty) {
                               message("Please enter your friend's username",
@@ -113,22 +112,22 @@ class _AddFriendsPageScreen extends State<AddFriendsScreen> {
                               } else if (Auth().getUsername() == friendRequest.text) {
                                message("You can't send a request to yourself", Colors.red);
                               } else if (await isAlreadyFriend(friendRequest.text)) {
-                                message(friendRequest.text + " is already your friend", Colors.red);
+                                message("${friendRequest.text} is already your friend", Colors.red);
                               } else {
                                 sendRequest(friendRequest.text);
                                 message("Friend request sent", Colors.green);
                               }
                             }
                           },
-                          child: Text(
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all<Color>(
+                              const Color.fromRGBO(246, 217, 18, 1),
+                            ),
+                          ),
+                          child: const Text(
                             'Send',
                             style: TextStyle(
                               color: Color.fromRGBO(48, 21, 81, 1),
-                            ),
-                          ),
-                          style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all<Color>(
-                              Color.fromRGBO(246, 217, 18, 1),
                             ),
                           ),
                         ),

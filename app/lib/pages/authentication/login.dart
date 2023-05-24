@@ -1,19 +1,19 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import '../appBar/appBar.dart';
-import '../appBar/infoScreen.dart';
 import '../../backend/auth.dart';
 
 class MyTermsAndConditionsDialog extends StatelessWidget {
+  const MyTermsAndConditionsDialog({super.key});
+
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text('Terms & Conditions'),
+      title: const Text('Terms & Conditions'),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
+        children: const [
           Text(
             'In order to use Matchify, you must create an account. You are responsible for maintaining the confidentiality of your account information and password. You are also responsible for all activities that occur under your account.',
           ),
@@ -28,7 +28,7 @@ class MyTermsAndConditionsDialog extends StatelessWidget {
       ),
       actions: <Widget>[
         TextButton(
-          child: Text('Close'),
+          child: const Text('Close'),
           onPressed: () {
             Navigator.of(context).pop();
           },
@@ -78,12 +78,12 @@ class _LoginState extends State<Login> {
 
   Widget _registerUsername() {
     return SizedBox(
-      key: Key("register username"),
+      key: const Key("register username"),
       width: 260,
       height: 80,
       child: TextFormField(
         controller: _regUsername,
-        style: TextStyle(
+        style: const TextStyle(
           fontSize: 16,
           fontFamily: 'Roboto',
           letterSpacing: 0.10000000149011612,
@@ -91,13 +91,13 @@ class _LoginState extends State<Login> {
         ),
         decoration: InputDecoration(
           hintText: 'username',
-          hintStyle: TextStyle(color: Colors.black),
-          contentPadding: EdgeInsets.symmetric(horizontal: 20),
+          hintStyle: const TextStyle(color: Colors.black),
+          contentPadding: const EdgeInsets.symmetric(horizontal: 20),
           filled: true,
           fillColor: Colors.white,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(4),
-            borderSide: BorderSide(
+            borderSide: const BorderSide(
               color: Colors.black,
               width: 1.0,
             ),
@@ -109,12 +109,12 @@ class _LoginState extends State<Login> {
 
   Widget _registerPassword() {
     return SizedBox(
-      key: Key("register password"),
+      key: const Key("register password"),
       width: 260,
       height: 80,
       child: TextFormField(
         controller: _regPassword,
-        style: TextStyle(
+        style: const TextStyle(
           fontSize: 16,
           fontFamily: 'Roboto',
           letterSpacing: 0.10000000149011612,
@@ -122,13 +122,13 @@ class _LoginState extends State<Login> {
         ),
         decoration: InputDecoration(
           hintText: 'password',
-          hintStyle: TextStyle(color: Colors.black),
-          contentPadding: EdgeInsets.symmetric(horizontal: 20),
+          hintStyle: const TextStyle(color: Colors.black),
+          contentPadding: const EdgeInsets.symmetric(horizontal: 20),
           filled: true,
           fillColor: Colors.white,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(4),
-            borderSide: BorderSide(
+            borderSide: const BorderSide(
               color: Colors.black,
               width: 1.0,
             ),
@@ -152,12 +152,12 @@ class _LoginState extends State<Login> {
 
   Widget _confirmPassword() {
     return SizedBox(
-      key: Key("confirm password"),
+      key: const Key("confirm password"),
       width: 260,
       height: 80,
       child: TextFormField(
         controller: _confPassword,
-        style: TextStyle(
+        style: const TextStyle(
           fontSize: 16,
           fontFamily: 'Roboto',
           letterSpacing: 0.10000000149011612,
@@ -165,13 +165,13 @@ class _LoginState extends State<Login> {
         ),
         decoration: InputDecoration(
           hintText: 'confirm password',
-          hintStyle: TextStyle(color: Colors.black),
-          contentPadding: EdgeInsets.symmetric(horizontal: 20),
+          hintStyle: const TextStyle(color: Colors.black),
+          contentPadding: const EdgeInsets.symmetric(horizontal: 20),
           filled: true,
           fillColor: Colors.white,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(4),
-            borderSide: BorderSide(
+            borderSide: const BorderSide(
               color: Colors.black,
               width: 1.0,
             ),
@@ -204,7 +204,7 @@ class _LoginState extends State<Login> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Checkbox(
-          key: Key("accept terms and conditions"),
+          key: const Key("accept terms and conditions"),
           value: _isChecked,
           onChanged: (value) {
             setState(() {
@@ -214,19 +214,19 @@ class _LoginState extends State<Login> {
         ),
         RichText(
           text: TextSpan(
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.bold,
               fontFamily: 'Roboto',
               color: Colors.black,
             ),
             children: [
-              TextSpan(
+              const TextSpan(
                 text: 'I Accept ',
               ),
               TextSpan(
                 text: 'Terms & Conditions',
-                style: TextStyle(
+                style: const TextStyle(
                   decoration: TextDecoration.underline,
                   color: Colors.lightBlue,
                 ),
@@ -235,12 +235,12 @@ class _LoginState extends State<Login> {
                     showDialog(
                       context: context,
                       builder: (BuildContext context) {
-                        return MyTermsAndConditionsDialog();
+                        return const MyTermsAndConditionsDialog();
                       },
                     );
                   },
               ),
-              TextSpan(
+              const TextSpan(
                 text: ' of Matchify',
               ),
             ],
@@ -251,7 +251,7 @@ class _LoginState extends State<Login> {
   }
 
   SnackBar _errorMessage() {
-    return SnackBar(
+    return const SnackBar(
       key: Key("error message"),
       content: Text("Please fill out the required fields correctly"),
       backgroundColor: Colors.red,
@@ -261,14 +261,14 @@ class _LoginState extends State<Login> {
   Widget _registerButton() {
     return Builder(
       builder: (context) => Container(
-        key: Key("register"),
+        key: const Key("register"),
         decoration: BoxDecoration(
           boxShadow: [
             BoxShadow(
               color: Colors.grey.withOpacity(0.5),
               spreadRadius: 2,
               blurRadius: 7,
-              offset: Offset(0, 3),
+              offset: const Offset(0, 3),
             ),
           ],
         ),
@@ -280,14 +280,14 @@ class _LoginState extends State<Login> {
               ),
             ),
             backgroundColor: MaterialStateProperty.all<Color>(
-                Color.fromRGBO(246, 217, 18, 1)),
+                const Color.fromRGBO(246, 217, 18, 1)),
             foregroundColor: MaterialStateProperty.all<Color>(
-              Color.fromRGBO(48, 21, 81, 1),
+              const Color.fromRGBO(48, 21, 81, 1),
             ),
             fixedSize: MaterialStateProperty.resolveWith<Size?>(
-                (states) => Size(130, 45)),
+                (states) => const Size(130, 45)),
             textStyle: MaterialStateProperty.resolveWith<TextStyle?>(
-                (states) => TextStyle(
+                (states) => const TextStyle(
                       fontSize: 25,
                       fontFamily: 'Roboto',
                       letterSpacing: 0.10000000149011612,
@@ -297,14 +297,14 @@ class _LoginState extends State<Login> {
           onPressed: () async {
             if (_regPassword.text != _confPassword.text) {
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
+                const SnackBar(
                   content: Text("Passwords do not match"),
                   backgroundColor: Colors.red,
                 ),
               );
             } else if (!_isChecked) {
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
+                const SnackBar(
                   content: Text(
                       "You must accept the Terms & Conditions of Matchify"),
                   backgroundColor: Colors.red,
@@ -319,7 +319,7 @@ class _LoginState extends State<Login> {
               }
             }
           },
-          child: Text('register'),
+          child: const Text('register'),
         ),
       ),
     );
@@ -339,7 +339,7 @@ class _LoginState extends State<Login> {
   }
 
   Widget _loginTitle() {
-    return Text(
+    return const Text(
       "Login",
       style: TextStyle(
         fontSize: 50,
@@ -352,7 +352,7 @@ class _LoginState extends State<Login> {
   }
 
   Widget _registerTitle() {
-    return Text(
+    return const Text(
       "Register",
       style: TextStyle(
         fontSize: 50,
@@ -366,12 +366,12 @@ class _LoginState extends State<Login> {
 
   Widget _loginUsername() {
     return SizedBox(
-      key: Key("login username"),
+      key: const Key("login username"),
       width: 260,
       height: 80,
       child: TextFormField(
         controller: _logUsername,
-        style: TextStyle(
+        style: const TextStyle(
           fontSize: 16,
           fontFamily: 'Roboto',
           letterSpacing: 0.10000000149011612,
@@ -379,13 +379,13 @@ class _LoginState extends State<Login> {
         ),
         decoration: InputDecoration(
           hintText: 'username',
-          hintStyle: TextStyle(color: Colors.black),
-          contentPadding: EdgeInsets.symmetric(horizontal: 20),
+          hintStyle: const TextStyle(color: Colors.black),
+          contentPadding: const EdgeInsets.symmetric(horizontal: 20),
           filled: true,
           fillColor: Colors.white,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(4),
-            borderSide: BorderSide(
+            borderSide: const BorderSide(
               color: Colors.black,
               width: 1.0,
             ),
@@ -397,12 +397,12 @@ class _LoginState extends State<Login> {
 
   Widget _loginPassword() {
     return SizedBox(
-      key: Key("login password"),
+      key: const Key("login password"),
       width: 260,
       height: 80,
       child: TextFormField(
         controller: _logPassword,
-        style: TextStyle(
+        style: const TextStyle(
           fontSize: 16,
           fontFamily: 'Roboto',
           letterSpacing: 0.10000000149011612,
@@ -410,13 +410,13 @@ class _LoginState extends State<Login> {
         ),
         decoration: InputDecoration(
           hintText: 'password',
-          hintStyle: TextStyle(color: Colors.black),
-          contentPadding: EdgeInsets.symmetric(horizontal: 20),
+          hintStyle: const TextStyle(color: Colors.black),
+          contentPadding: const EdgeInsets.symmetric(horizontal: 20),
           filled: true,
           fillColor: Colors.white,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(4),
-            borderSide: BorderSide(
+            borderSide: const BorderSide(
               color: Colors.black,
               width: 1.0,
             ),
@@ -440,14 +440,14 @@ class _LoginState extends State<Login> {
 
   Widget _loginButton() {
     return Container(
-      key: Key("login"),
+      key: const Key("login"),
       decoration: BoxDecoration(
         boxShadow: [
           BoxShadow(
             color: Colors.grey.withOpacity(0.5),
             spreadRadius: 2,
             blurRadius: 7,
-            offset: Offset(0, 3),
+            offset: const Offset(0, 3),
           ),
         ],
       ),
@@ -459,14 +459,14 @@ class _LoginState extends State<Login> {
             ),
           ),
           backgroundColor:
-              MaterialStateProperty.all<Color>(Color.fromRGBO(48, 21, 81, 1)),
+              MaterialStateProperty.all<Color>(const Color.fromRGBO(48, 21, 81, 1)),
           foregroundColor: MaterialStateProperty.all<Color>(
-            Color.fromRGBO(255, 242, 156, 1),
+            const Color.fromRGBO(255, 242, 156, 1),
           ),
           fixedSize: MaterialStateProperty.resolveWith<Size?>(
-              (states) => Size(130, 45)),
+              (states) => const Size(130, 45)),
           textStyle: MaterialStateProperty.resolveWith<TextStyle?>(
-              (states) => TextStyle(
+              (states) => const TextStyle(
                     fontSize: 25,
                     fontFamily: 'Roboto',
                     letterSpacing: 0.10000000149011612,
@@ -481,7 +481,7 @@ class _LoginState extends State<Login> {
             );
           }
         },
-        child: Text('login'),
+        child: const Text('login'),
       ),
     );
   }
@@ -491,7 +491,7 @@ class _LoginState extends State<Login> {
         isLogin ? "Don't have an account? " : "Already have an account? ";
     String actionText = isLogin ? "Sign up now!" : "Log in now!";
     return GestureDetector(
-      key: Key("change"),
+      key: const Key("change"),
       onTap: () {
         setState(() {
           isLogin = !isLogin;
@@ -509,7 +509,7 @@ class _LoginState extends State<Login> {
             children: [
               TextSpan(
                 text: actionText,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 18.0,
                   color: Colors.lightBlue,
                   decoration: TextDecoration.underline,
@@ -526,21 +526,21 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     if (isLogin) {
       return Scaffold(
-        key: Key("login page"),
+        key: const Key("login page"),
         backgroundColor: Colors.white,
         body: Align(
           alignment: Alignment.center,
           child: Column(
             children: [
-              SizedBox(height: 110),
+              const SizedBox(height: 110),
               _loginTitle(),
-              SizedBox(height: 50),
+              const SizedBox(height: 50),
               _loginUsername(),
               _loginPassword(),
-              SizedBox(height: 30),
-              SizedBox(height: 10),
+              const SizedBox(height: 30),
+              const SizedBox(height: 10),
               _loginButton(),
-              SizedBox(height: 30),
+              const SizedBox(height: 30),
               change(),
             ],
           ),
@@ -548,22 +548,22 @@ class _LoginState extends State<Login> {
       );
     } else {
       return Scaffold(
-        key: Key("register page"),
+        key: const Key("register page"),
         backgroundColor: Colors.white,
         body: Align(
           alignment: Alignment.center,
           child: Column(
             children: [
-              SizedBox(height: 110),
+              const SizedBox(height: 110),
               _registerTitle(),
-              SizedBox(height: 50),
+              const SizedBox(height: 50),
               _registerUsername(),
               _registerPassword(),
               _confirmPassword(),
               _termsAndConditions(),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               _registerButton(),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               change(),
             ],
           ),

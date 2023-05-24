@@ -1,11 +1,8 @@
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:matchify/backend/playlist.dart';
 import 'package:matchify/backend/song.dart';
 import '../appBar/appBar.dart';
 import '../appBar/infoScreen.dart';
-import '../../backend/auth.dart';
 import '../../backend/variables.dart';
 
 class FinalMixPlaylistScreen extends StatefulWidget {
@@ -30,12 +27,12 @@ class _FinalMixPlaylistScreenState extends State<FinalMixPlaylistScreen> {
   void updateColors() {
     setState(() {
       bgColor = DarkMode.isDarkModeEnabled
-          ? Color.fromRGBO(59, 59, 59, 1)
+          ? const Color.fromRGBO(59, 59, 59, 1)
           : Colors.white;
 
       textColor = DarkMode.isDarkModeEnabled
           ? Colors.white
-          : Color.fromRGBO(48, 21, 81, 1);
+          : const Color.fromRGBO(48, 21, 81, 1);
     });
   }
 
@@ -49,19 +46,19 @@ class _FinalMixPlaylistScreenState extends State<FinalMixPlaylistScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: Key("final mixed playlist page"),
-      drawer: Info(),
-      appBar: appBar(),
+      key: const Key("final mixed playlist page"),
+      drawer: const Info(),
+      appBar: const appBar(),
       backgroundColor: bgColor,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(16.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SizedBox(height: 30.0),
+                const SizedBox(height: 30.0),
                 if (songs.isNotEmpty)
                   Center(
                     child: Image.network(
@@ -71,10 +68,10 @@ class _FinalMixPlaylistScreenState extends State<FinalMixPlaylistScreen> {
                       fit: BoxFit.cover,
                     ),
                   ),
-                SizedBox(height: 30.0),
+                const SizedBox(height: 30.0),
                 Center(
                   child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 80.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 80.0),
                     child: TextField(
                       maxLength: 15,
                       onChanged: (value) {
@@ -100,7 +97,7 @@ class _FinalMixPlaylistScreenState extends State<FinalMixPlaylistScreen> {
                               Icons.edit,
                               color: textColor,
                             ),
-                            SizedBox(width: 16.0),
+                            const SizedBox(width: 16.0),
                             GestureDetector(
                               onTap: () => savePlaylist(playlistName, mixedPlaylist.songs),
                               child: Material(
@@ -110,7 +107,7 @@ class _FinalMixPlaylistScreenState extends State<FinalMixPlaylistScreen> {
                                   side: BorderSide(color: textColor),
                                 ),
                                 child: Padding(
-                                  padding: EdgeInsets.all(8.0),
+                                  padding: const EdgeInsets.all(8.0),
                                   child: Icon(
                                     Icons.save,
                                     color: textColor,
@@ -118,7 +115,7 @@ class _FinalMixPlaylistScreenState extends State<FinalMixPlaylistScreen> {
                                 ),
                               ),
                             ),
-                            SizedBox(width: 16.0),
+                            const SizedBox(width: 16.0),
                           ],
                         ),
                       ),
@@ -143,7 +140,7 @@ class _FinalMixPlaylistScreenState extends State<FinalMixPlaylistScreen> {
                   itemCount: mixedPlaylist.songs.length,
                   itemBuilder: (BuildContext context, int index) {
                     return Padding(
-                      padding: EdgeInsets.fromLTRB(60.0, 8.0, 16.0, 8.0),
+                      padding: const EdgeInsets.fromLTRB(60.0, 8.0, 16.0, 8.0),
                       child: Text(
                         '${index + 1}. ${mixedPlaylist.songs[index].trackName} by ${mixedPlaylist.songs[index].artistName}',
                         style: TextStyle(

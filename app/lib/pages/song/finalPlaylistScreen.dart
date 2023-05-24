@@ -1,12 +1,10 @@
-import 'package:firebase_database/firebase_database.dart';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:matchify/backend/playlist.dart';
 import 'package:matchify/backend/song.dart';
+import '../../backend/export.dart';
 import '../appBar/appBar.dart';
 import '../appBar/infoScreen.dart';
-import '../../backend/auth.dart';
-import 'swipe.dart';
 import '../../backend/variables.dart';
 
 class FinalPlaylistScreen extends StatefulWidget {
@@ -31,15 +29,15 @@ class _FinalPlaylistScreenState extends State<FinalPlaylistScreen> {
   void updateColors() {
     setState(() {
       bgColor = DarkMode.isDarkModeEnabled
-          ? Color.fromRGBO(59, 59, 59, 1)
+          ? const Color.fromRGBO(59, 59, 59, 1)
           : Colors.white;
 
       textColor = DarkMode.isDarkModeEnabled
           ? Colors.white
-          : Color.fromRGBO(48, 21, 81, 1);
+          : const Color.fromRGBO(48, 21, 81, 1);
     });
   }
-
+ 
   List<Song> songs = [];
   String playlistName = "New Playlist";
 
@@ -60,19 +58,19 @@ class _FinalPlaylistScreenState extends State<FinalPlaylistScreen> {
     builder: (BuildContext context, AsyncSnapshot<List<Song>> snapshot) {
       if (snapshot.hasData) {
         return Scaffold(
-      key: Key("final playlist"),
-      drawer: Info(),
-      appBar: appBar(),
+      key: const Key("final playlist"),
+      drawer: const Info(),
+      appBar: const appBar(),
       backgroundColor: bgColor,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(16.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SizedBox(height: 30.0),
+                const SizedBox(height: 30.0),
                 if (songs.isNotEmpty)
                   Center(
                     child: Image.network(
@@ -82,10 +80,10 @@ class _FinalPlaylistScreenState extends State<FinalPlaylistScreen> {
                       fit: BoxFit.cover,
                     ),
                   ),
-                SizedBox(height: 30.0),
+                const SizedBox(height: 30.0),
                 Center(
                   child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 80.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 80.0),
                     child: TextField(
                       maxLength: 15,
                       onChanged: (value) {
@@ -111,7 +109,7 @@ class _FinalPlaylistScreenState extends State<FinalPlaylistScreen> {
                               Icons.edit,
                               color: textColor,
                             ),
-                            SizedBox(width: 16.0),
+                            const SizedBox(width: 16.0),
                             GestureDetector(
                               onTap: () => savePlaylist(playlistName, songs),
                               child: Material(
@@ -121,7 +119,7 @@ class _FinalPlaylistScreenState extends State<FinalPlaylistScreen> {
                                   side: BorderSide(color: textColor),
                                 ),
                                 child: Padding(
-                                  padding: EdgeInsets.all(8.0),
+                                  padding: const EdgeInsets.all(8.0),
                                   child: Icon(
                                     Icons.save,
                                     color: textColor,
@@ -129,7 +127,13 @@ class _FinalPlaylistScreenState extends State<FinalPlaylistScreen> {
                                 ),
                               ),
                             ),
-                            SizedBox(width: 16.0),
+                            const SizedBox(width: 16.0),
+                             IconButton(
+                              onPressed: () async {
+                                export(songs,playlistName);
+                              },
+                              icon: const Icon(Icons.file_download),
+                            ),
                           ],
                         ),
                       ),
@@ -154,7 +158,7 @@ class _FinalPlaylistScreenState extends State<FinalPlaylistScreen> {
                   itemCount: songs.length,
                   itemBuilder: (BuildContext context, int index) {
                     return Padding(
-                      padding: EdgeInsets.fromLTRB(60.0, 8.0, 16.0, 8.0),
+                      padding: const EdgeInsets.fromLTRB(60.0, 8.0, 16.0, 8.0),
                       child: Text(
                         '${index + 1}. ${songs[index].trackName} by ${songs[index].artistName}',
                         style: TextStyle(
@@ -173,7 +177,7 @@ class _FinalPlaylistScreenState extends State<FinalPlaylistScreen> {
     );
       } else {
         // Show a loading indicator while waiting for the _loadPlaylist() method to complete.
-        return Center(child: CircularProgressIndicator());
+        return const Center(child: CircularProgressIndicator());
       }
     },
   );
