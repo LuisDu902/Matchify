@@ -12,10 +12,10 @@ Our app allows you to discover and curate your own perfect soundtrack with just 
 ### Main Features
 
 * **Swipe-based selection:** users can swipe left or right on each song to indicate whether they like or dislike the song;
-* **Selection:** create a playlist with songs based on a variety of filters: genre, mood, decade, etc; 
-* **Song previews:** users are presented with 10-second song previews when swiping;
+* **Selection:** create a playlist with songs based on a variety of filters: genre, decade, etc; 
+* **Song previews:** users are presented with 30-second song previews when swiping;
 * **Playlist fusion:** users can combine their custom-made playlist with other users' playlists to create a fusion;
-* **Playlist exporting:** users can export their custom-made playlist to Spotify;
+* **Playlist exporting:** users can export their custom-made playlist;
 * **Friend list:** add friends and combine playlists with them.
 
 ### Assumptions and dependencies
