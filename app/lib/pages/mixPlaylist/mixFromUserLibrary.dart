@@ -124,7 +124,7 @@ class MixFromUserLibraryState extends State<MixFromUserLibraryScreen> {
       builder: (BuildContext context, AsyncSnapshot<List<Playlist>> snapshot) {
         if (snapshot.hasData) {
           return Scaffold(
-            key: Key(""),
+            key: Key("mix from user library page"),
             drawer: Info(),
             appBar: appBar(),
             backgroundColor: bgColor,

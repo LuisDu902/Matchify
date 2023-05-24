@@ -120,6 +120,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             Positioned(
+               key: Key("mix playlist"),
               top: 270,
               left: 250,
               child: GestureDetector(

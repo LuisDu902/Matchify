@@ -1,8 +1,13 @@
+import 'dart:io';
+
+import 'package:csv/csv.dart';
+import 'package:external_path/external_path.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:matchify/backend/playlist.dart';
 import 'package:matchify/backend/song.dart';
+import '../../backend/export.dart';
 import '../appBar/appBar.dart';
 import '../appBar/infoScreen.dart';
 import '../../backend/auth.dart';
@@ -39,7 +44,7 @@ class _FinalPlaylistScreenState extends State<FinalPlaylistScreen> {
           : Color.fromRGBO(48, 21, 81, 1);
     });
   }
-
+ 
   List<Song> songs = [];
   String playlistName = "New Playlist";
 
@@ -130,6 +135,12 @@ class _FinalPlaylistScreenState extends State<FinalPlaylistScreen> {
                               ),
                             ),
                             SizedBox(width: 16.0),
+                             IconButton(
+                              onPressed: () async {
+                                export(songs,playlistName);
+                              },
+                              icon: Icon(Icons.file_download),
+                            ),
                           ],
                         ),
                       ),
