@@ -13,7 +13,7 @@ class Filters extends StatefulWidget {
 }
 
 class _FiltersState extends State<Filters> {
-  //darkmode
+  /*   darkmode   */
   late Color bgColor;
   late Color boxFilter;
   late Color singularFilter;
@@ -78,7 +78,7 @@ class _FiltersState extends State<Filters> {
         style: ButtonStyle(
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10.0),
+              borderRadius: BorderRadius.circular(20.0),
             ),
           ),
           backgroundColor: MaterialStateProperty.all<Color>(
@@ -137,48 +137,53 @@ class _FiltersState extends State<Filters> {
     return Container(
       width: MediaQuery.of(context).size.width,
       margin: EdgeInsets.fromLTRB(16.0, 0, 16, 10),
-      padding: EdgeInsets.all(16.0), // add padding here
+      padding: EdgeInsets.all(16.0),
       decoration: BoxDecoration(
         color: boxFilter,
         borderRadius: BorderRadius.circular(10),
       ),
       child: Wrap(
-        alignment: WrapAlignment.spaceBetween,
-        direction: Axis.horizontal,
+        spacing: 10.0,
         runSpacing: 10.0,
         children: filters
-            .map((genre) => GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      filters.remove(genre);
-                      chosenFilters.add(genre);
-                    });
-                  },
-                  child: Container(
-                    key: Key(genre),
-                    padding: EdgeInsets.symmetric(horizontal: 26, vertical: 8),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: singularFilter,
-                    ),
-                    child: Text(genre,
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontFamily: 'Roboto',
-                          color: Color.fromRGBO(48, 21, 81, 1),
-                        )),
-                  ),
-                ))
+            .map(
+              (genre) => GestureDetector(
+            onTap: () {
+              setState(() {
+                filters.remove(genre);
+                chosenFilters.add(genre);
+              });
+            },
+            child: Container(
+              key: Key(genre),
+              padding: EdgeInsets.symmetric(horizontal: 26, vertical: 8),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: singularFilter,
+              ),
+              child: Text(
+                genre,
+                style: TextStyle(
+                  fontSize: 20,
+                  fontFamily: 'Roboto',
+                  color: Color.fromRGBO(48, 21, 81, 1),
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+          ),
+        )
             .toList(),
       ),
     );
   }
 
+
   Widget selectSize() {
     return Container(
       width: 70,
       height: 50,
-      margin: EdgeInsets.all(16),
+      margin: EdgeInsets.only(left: 10, top: 20, right: 30, bottom: 20),
       decoration: BoxDecoration(
         color: sizeColor,
         borderRadius: BorderRadius.circular(10),

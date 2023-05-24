@@ -72,34 +72,39 @@ class _SwipeState extends State<SwipePage> {
                       top: 360,
                       left: 0,
                       right: 0,
-                      child: SizedBox(
-                        height: 30,
-                        child: RichText(
-                            textAlign: TextAlign.center,
-                            text: TextSpan(
+                      child: Container(
+                        alignment: Alignment.center,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              '${displaySongs[index].trackName}',
+                              style: TextStyle(
+                                fontSize: 25.0,
+                                color: textColor,
+                                fontFamily: 'Istok Web',
+                                fontWeight: FontWeight.bold,
+                              ),
+                              textAlign: TextAlign.center,
+                              softWrap: true,
+                            ),
+                            Text(
+                              '${displaySongs[index].artistName}',
                               style: TextStyle(
                                 fontSize: 25.0,
                                 color: textColor,
                                 fontFamily: 'Istok Web',
                                 fontWeight: FontWeight.normal,
-                                height: 1,
+                                fontStyle: FontStyle.italic,
                               ),
-                              children: <TextSpan>[
-                                TextSpan(
-                                  text: '${displaySongs[index].trackName}',
-                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                ),
-                                TextSpan(text: ' - '),
-                                TextSpan(
-                                  text: '${displaySongs[index].artistName}',
-                                  style: TextStyle(fontStyle: FontStyle.italic),
-                                ),
-                              ],
+                              textAlign: TextAlign.center,
+                              softWrap: true,
                             ),
-                          ),
+                          ],
                         ),
                       ),
-                    
+                    ),
                     Dismissible(
                       key: UniqueKey(),
                       direction: DismissDirection.horizontal,
@@ -146,46 +151,52 @@ class _SwipeState extends State<SwipePage> {
                       ),
                     ),
                     Positioned(
-                      top: 400,
-                      left: 170,
-                      child: IconButton(
-                        key: Key('play'), 
-                        icon: play
-                            ? Icon(Icons.play_arrow_rounded, color: textColor)
-                            : Icon(Icons.pause_rounded, color: textColor),
-                        iconSize: 45,
-                        onPressed: () {
-                          if (play) {
-                            displaySongs[index].play();
-                            play = false;
-                          } else {
-                            displaySongs[index].pause();
-                            play = true;
-                          }
-                          // Handle replay button press
-                          setState(() {});
-                        },
+                      top: 420,
+                      left: 60,
+                      child: Center(
+                        child: Column(
+                          children: [
+                            SizedBox(height: 10), // Add padding to the top of the play button
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  width: 120,
+                                  height: 3,
+                                  color: Colors.black,
+                                ),
+                                IconButton(
+                                  key: Key('play'),
+                                  icon: play
+                                      ? Icon(Icons.play_arrow_rounded, color: textColor)
+                                      : Icon(Icons.pause_rounded, color: textColor),
+                                  iconSize: 45,
+                                  onPressed: () {
+                                    if (play) {
+                                      displaySongs[index].play();
+                                      play = false;
+                                    } else {
+                                      displaySongs[index].pause();
+                                      play = true;
+                                    }
+                                    // Handle replay button press
+                                    setState(() {});
+                                  },
+                                ),
+                                Container(
+                                  width: 120,
+                                  height: 3,
+                                  color: Colors.black,
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                     Positioned(
-                      top: 600,
-                      left: 44,
-                      child: Divider(
-                        color: textColor,
-                        thickness: 1,
-                      ),
-                    ),
-                    Positioned(
-                      top: 500,
-                      left: 284,
-                      child: Divider(
-                        color: textColor,
-                        thickness: 1,
-                      ),
-                    ),
-                    Positioned(
-                      top: 460,
-                      left: 55,
+                      top: 480,
+                      left: 70,
                       child: Container(
                         width: 90,
                         height: 85,
@@ -205,7 +216,7 @@ class _SwipeState extends State<SwipePage> {
                       ),
                     ),
                     Positioned(
-                      top: 460,
+                      top: 480,
                       left: 260,
                       child: Container(
                         width: 90,
@@ -217,10 +228,13 @@ class _SwipeState extends State<SwipePage> {
                           ),
                         ),
                         child: Center(
-                          child: Icon(
-                            Icons.close,
-                            color: textColor,
-                            size: 60,
+                          child: Text(
+                            'X',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 60,
+                              color: textColor,
+                            ),
                           ),
                         ),
                       ),

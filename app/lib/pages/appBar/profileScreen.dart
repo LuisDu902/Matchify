@@ -165,7 +165,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               Auth().getUsername(),
               style: TextStyle(fontSize: 20, color: textColor),
             ),
-            SizedBox(height: 100),
+            SizedBox(height: 60),
             ElevatedButton(
               key: Key('log out'),
               style: ButtonStyle(
