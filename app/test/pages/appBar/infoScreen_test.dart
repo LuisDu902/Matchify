@@ -1,7 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:matchify/backend/auth.dart';
 import 'package:matchify/pages/appBar/infoScreen.dart';
 import 'package:matchify/pages/sidebar/about.dart';
 
