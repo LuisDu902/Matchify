@@ -11,6 +11,7 @@ You can find below information and references related with the project managemen
 2. [Iteration 1](#iteration-1)
 3. [Iteration 2](#iteration-2)
 4. [Iteration 3](#iteration-3)
+5. [Iteration 4](#iteration-4)
 
 ## Iteration 0
 Release: https://github.com/FEUP-LEIC-ES-2022-23/2LEIC16T4/releases/tag/v0.5
