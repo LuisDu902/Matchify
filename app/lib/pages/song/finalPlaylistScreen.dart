@@ -47,6 +47,7 @@ class _FinalPlaylistScreenState extends State<FinalPlaylistScreen> {
     setState(() {
       songs = newSongs;
     });
+    songs.sort((a, b) => a.trackName.compareTo(b.trackName));
     return songs;
   }
 

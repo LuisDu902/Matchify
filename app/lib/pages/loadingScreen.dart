@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:matchify/backend/song.dart';
+import 'package:matchify/backend/variables.dart';
 
 import 'authentication/widget_tree.dart';
 
@@ -17,6 +18,7 @@ class LoadingScreen extends StatelessWidget {
     });
     return Scaffold(
       key: const Key('loading page'),
+      backgroundColor: DarkMode.isDarkModeEnabled ? const Color.fromRGBO(59, 59, 59, 1) : Colors.white,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

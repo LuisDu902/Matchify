@@ -19,9 +19,7 @@ class _WidgetTreeState extends State<WidgetTree> {
     return StreamBuilder(
       stream: Auth().authStateChanges,
       builder: (context, snapshot) {
-        print("StreamBuilder rebuilt with data: ${snapshot.hasData}");
         if (snapshot.hasData) {
-          print(snapshot.data!.email);
           return const HomeScreen();
         } else {
           return const Login();

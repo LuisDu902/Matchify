@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:matchify/pages/filters.dart';
 import 'package:matchify/pages/mixPlaylist/firstMixPlaylist.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'appBar/appBar.dart';
 import 'appBar/infoScreen.dart';
@@ -17,7 +18,7 @@ class _HomeScreenState extends State<HomeScreen> {
   late Color bgColor;
   late Color textColor;
   late Color mixPlaylistColor;
-
+  
   @override
   void initState() {
     super.initState();
@@ -74,10 +75,10 @@ class _HomeScreenState extends State<HomeScreen> {
               left: 225,
               child: GestureDetector(
                 onTap: () {
-                  
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const FirstMixPlaylistScreen()),
+                    MaterialPageRoute(
+                        builder: (context) => const FirstMixPlaylistScreen()),
                   );
                 },
                 child: Container(
@@ -119,18 +120,20 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             Positioned(
-               key: const Key("mix playlist"),
+              key: const Key("mix playlist"),
               top: 270,
               left: 250,
               child: GestureDetector(
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const FirstMixPlaylistScreen()),
+                    MaterialPageRoute(
+                        builder: (context) => const FirstMixPlaylistScreen()),
                   );
                 },
                 child: Opacity(
-                  opacity: 0.7, // Adjust the opacity value as needed (0.0 - 1.0)
+                  opacity:
+                      0.7, // Adjust the opacity value as needed (0.0 - 1.0)
                   child: Container(
                     width: 108,
                     height: 108,
@@ -170,8 +173,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     color: textColor,
                     fontFamily: 'Istok Web',
                     fontSize: 25,
-                    letterSpacing:
-                        0,
+                    letterSpacing: 0,
                     fontWeight: FontWeight.normal,
                     height: 1),
               ),

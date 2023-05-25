@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:matchify/backend/dark_mode.dart';
 
 import 'package:matchify/pages/appBar/appBar.dart';
 import 'package:matchify/pages/appBar/infoScreen.dart';
@@ -44,6 +45,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   void toggleDarkMode() {
     setState(() {
       DarkMode.isDarkModeEnabled = !DarkMode.isDarkModeEnabled;
+      saveDarkModeState(DarkMode.isDarkModeEnabled);
       updateColors();
     });
   }

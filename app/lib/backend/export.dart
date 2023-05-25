@@ -16,7 +16,6 @@ Future<void> export(List<Song> songs,String playlistName) async {
   String csv = const ListToCsvConverter().convert(rows);
 
   String dir = await ExternalPath.getExternalStoragePublicDirectory(ExternalPath.DIRECTORY_DOWNLOADS);
-  print("dir $dir");
   String file = "$dir";
 
   File f = File("$file/$playlistName.csv");
