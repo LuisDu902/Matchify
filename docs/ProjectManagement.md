@@ -121,3 +121,29 @@ Release: https://github.com/FEUP-LEIC-ES-2022-23/2LEIC16T4/releases/tag/v3.0
 * Some of the Flutter syntax
 * Some quirks of Spotify SDK, namely how to export a playlist
 * Mocks for unit tests in flutter
+
+## Iteration 4
+
+Release: https://github.com/FEUP-LEIC-ES-2022-23/2LEIC16T4/releases/tag/v4.0
+
+### Board
+
+`Before`
+
+![image](https://github.com/FEUP-LEIC-ES-2022-23/2LEIC16T4/assets/66746970/7b55e9e8-ea21-4fc5-90fc-86f9914ba6da)
+
+`After`
+
+![image](https://github.com/FEUP-LEIC-ES-2022-23/2LEIC16T4/assets/66746970/da764fb7-7df8-4305-9a78-3481161e005e)
+
+
+### Retrospective
+
+#### What went well?
+
+* We managed to implement all the features we had set out to in the beginning of the project
+* We managed to store the dark mode preferences in a local storage
+
+#### What should we do differently?
+
+* Better time management and code organization
