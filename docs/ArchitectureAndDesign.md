@@ -36,6 +36,8 @@ The mobile device connects to the Firebase server which features:
 
 It also connects to the `Spotify API`, which provides a wide range of functionalities for accessing and managing music-related data, such as retrieving songs, albums, playlists, artist information, and more.
 
+For storing the dark mode preference/state, we utilize the local storage capabilities of the mobile device. To facilitate this, we employ the Flutter package `shared_preferences`, which allows us to store and retrieve key-value pairs persistently on the device.
+
  <p align="center" justify="center">
   <img src="/images/physical_architecture.png"/>
 </p>
